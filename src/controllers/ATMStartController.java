@@ -21,6 +21,7 @@ public class ATMStartController {
     public static ATMClient atmClient = Main.atmClient;
 
     public final String LOGIN_SCENE = Main.LOGIN_SCENE;
+    public final String NEW_USER_SCENE = Main.NEW_USER_SCENE;
 
     public Label welcomeMsgLbl;
 
