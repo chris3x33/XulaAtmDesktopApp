@@ -43,7 +43,7 @@ public class ATMStartController {
 
     }
 
-    public void runOpenAccount(ActionEvent actionEvent) {
+    public void runOpenAccount(ActionEvent actionEvent) throws IOException {
 
         //init NewUserScene
 
