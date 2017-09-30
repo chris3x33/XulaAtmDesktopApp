@@ -34,5 +34,10 @@ public class NewUserController {
     }
 
     public void back(ActionEvent actionEvent) throws IOException {
+
+        //init ATMStartScene
+
+        //Show ATMStartScene
+
     }
 }
