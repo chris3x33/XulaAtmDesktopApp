@@ -36,6 +36,8 @@ public class LoginController {
     public void login(ActionEvent actionEvent) {
 
         //get password and userName
+        String userName = userNameTxt.getText();
+        String password = passwordTxt.getText();
 
         //check userName
 
