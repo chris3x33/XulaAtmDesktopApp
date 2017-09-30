@@ -17,6 +17,7 @@ public class LoginController {
 
     public Label loginMsgLbl;
     public TextField userNameTxt;
+    public TextField passwordTxt;
 
 
     public void initialize() {
