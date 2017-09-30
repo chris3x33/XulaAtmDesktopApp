@@ -22,6 +22,11 @@ public class ATMStartController {
 
 
     public void login(ActionEvent actionEvent) {
+
+        //init LoginScene
+
+        //Show LoginScene
+
     }
 
     public void openAccount(ActionEvent actionEvent) {
