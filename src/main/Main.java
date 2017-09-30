@@ -14,12 +14,13 @@ public class Main extends Application {
     public static final int WINDOWWIDTH = 400;
     public static Stage primaryStage;
     public static ATMClient atmClient;
+    public static final String ATM_START_SCENE = "/scenes/ATMStartScene.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         this.primaryStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("/scenes/ATMStartScene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
         primaryStage.setTitle(APP_TITLE);
         primaryStage.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
         primaryStage.show();
