@@ -56,6 +56,11 @@ public class LoginController {
         //check password
         if (password.isEmpty()){
 
+            //Show Error
+            String errMsg = "Enter Your Password";
+
+            errorAlert(errMsg, APP_TITLE);
+
             return;
 
         }
