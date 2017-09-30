@@ -16,6 +16,8 @@ public class LoginController {
 
     public static ATMClient atmClient = Main.atmClient;
 
+    public final String ATM_START_SCENE = Main.ATM_START_SCENE;
+
     public Label loginMsgLbl;
     public TextField userNameTxt;
     public TextField passwordTxt;
