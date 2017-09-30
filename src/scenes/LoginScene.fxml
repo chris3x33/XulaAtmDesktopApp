@@ -21,6 +21,6 @@
         </HBox>
         <Button text="Login" onAction="#login"/>
     </VBox>
-    <Button text="Back"/>
+    <Button text="Back" onAction="#back"/>
 
 </VBox>

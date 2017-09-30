@@ -28,4 +28,7 @@ public class LoginController {
 
     public void login(ActionEvent actionEvent) {
     }
+
+    public void back(ActionEvent actionEvent) {
+    }
 }
