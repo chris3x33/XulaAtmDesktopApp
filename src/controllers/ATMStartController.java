@@ -37,6 +37,8 @@ public class ATMStartController {
         PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
 
         //Show LoginScene
+        PRIMARY_STAGE.show();
+
 
     }
 
