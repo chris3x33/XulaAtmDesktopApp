@@ -19,7 +19,7 @@
             <Label text="Password: "/>
             <TextField fx:id="passwordTxt"/>
         </HBox>
-        <Button text="Login"/>
+        <Button text="Login" onAction="#login"/>
     </VBox>
     <Button text="Back"/>
 
