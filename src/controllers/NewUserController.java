@@ -16,6 +16,7 @@ public class NewUserController {
     public static ATMClient atmClient = Main.atmClient;
     public Label newUserMsgLbl;
     public TextField userNameTxt;
+    public TextField passwordTxt;
 
 
     public void initialize() {
