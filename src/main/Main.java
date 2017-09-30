@@ -1,5 +1,6 @@
 package main;
 
+import atmClient.ATMClient;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ public class Main extends Application {
     public static final int WINDOWHEIGHT = 275;
     public static final int WINDOWWIDTH = 400;
     public static Stage primaryStage;
+    public static ATMClient atmClient;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
