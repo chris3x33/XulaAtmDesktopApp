@@ -34,6 +34,15 @@ public class LoginController {
 
 
     public void login(ActionEvent actionEvent) {
+
+        //get password and userName
+
+        //check userName
+
+        //check password
+
+        //Try to login
+
     }
 
     public void back(ActionEvent actionEvent) throws IOException {
