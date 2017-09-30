@@ -1,8 +1,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
 <VBox fx:controller="controllers.NewUserController"
       xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
 
     <Label fx:id="newUserMsgLbl"/>
+
+    <VBox alignment="center" spacing="10">
+
+        <HBox alignment="center" spacing="10">
+            <Label text="UserName: "/>
+            <TextField fx:id="userNameTxt"/>
+        </HBox>
+
+    </VBox>
 
 </VBox>
