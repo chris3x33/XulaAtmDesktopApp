@@ -40,6 +40,11 @@ public class LoginController {
         String password = passwordTxt.getText();
 
         //check userName
+        if (userName.isEmpty()){
+
+            return;
+
+        }
 
         //check password
 
