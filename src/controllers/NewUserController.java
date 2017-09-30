@@ -2,6 +2,7 @@ package controllers;
 
 import atmClient.ATMClient;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.Main;
 
@@ -14,6 +15,7 @@ public class NewUserController {
 
     public static ATMClient atmClient = Main.atmClient;
     public Label newUserMsgLbl;
+    public TextField userNameTxt;
 
 
     public void initialize() {
