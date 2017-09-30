@@ -2,6 +2,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
 <VBox fx:controller="controllers.NewUserController"
       xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
 
@@ -18,6 +19,8 @@
             <Label text="Password: "/>
             <TextField fx:id="passwordTxt"/>
         </HBox>
+
+        <Button text="Register" onAction="#register"/>
 
     </VBox>
 
