@@ -1,29 +1,8 @@
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Button?>
-<VBox fx:controller="controllers.NewUserController"
+
+<VBox fx:controller="main.Controller"
       xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
 
-    <Label fx:id="newUserMsgLbl"/>
 
-    <VBox alignment="center" spacing="10">
-
-        <HBox alignment="center" spacing="10">
-            <Label text="UserName: "/>
-            <TextField fx:id="userNameTxt"/>
-        </HBox>
-
-        <HBox alignment="center" spacing="10">
-            <Label text="Password: "/>
-            <TextField fx:id="passwordTxt"/>
-        </HBox>
-
-        <Button text="Register" onAction="#register"/>
-
-    </VBox>
-
-    <Button text="Back" onAction="#back"/>
 
 </VBox>
