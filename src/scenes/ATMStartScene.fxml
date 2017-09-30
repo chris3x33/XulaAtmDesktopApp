@@ -8,7 +8,7 @@
 
     <VBox alignment="center" spacing="10">
         <Button text="Login" onAction="#login"/>
-        <Button text="Open An Account"/>
+        <Button text="Open An Account" onAction="#openAccount"/>
     </VBox>
 
 </VBox>

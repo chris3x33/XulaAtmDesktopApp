@@ -23,4 +23,7 @@ public class ATMStartController {
 
     public void login(ActionEvent actionEvent) {
     }
+
+    public void openAccount(ActionEvent actionEvent) {
+    }
 }
