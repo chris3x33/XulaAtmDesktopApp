@@ -17,6 +17,9 @@ public class NewUserController {
     public static final Stage PRIMARY_STAGE = Main.primaryStage;
 
     public static ATMClient atmClient = Main.atmClient;
+
+    public final String ATM_START_SCENE = Main.ATM_START_SCENE;
+
     public Label newUserMsgLbl;
     public TextField userNameTxt;
     public TextField passwordTxt;
