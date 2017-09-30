@@ -30,5 +30,10 @@ public class ATMStartController {
     }
 
     public void openAccount(ActionEvent actionEvent) {
+
+        //init NewUserScene
+
+        //Show NewUserScene
+
     }
 }
