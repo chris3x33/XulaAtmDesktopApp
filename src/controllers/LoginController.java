@@ -47,6 +47,11 @@ public class LoginController {
         }
 
         //check password
+        if (password.isEmpty()){
+
+            return;
+
+        }
 
         //Try to login
 
