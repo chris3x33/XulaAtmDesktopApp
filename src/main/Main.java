@@ -16,6 +16,7 @@ public class Main extends Application {
     public static ATMClient atmClient;
     public static final String ATM_START_SCENE = "/scenes/ATMStartScene.fxml";
     public static final String LOGIN_SCENE = "/scenes/LoginScene.fxml";
+    public static final String NEW_USER_SCENE = "/scenes/NewUserScene.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
