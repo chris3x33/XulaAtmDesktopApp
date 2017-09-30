@@ -12,7 +12,11 @@ public class ATMStartController {
     public static final int WINDOWWIDTH = Main.WINDOWWIDTH;
     public static final String APP_TITLE = Main.APP_TITLE;
     public static final Stage PRIMARY_STAGE = Main.primaryStage;
+
     public static ATMClient atmClient = Main.atmClient;
+
+    public final String LOGIN_SCENE = Main.LOGIN_SCENE;
+
     public Label welcomeMsgLbl;
 
 
