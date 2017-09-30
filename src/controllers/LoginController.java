@@ -12,6 +12,8 @@ import main.Main;
 
 import java.io.IOException;
 
+import static com.utils.Alerts.errorAlert;
+
 public class LoginController {
 
     public static final int WINDOWHEIGHT = Main.WINDOWHEIGHT;
@@ -41,6 +43,11 @@ public class LoginController {
 
         //check userName
         if (userName.isEmpty()){
+
+            //Show Error
+            String errMsg = "Enter Your UserName";
+
+            errorAlert(errMsg, APP_TITLE);
 
             return;
 
