@@ -52,4 +52,10 @@ public class ATMStartController {
         //Show NewUserScene
         PRIMARY_STAGE.show();
     }
+
+    public void exit(ActionEvent actionEvent) {
+
+        System.exit(0);
+
+    }
 }
