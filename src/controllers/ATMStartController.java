@@ -30,7 +30,7 @@ public class ATMStartController {
     }
 
 
-    public void login(ActionEvent actionEvent) throws IOException {
+    public void runLogin(ActionEvent actionEvent) throws IOException {
 
         //init LoginScene
         Parent root = FXMLLoader.load(getClass().getResource(LOGIN_SCENE));
