@@ -24,4 +24,6 @@
 
     </VBox>
 
+    <Button text="Back" onAction="#back"/>
+
 </VBox>

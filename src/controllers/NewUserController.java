@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.Main;
 
+import java.io.IOException;
+
 public class NewUserController {
 
     public static final int WINDOWHEIGHT = Main.WINDOWHEIGHT;
@@ -26,5 +28,8 @@ public class NewUserController {
 
 
     public void register(ActionEvent actionEvent) {
+    }
+
+    public void back(ActionEvent actionEvent) throws IOException {
     }
 }
