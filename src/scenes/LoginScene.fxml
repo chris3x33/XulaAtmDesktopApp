@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
-<VBox fx:controller="main.Controller"
+<VBox fx:controller="controllers.LoginController"
       xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
 
     <Label fx:id="loginMsgLbl"/>
