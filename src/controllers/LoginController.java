@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.Main;
 
+import java.io.IOException;
+
 public class LoginController {
 
     public static final int WINDOWHEIGHT = Main.WINDOWHEIGHT;
@@ -31,7 +33,7 @@ public class LoginController {
     public void login(ActionEvent actionEvent) {
     }
 
-    public void back(ActionEvent actionEvent) {
+    public void back(ActionEvent actionEvent) throws IOException {
 
         //init ATMStartScene
 
