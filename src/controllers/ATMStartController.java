@@ -46,6 +46,8 @@ public class ATMStartController {
     public void runOpenAccount(ActionEvent actionEvent) throws IOException {
 
         //init NewUserScene
+        Parent root = FXMLLoader.load(getClass().getResource(NEW_USER_SCENE));
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
 
         //Show NewUserScene
 
