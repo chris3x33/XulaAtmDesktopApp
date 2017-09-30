@@ -50,6 +50,6 @@ public class ATMStartController {
         PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
 
         //Show NewUserScene
-
+        PRIMARY_STAGE.show();
     }
 }
