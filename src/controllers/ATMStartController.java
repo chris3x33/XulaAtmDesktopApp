@@ -2,6 +2,9 @@ package controllers;
 
 import atmClient.ATMClient;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import main.Main;
@@ -30,6 +33,8 @@ public class ATMStartController {
     public void login(ActionEvent actionEvent) throws IOException {
 
         //init LoginScene
+        Parent root = FXMLLoader.load(getClass().getResource(LOGIN_SCENE));
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
 
         //Show LoginScene
 
