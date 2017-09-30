@@ -7,7 +7,7 @@
     <Label fx:id="welcomeMsgLbl"/>
 
     <VBox alignment="center" spacing="10">
-        <Button text="Login"/>
+        <Button text="Login" onAction="#login"/>
         <Button text="Open An Account"/>
     </VBox>
 

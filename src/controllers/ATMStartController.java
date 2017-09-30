@@ -1,6 +1,7 @@
 package controllers;
 
 import atmClient.ATMClient;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import main.Main;
@@ -20,4 +21,6 @@ public class ATMStartController {
     }
 
 
+    public void login(ActionEvent actionEvent) {
+    }
 }
