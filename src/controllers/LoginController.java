@@ -24,6 +24,7 @@ public class LoginController {
     public static ATMClient atmClient = Main.atmClient;
 
     public final String ATM_START_SCENE = Main.ATM_START_SCENE;
+    public final String USER_HOME_SCENE = Main.USER_HOME_SCENE;
 
     public Label loginMsgLbl;
     public TextField userNameTxt;
