@@ -69,6 +69,11 @@ public class LoginController {
         //Try to login
 
         //Go to UserHomeScene if login success
+        Parent root = FXMLLoader.load(getClass().getResource(USER_HOME_SCENE));
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+
+        //Show USER_HOME_SCENE
+        PRIMARY_STAGE.show();
 
     }
 
