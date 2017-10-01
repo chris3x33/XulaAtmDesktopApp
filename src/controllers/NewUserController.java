@@ -36,6 +36,8 @@ public class NewUserController {
     public void register(ActionEvent actionEvent) {
 
         //get password and userName
+        String userName = userNameTxt.getText();
+        String password = passwordTxt.getText();
 
         //check userName
 
