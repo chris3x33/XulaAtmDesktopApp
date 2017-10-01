@@ -68,6 +68,8 @@ public class LoginController {
 
         //Try to login
 
+        //Go to UserHomeScene if login success
+
     }
 
     public void back(ActionEvent actionEvent) throws IOException {
