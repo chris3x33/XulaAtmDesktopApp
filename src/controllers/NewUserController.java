@@ -12,6 +12,8 @@ import main.Main;
 
 import java.io.IOException;
 
+import static com.utils.Alerts.errorAlert;
+
 public class NewUserController {
 
     public static final int WINDOWHEIGHT = Main.WINDOWHEIGHT;
@@ -40,6 +42,16 @@ public class NewUserController {
         String password = passwordTxt.getText();
 
         //check userName
+        if (userName.isEmpty()){
+
+            //Show Error
+            String errMsg = "Enter Your UserName";
+
+            errorAlert(errMsg, APP_TITLE);
+
+            return;
+
+        }
 
         //check password
 
