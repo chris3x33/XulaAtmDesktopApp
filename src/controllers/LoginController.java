@@ -36,7 +36,7 @@ public class LoginController {
     }
 
 
-    public void login(ActionEvent actionEvent) {
+    public void login(ActionEvent actionEvent) throws IOException {
 
         //get password and userName
         String userName = userNameTxt.getText();
