@@ -1,8 +1,25 @@
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 <VBox fx:controller="controllers.UserHomeController"
       xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
 
+    <Label fx:id="userHomeMsgLbl"/>
 
+    <HBox alignment="center" spacing="10">
+
+        <VBox alignment="center" spacing="10" >
+            <Button text="View Accounts" onAction="#runViewAccounts"/>
+            <Button text="Transfer" onAction="#runTransfer"/>
+        </VBox>
+
+        <VBox alignment="center" spacing="10" >
+            <Button text="Deposit" onAction="#runDeposit"/>
+            <Button text="Withdraw" onAction="#runWithdraw"/>
+        </VBox>
+
+    </HBox>
 
 </VBox>
