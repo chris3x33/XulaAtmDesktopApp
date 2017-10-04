@@ -12,7 +12,11 @@ public class UserHomeController {
     public static final int WINDOWWIDTH = Main.WINDOWWIDTH;
     public static final String APP_TITLE = Main.APP_TITLE;
     public static final Stage PRIMARY_STAGE = Main.primaryStage;
+
     public static ATMClient atmClient = Main.atmClient;
+
+    public final String DEPOSIT_SCENE = Main.DEPOSIT_SCENE;
+
     public Label userHomeMsgLbl;
 
 
