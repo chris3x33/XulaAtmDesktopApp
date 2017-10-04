@@ -1,6 +1,26 @@
 <?import javafx.scene.layout.VBox?>
-<VBox fx:controller="main.Controller"
-      xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="10">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.control.TextField?>
+<VBox fx:controller="controllers.DepositController"
+      xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
+
+    <Label text="Deposit" />
+
+    <HBox alignment="center" spacing="10">
+        <Label text="Account: "/>
+
+    </HBox>
+
+    <HBox alignment="center" spacing="10">
+        <Label text="Balance: "/>
+        <TextField fx:id="balanceTxt" />
+    </HBox>
+
+    <HBox alignment="center" spacing="10">
+        <Label text="Deposit Amount: "/>
+        <TextField fx:id="depositAmountTxt" />
+    </HBox>
 
 </VBox>
