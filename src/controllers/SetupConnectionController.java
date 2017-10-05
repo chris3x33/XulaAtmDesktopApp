@@ -66,6 +66,17 @@ public class SetupConnectionController {
             return;
         }
 
+        //check timeOutStr
+        if(timeOutStr.isEmpty() || !isInt(timeOutStr)){
+
+            //Show Error
+            String errMsg = "Enter a Timeout Number";
+
+            errorAlert(errMsg, APP_TITLE);
+
+            return;
+        }
+
     }
 
     public boolean isInt(String str){
