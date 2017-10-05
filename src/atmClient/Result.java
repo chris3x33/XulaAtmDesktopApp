@@ -26,6 +26,15 @@ public class Result {
 
     }
 
+    public Result(int status, String message) {
+
+        // sets status
+        this.status = status;
+
+        this.message = message;
+
+    }
+
     public int getStatus() {
         return status;
     }
