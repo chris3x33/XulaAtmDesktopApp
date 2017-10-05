@@ -12,6 +12,8 @@ import main.Main;
 
 import java.io.IOException;
 
+import static com.utils.Alerts.errorAlert;
+
 public class SetupConnectionController {
 
     public static final int WINDOWHEIGHT = Main.WINDOWHEIGHT;
@@ -40,6 +42,20 @@ public class SetupConnectionController {
         String ipAddress = ipAddressTxt.getText();
         String portStr = portTxt.getText();
         String timeOutStr = timeOutTxt.getText();
+
+        //check ipAddress
+        if (ipAddress.isEmpty()){
+
+            //Show Error
+            String errMsg = "Enter IP Address";
+
+            errorAlert(errMsg, APP_TITLE);
+
+            return;
+
+        }
+
+
 
     }
 
