@@ -80,6 +80,10 @@ public class ATMClient {
             new Result(Result.ERROR_CODE, errMsg);
         }
 
+        userDefinedIpAddress = ipAddress;
+        userDefinedPort = port;
+        userDefinedTimeOut = timeOut;
+
         return null;
     }
 
