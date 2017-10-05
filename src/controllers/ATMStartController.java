@@ -22,6 +22,7 @@ public class ATMStartController {
 
     public final String LOGIN_SCENE = Main.LOGIN_SCENE;
     public final String NEW_USER_SCENE = Main.NEW_USER_SCENE;
+    public final String SETUP_CONNECTION_SCENE = Main.SETUP_CONNECTION_SCENE;
 
     public Label welcomeMsgLbl;
 
