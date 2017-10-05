@@ -58,6 +58,15 @@ public class ATMClient {
 
     public Result setConnection(String ipAddress, int port, int timeOut){
 
+        // check ipAddress
+        if(!ipAddressExits(ipAddress)){
+            String errMsg = "IP Address Not Found!";
+
+            new Result(Result.ERROR_CODE, errMsg);
+
+        }
+
+
         return null;
     }
 
