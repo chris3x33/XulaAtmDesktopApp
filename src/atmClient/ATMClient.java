@@ -33,7 +33,7 @@ public class ATMClient {
             timeOut = userDefinedTimeOut;
         }
 
-        Socket socket = null;
+        Socket socket;
         try {
 
              socket = new Socket();
@@ -44,15 +44,20 @@ public class ATMClient {
 
         }catch (SocketTimeoutException e) {
 
-            //"Server took to long to respond"
+            String errMsg = "Unable to Connect Please Try again later!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
 
         } catch (IOException e) {
 
+            String errMsg = "Connection Error Please Try again later!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
         }
 
         this.socket = socket;
 
-        return null;
+        return new Result(Result.SUCCESS_CODE);
 
     }
 
