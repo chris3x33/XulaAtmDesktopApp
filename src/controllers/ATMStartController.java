@@ -60,6 +60,14 @@ public class ATMStartController {
 
     }
 
-    public void runSetupConnection(ActionEvent actionEvent) {
+    public void runSetupConnection(ActionEvent actionEvent) throws IOException {
+
+        //init SetupConnectionScene
+        Parent root = FXMLLoader.load(getClass().getResource(SETUP_CONNECTION_SCENE));
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+
+        //Show SetupConnectionScene
+        PRIMARY_STAGE.show();
+
     }
 }
