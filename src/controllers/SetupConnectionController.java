@@ -77,6 +77,11 @@ public class SetupConnectionController {
             return;
         }
 
+        //Convert to int
+        int port = Integer.parseInt(portStr);
+        int timeOut = Integer.parseInt(timeOutStr);
+
+
     }
 
     public boolean isInt(String str){
