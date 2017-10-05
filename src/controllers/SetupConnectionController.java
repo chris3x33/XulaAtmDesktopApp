@@ -35,6 +35,12 @@ public class SetupConnectionController {
 
 
     public void runSetConnection(ActionEvent actionEvent) {
+
+        //get ipAddress, portStr, and timeOutStr
+        String ipAddress = ipAddressTxt.getText();
+        String portStr = portTxt.getText();
+        String timeOutStr = timeOutTxt.getText();
+
     }
 
     public void runBack(ActionEvent actionEvent) throws IOException {
