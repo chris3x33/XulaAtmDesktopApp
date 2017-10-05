@@ -1,6 +1,10 @@
 package atmClient;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.SocketTimeoutException;
 
 public class ATMClient {
 
@@ -31,6 +35,25 @@ public class ATMClient {
         if (userDefinedTimeOut > -1){
             timeOut = userDefinedTimeOut;
         }
+
+        Socket socket = null;
+        try {
+
+             socket = new Socket();
+
+            SocketAddress socketAddress = new InetSocketAddress(ipAddress, port);
+
+            socket.connect(socketAddress, timeOut);
+
+        }catch (SocketTimeoutException e) {
+
+            //"Server took to long to respond"
+
+        } catch (IOException e) {
+
+        }
+
+        this.socket = socket;
 
         return null;
 
