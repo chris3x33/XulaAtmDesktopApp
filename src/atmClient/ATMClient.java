@@ -8,6 +8,7 @@ public class ATMClient {
 
     private String DEFAULT_IP_ADDRESS = "127.0.0.1";
     private final int DEFAULT_PORT = 55555;
+    private final int DEFAULT_TIMEOUT = 3000;
 
     private String userDefinedIpAddress = null;
     private int userDefinedPort = -1;
