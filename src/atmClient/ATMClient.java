@@ -60,12 +60,18 @@ public class ATMClient {
 
         // check ipAddress
         if(!ipAddressExits(ipAddress)){
-            String errMsg = "IP Address Not Found!";
+            String errMsg = "IP Address Not Found!!";
 
             new Result(Result.ERROR_CODE, errMsg);
 
         }
 
+        // check port
+        if (port <= -1){
+            String errMsg = "Port Must Be Greater than -1 !!";
+
+            new Result(Result.ERROR_CODE, errMsg);
+        }
 
         return null;
     }
