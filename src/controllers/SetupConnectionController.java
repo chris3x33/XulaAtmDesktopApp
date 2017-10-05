@@ -13,8 +13,11 @@ public class SetupConnectionController {
     public static final int WINDOWWIDTH = Main.WINDOWWIDTH;
     public static final String APP_TITLE = Main.APP_TITLE;
     public static final Stage PRIMARY_STAGE = Main.primaryStage;
+
     public static ATMClient atmClient = Main.atmClient;
-    
+
+    public final String ATM_START_SCENE = Main.ATM_START_SCENE;
+
     public Label headerLbl;
     public TextField ipAddressTxt;
     public TextField portTxt;
