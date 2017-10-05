@@ -12,6 +12,7 @@ public class ATMClient {
 
     private String userDefinedIpAddress = null;
     private int userDefinedPort = -1;
+    private int userDefinedTimeOut = -1;
 
     public Result connect(){
 
