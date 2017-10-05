@@ -84,6 +84,12 @@ public class SetupConnectionController {
 
         //Try to set connection vars
         Result setResult = atmClient.setConnection(ipAddress, port, timeOut);
+
+        //Handle Result
+        if(setResult.getStatus() == Result.ERROR_CODE){
+            errorAlert(setResult.getMessage(), APP_TITLE);
+        }
+
     }
 
     public boolean isInt(String str){
