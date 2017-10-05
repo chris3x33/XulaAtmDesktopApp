@@ -1,6 +1,7 @@
 package controllers;
 
 import atmClient.ATMClient;
+import atmClient.Result;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -81,7 +82,8 @@ public class SetupConnectionController {
         int port = Integer.parseInt(portStr);
         int timeOut = Integer.parseInt(timeOutStr);
 
-
+        //Try to set connection vars
+        Result setResult = atmClient.setConnection(ipAddress, port, timeOut);
     }
 
     public boolean isInt(String str){
