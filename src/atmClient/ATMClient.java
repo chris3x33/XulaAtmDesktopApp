@@ -5,6 +5,8 @@ import java.net.Socket;
 public class ATMClient {
 
     private Socket socket;
+    private String DEFAULT_IP_ADDRESS = "127.0.0.1";
+
 
     public Result connect(){
 
