@@ -16,6 +16,22 @@ public class ATMClient {
 
     public Result connect(){
 
+        String ipAddress = DEFAULT_IP_ADDRESS;
+        int port = DEFAULT_PORT;
+        int timeOut = DEFAULT_TIMEOUT;
+
+        if (userDefinedIpAddress != null){
+            ipAddress = userDefinedIpAddress;
+        }
+
+        if (userDefinedPort > -1){
+            port = userDefinedPort;
+        }
+
+        if (userDefinedTimeOut > -1){
+            timeOut = userDefinedTimeOut;
+        }
+
         return null;
 
     }
