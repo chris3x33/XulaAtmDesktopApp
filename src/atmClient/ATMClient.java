@@ -58,4 +58,9 @@ public class ATMClient {
         return null;
 
     }
+
+    public Result setConnection(String ipAddress, int port, int timeOut){
+
+        return null;
+    }
 }
