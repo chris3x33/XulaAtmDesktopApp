@@ -6,6 +6,7 @@ public class Result {
     private String message;
 
     public static final int ERROR_CODE = 0;
+    public static final int SUCCESS_CODE = 1;
 
     public Result() {
 
