@@ -10,6 +10,7 @@ public class ATMClient {
     private final int DEFAULT_PORT = 55555;
 
     private String userDefinedIpAddress = null;
+    private int userDefinedPort = -1;
 
     public Result connect(){
 
