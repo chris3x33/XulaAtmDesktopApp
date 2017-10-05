@@ -5,6 +5,8 @@ public class Result {
     private int status;// 0 for fail, 1 for success
     private String message;
 
+    public static final int ERROR_CODE = 0;
+
     public Result() {
 
         // sets status to 1 for a success
