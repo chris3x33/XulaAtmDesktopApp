@@ -62,7 +62,7 @@ public class ATMClient {
         if(!ipAddressExits(ipAddress)){
             String errMsg = "IP Address Not Found!!";
 
-            new Result(Result.ERROR_CODE, errMsg);
+            return new Result(Result.ERROR_CODE, errMsg);
 
         }
 
@@ -70,14 +70,14 @@ public class ATMClient {
         if (port <= -1){
             String errMsg = "Port Must Be Greater than -1 !!";
 
-            new Result(Result.ERROR_CODE, errMsg);
+            return new Result(Result.ERROR_CODE, errMsg);
         }
 
         // check timeOut
         if (timeOut <= -1){
             String errMsg = "Timeout Must Be Greater than -1 !!";
 
-            new Result(Result.ERROR_CODE, errMsg);
+            return new Result(Result.ERROR_CODE, errMsg);
         }
 
         userDefinedIpAddress = ipAddress;
