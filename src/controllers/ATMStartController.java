@@ -58,4 +58,7 @@ public class ATMStartController {
         System.exit(0);
 
     }
+
+    public void runSetupConnection(ActionEvent actionEvent) {
+    }
 }

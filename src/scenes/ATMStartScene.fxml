@@ -9,6 +9,7 @@
     <VBox alignment="center" spacing="10">
         <Button text="Login" onAction="#runLogin"/>
         <Button text="Open An Account" onAction="#runOpenAccount"/>
+        <Button text="Setup Connection" onAction="#runSetupConnection"/>
         <Button text="Exit" onAction="#exit"/>
     </VBox>
 
