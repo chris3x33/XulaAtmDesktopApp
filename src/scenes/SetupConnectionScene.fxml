@@ -1,6 +1,34 @@
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
 <VBox fx:controller="controllers.SetupConnectionController"
       xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
+
+    <Label fx:id="headerLbl"/>
+
+    <VBox alignment="center" spacing="10">
+
+        <HBox alignment="center" spacing="10">
+            <Label text="IP Address: "/>
+            <TextField fx:id="ipAddressTxt"/>
+        </HBox>
+
+        <HBox alignment="center" spacing="10">
+            <Label text="Port: "/>
+            <TextField fx:id="portTxt"/>
+        </HBox>
+
+        <HBox alignment="center" spacing="10">
+            <Label text="TimeOut: "/>
+            <TextField fx:id="timeOutTxt"/>
+        </HBox>
+
+        <Button text="Set" onAction="#runSetConnection"/>
+        <Button text="Back" onAction="#runBack"/>
+
+    </VBox>
 
 
 </VBox>
