@@ -1,10 +1,7 @@
 package atmClient;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.SocketTimeoutException;
+import java.net.*;
 
 public class ATMClient {
 
@@ -62,5 +59,19 @@ public class ATMClient {
     public Result setConnection(String ipAddress, int port, int timeOut){
 
         return null;
+    }
+
+    public boolean ipAddressExits(String ipAddress){
+
+        try {
+
+            InetAddress.getByName(ipAddress);
+
+            return true;
+
+        }catch (UnknownHostException e){
+            return false;
+        }
+
     }
 }
