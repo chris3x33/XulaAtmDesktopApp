@@ -13,7 +13,7 @@ public class Main extends Application {
     public static final int WINDOWHEIGHT = 275;
     public static final int WINDOWWIDTH = 400;
     public static Stage primaryStage;
-    public static ATMClient atmClient;
+    public static ATMClient atmClient = new ATMClient();
     public static final String ATM_START_SCENE = "/scenes/ATMStartScene.fxml";
     public static final String LOGIN_SCENE = "/scenes/LoginScene.fxml";
     public static final String NEW_USER_SCENE = "/scenes/NewUserScene.fxml";
