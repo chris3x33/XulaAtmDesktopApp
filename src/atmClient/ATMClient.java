@@ -84,7 +84,7 @@ public class ATMClient {
         userDefinedPort = port;
         userDefinedTimeOut = timeOut;
 
-        return null;
+        return new Result(Result.SUCCESS_CODE);
     }
 
     public boolean ipAddressExits(String ipAddress){
