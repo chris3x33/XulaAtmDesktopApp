@@ -73,6 +73,13 @@ public class ATMClient {
             new Result(Result.ERROR_CODE, errMsg);
         }
 
+        // check timeOut
+        if (timeOut <= -1){
+            String errMsg = "Timeout Must Be Greater than -1 !!";
+
+            new Result(Result.ERROR_CODE, errMsg);
+        }
+
         return null;
     }
 
