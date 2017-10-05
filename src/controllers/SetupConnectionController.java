@@ -55,7 +55,16 @@ public class SetupConnectionController {
 
         }
 
+        //check portStr
+        if(portStr.isEmpty() || !isInt(portStr)){
 
+            //Show Error
+            String errMsg = "Enter a Port Number";
+
+            errorAlert(errMsg, APP_TITLE);
+
+            return;
+        }
 
     }
 
