@@ -6,7 +6,7 @@ public class ATMClient {
 
     private Socket socket;
 
-    private String DEFAULT_IP_ADDRESS = "127.0.0.1";
+    private final String DEFAULT_IP_ADDRESS = "127.0.0.1";
     private final int DEFAULT_PORT = 55555;
     private final int DEFAULT_TIMEOUT = 3000;
 
