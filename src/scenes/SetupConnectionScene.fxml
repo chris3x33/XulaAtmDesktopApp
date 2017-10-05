@@ -1,0 +1,6 @@
+<?import javafx.scene.layout.VBox?>
+<VBox fx:controller="controllers.SetupConnectionController"
+      xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
+
+
+</VBox>
