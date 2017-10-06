@@ -64,7 +64,7 @@ public class ATMClient {
     public Result setConnection(String ipAddress, int port, int timeOut){
 
         // check ipAddress
-        if(!ipAddressExits(ipAddress)){
+        if(!ipAddressExists(ipAddress)){
             String errMsg = "IP Address Not Found!!";
 
             return new Result(Result.ERROR_CODE, errMsg);
@@ -92,7 +92,7 @@ public class ATMClient {
         return new Result(Result.SUCCESS_CODE);
     }
 
-    public boolean ipAddressExits(String ipAddress){
+    public boolean ipAddressExists(String ipAddress){
 
         try {
 
