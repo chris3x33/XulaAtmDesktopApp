@@ -1,6 +1,7 @@
 package controllers;
 
 import atmClient.ATMClient;
+import atmClient.Result;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
 import main.Main;
 
 import java.io.IOException;
+
+import static com.utils.Alerts.errorAlert;
 
 public class ATMStartController {
 
@@ -33,6 +36,13 @@ public class ATMStartController {
 
 
     public void runLogin(ActionEvent actionEvent) throws IOException {
+
+        Result connectResult = atmClient.connect();
+
+        if(connectResult.getStatus() == Result.ERROR_CODE){
+            errorAlert(connectResult.getMessage(), APP_TITLE);
+            return;
+        }
 
         //init LoginScene
         Parent root = FXMLLoader.load(getClass().getResource(LOGIN_SCENE));
