@@ -67,6 +67,12 @@ public class ATMClient {
 
     }
 
+    public Result createNewUser(String userName, String password){
+
+        return new Result(Result.SUCCESS_CODE);
+
+    }
+
     public Result setConnection(String ipAddress, int port, int timeOut){
 
         // check ipAddress
