@@ -63,7 +63,8 @@ public class ATMClient {
 
     public Result login(String userName, String password){
 
-        return null;
+        return new Result(Result.SUCCESS_CODE);
+
     }
 
     public Result setConnection(String ipAddress, int port, int timeOut){
