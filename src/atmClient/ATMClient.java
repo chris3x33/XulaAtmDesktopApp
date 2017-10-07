@@ -79,6 +79,34 @@ public class ATMClient {
 
     public Result login(String userName, String password){
 
+        //Open a new socket Connection
+
+        //Send sessionId
+
+        //Read ACK
+
+        //Send login cmd
+
+        //Read ACK
+
+        //Send userName
+
+        //Read ACK
+
+        //Send password
+
+        //Read ACK
+
+        //Send ACK
+
+        //Read login result
+
+        //Send ACK
+
+        //Read ACK
+
+        //Close connection
+
         return new Result(Result.SUCCESS_CODE);
 
     }
