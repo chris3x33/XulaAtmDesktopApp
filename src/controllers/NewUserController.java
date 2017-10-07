@@ -1,6 +1,7 @@
 package controllers;
 
 import atmClient.ATMClient;
+import atmClient.Result;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -65,7 +66,16 @@ public class NewUserController {
 
         }
 
-        //Try to login
+        //Try to createNewUser
+        Result newUserResult = atmClient.createNewUser(userName, password);
+
+        if (newUserResult.getStatus() == Result.ERROR_CODE){
+
+            errorAlert(newUserResult.getMessage(), APP_TITLE);
+
+            return;
+
+        }
 
     }
 
