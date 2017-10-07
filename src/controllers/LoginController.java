@@ -1,6 +1,7 @@
 package controllers;
 
 import atmClient.ATMClient;
+import atmClient.Result;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -67,6 +68,15 @@ public class LoginController {
         }
 
         //Try to login
+        Result loginResult = atmClient.login(userName, password);
+
+        if (loginResult.getStatus() == Result.ERROR_CODE){
+
+            errorAlert(loginResult.getMessage(), APP_TITLE);
+
+            return;
+
+        }
 
         //Go to UserHomeScene if login success
         Parent root = FXMLLoader.load(getClass().getResource(USER_HOME_SCENE));
