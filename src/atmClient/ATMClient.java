@@ -42,6 +42,21 @@ public class ATMClient {
 
             socket.connect(socketAddress, timeOut);
 
+            //Send sessionId = -1 for new sessionId
+
+            //Read ACK
+
+            //Send ACK
+
+            //Read new sessionId > -1
+
+            //Send ACK
+
+            //Read ACK
+
+            //Close connection
+
+
         }catch (SocketTimeoutException e) {
 
             String errMsg = "Unable to Connect Please Try again later!!";
@@ -54,6 +69,9 @@ public class ATMClient {
 
             return new Result(Result.ERROR_CODE, errMsg);
         }
+
+        //Set new sessionId
+
 
         return new Result(Result.SUCCESS_CODE);
 
