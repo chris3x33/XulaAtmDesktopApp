@@ -21,10 +21,13 @@ public class ATMClient {
         int port = getPort();
         int timeOut = getTimeOut();
 
+        //reset sessionId if set
+        sessionId = -1;
+
         Socket socket;
         try {
 
-             socket = new Socket();
+            socket = new Socket();
 
             SocketAddress socketAddress = new InetSocketAddress(ipAddress, port);
 
