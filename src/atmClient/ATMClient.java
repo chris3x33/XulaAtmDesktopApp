@@ -17,13 +17,11 @@ public class ATMClient {
 
     public Result connect(){
 
-        String ipAddress = DEFAULT_IP_ADDRESS;
+        String ipAddress = getIpAddress();
         int port = DEFAULT_PORT;
         int timeOut = DEFAULT_TIMEOUT;
 
-        if (userDefinedIpAddress != null){
-            ipAddress = userDefinedIpAddress;
-        }
+
 
         if (userDefinedPort > -1){
             port = userDefinedPort;
@@ -74,6 +72,20 @@ public class ATMClient {
 
 
         return new Result(Result.SUCCESS_CODE);
+
+    }
+
+    public String getIpAddress(){
+
+        if (userDefinedIpAddress != null){
+
+            return userDefinedIpAddress;
+
+        } else {
+
+            return DEFAULT_IP_ADDRESS;
+
+        }
 
     }
 
