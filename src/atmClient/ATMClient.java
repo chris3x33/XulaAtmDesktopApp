@@ -18,14 +18,8 @@ public class ATMClient {
     public Result connect(){
 
         String ipAddress = getIpAddress();
-        int port = DEFAULT_PORT;
+        int port = getPort();
         int timeOut = DEFAULT_TIMEOUT;
-
-
-
-        if (userDefinedPort > -1){
-            port = userDefinedPort;
-        }
 
         if (userDefinedTimeOut > -1){
             timeOut = userDefinedTimeOut;
@@ -74,6 +68,17 @@ public class ATMClient {
         return new Result(Result.SUCCESS_CODE);
 
     }
+
+    public int getPort(){
+
+        if (userDefinedPort > -1){
+            return userDefinedPort;
+        }else {
+            return DEFAULT_PORT;
+        }
+
+    }
+
 
     public String getIpAddress(){
 
