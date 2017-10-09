@@ -144,6 +144,11 @@ public class ATMClient {
 
     }
 
+    private DataInputStream getDataInputStream(Socket socket) throws IOException {
+        return new DataInputStream(socket.getInputStream());
+    }
+
+
     public Result login(String userName, String password){
 
         //Open a new socket Connection
