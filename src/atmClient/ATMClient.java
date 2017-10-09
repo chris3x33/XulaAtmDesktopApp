@@ -71,7 +71,24 @@ public class ATMClient {
 
     }
 
+    private long readLongWTimeout(Socket socket, DataInputStream dataIn, int timeOut) throws IOException {
 
+        final long BYTE_SIZE_OF_LONG = Long.SIZE/ Byte.SIZE;
+
+        boolean hasLong;
+
+        long startTime = System.currentTimeMillis();
+
+        do {
+            hasLong = (socket.getInputStream().available() >= BYTE_SIZE_OF_LONG);
+        } while (!hasLong && (System.currentTimeMillis() - startTime) < timeOut);
+
+        if (hasLong) {
+            return dataIn.readLong();
+        } else {
+            throw new SocketTimeoutException();
+        }
+    }
 
     private int readIntWTimeout(Socket socket, DataInputStream dataIn, int timeOut) throws IOException {
 
