@@ -36,11 +36,7 @@ public class ATMClient {
         Socket socket;
         try {
 
-            socket = new Socket();
-
-            SocketAddress socketAddress = new InetSocketAddress(ipAddress, port);
-
-            socket.connect(socketAddress, timeOut);
+            socket = openNewSocket(ipAddress, port, timeOut);
 
             handleNewSessionExchange(socket, timeOut);
 
@@ -61,6 +57,18 @@ public class ATMClient {
 
             return new Result(Result.ERROR_CODE, errMsg);
         }
+    }
+
+    public Socket openNewSocket(String ipAddress, int port, int timeOut) throws IOException {
+
+        Socket socket = new Socket();
+
+        SocketAddress socketAddress = new InetSocketAddress(ipAddress, port);
+
+        socket.connect(socketAddress, timeOut);
+
+        return socket;
+
     }
 
     private void handleNewSessionExchange(Socket socket, int timeOut) throws SocketTimeoutException, IOException{
