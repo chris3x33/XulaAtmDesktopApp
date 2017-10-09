@@ -19,11 +19,7 @@ public class ATMClient {
 
         String ipAddress = getIpAddress();
         int port = getPort();
-        int timeOut = DEFAULT_TIMEOUT;
-
-        if (userDefinedTimeOut > -1){
-            timeOut = userDefinedTimeOut;
-        }
+        int timeOut = getTimeOut();
 
         Socket socket;
         try {
@@ -66,6 +62,15 @@ public class ATMClient {
 
 
         return new Result(Result.SUCCESS_CODE);
+
+    }
+
+    public int getTimeOut(){
+        if (userDefinedTimeOut > -1){
+            return userDefinedTimeOut;
+        }else{
+            return DEFAULT_TIMEOUT;
+        }
 
     }
 
