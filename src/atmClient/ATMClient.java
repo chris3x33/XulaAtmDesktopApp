@@ -15,6 +15,8 @@ public class ATMClient {
     private int userDefinedPort = -1;
     private int userDefinedTimeOut = -1;
 
+    private final int ACK_CODE = 10101010;
+
     public Result connect(){
 
         String ipAddress = getIpAddress();
