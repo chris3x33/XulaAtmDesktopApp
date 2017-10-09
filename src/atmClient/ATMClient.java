@@ -196,6 +196,15 @@ public class ATMClient {
 
     public Result login(String userName, String password){
 
+        String ipAddress = getIpAddress();
+        int port = getPort();
+        int timeOut = getTimeOut();
+
+        return handleLogin(ipAddress, port, timeOut, userName, password);
+
+    }
+
+    private Result handleLogin(String ipAddress, int port, int timeOut,String userName, String password){
         //Open a new socket Connection
 
         //Send sessionId
@@ -225,7 +234,6 @@ public class ATMClient {
         //Close connection
 
         return new Result(Result.SUCCESS_CODE);
-
     }
 
     public Result createNewUser(String userName, String password){
