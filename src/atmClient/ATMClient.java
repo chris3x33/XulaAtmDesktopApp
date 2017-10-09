@@ -1,6 +1,7 @@
 package atmClient;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
 
@@ -147,6 +148,11 @@ public class ATMClient {
     private DataInputStream getDataInputStream(Socket socket) throws IOException {
         return new DataInputStream(socket.getInputStream());
     }
+
+    private DataOutputStream getDataOutputStream(Socket socket) throws IOException {
+        return new DataOutputStream(socket.getOutputStream());
+    }
+
 
 
     public Result login(String userName, String password){
