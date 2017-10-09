@@ -5,7 +5,7 @@ import java.net.*;
 
 public class ATMClient {
 
-    private int sessionId = -1;
+    private long sessionId = -1;
 
     private final String DEFAULT_IP_ADDRESS = "127.0.0.1";
     private final int DEFAULT_PORT = 55555;
