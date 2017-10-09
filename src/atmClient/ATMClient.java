@@ -72,6 +72,52 @@ public class ATMClient {
 
     }
 
+    private void handleNewSessionExchange(Socket socket, int timeOut) throws SocketTimeoutException, IOException{
+
+        DataInputStream dataIn = getDataInputStream(socket);
+        DataOutputStream dataOut = getDataOutputStream(socket);
+
+        System.out.println("\n\nNewSessionCMD Start");
+
+        int ack;
+
+        //Send sessionId = -1 for new sessionId
+        dataOut.writeLong(sessionId);
+        System.out.println("\tSent sessionId = "+sessionId);
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        if (ack == ACK_CODE){
+            System.out.println("\tRead ACK");
+        }else {
+            System.out.println("\tACK Read Error");
+        }
+
+        //Send ACK
+        dataOut.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read new sessionId > -1
+        long sessionId = readLongWTimeout(socket, dataIn, timeOut);
+        System.out.println("\tRead sessionId = "+sessionId);
+
+        //Send ACK
+        dataOut.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+
+        if (ack == ACK_CODE){
+            System.out.println("\tRead ACK");
+        }else {
+            System.out.println("\tACK Read Error");
+        }
+
+        System.out.println("NewSessionCMD End\n");
+    }
+
+
     private long readLongWTimeout(Socket socket, DataInputStream dataIn, int timeOut) throws IOException {
 
         final long BYTE_SIZE_OF_LONG = Long.SIZE/ Byte.SIZE;
