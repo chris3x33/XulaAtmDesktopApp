@@ -25,6 +25,11 @@ public class ATMClient {
         int port = getPort();
         int timeOut = getTimeOut();
 
+        return handleNewSession(ipAddress, port, timeOut);
+
+    }
+    private Result handleNewSession(String ipAddress, int port, int timeOut){
+
         //reset sessionId if set
         sessionId = -1;
 
@@ -37,20 +42,12 @@ public class ATMClient {
 
             socket.connect(socketAddress, timeOut);
 
-            //Send sessionId = -1 for new sessionId
-
-            //Read ACK
-
-            //Send ACK
-
-            //Read new sessionId > -1
-
-            //Send ACK
-
-            //Read ACK
+            handleNewSessionExchange(socket, timeOut);
 
             //Close connection
+            socket.close();
 
+            return new Result(Result.SUCCESS_CODE);
 
         }catch (SocketTimeoutException e) {
 
@@ -64,12 +61,6 @@ public class ATMClient {
 
             return new Result(Result.ERROR_CODE, errMsg);
         }
-
-        //Set new sessionId
-
-
-        return new Result(Result.SUCCESS_CODE);
-
     }
 
     private void handleNewSessionExchange(Socket socket, int timeOut) throws SocketTimeoutException, IOException{
@@ -82,8 +73,8 @@ public class ATMClient {
         int ack;
 
         //Send sessionId = -1 for new sessionId
-        dataOut.writeLong(sessionId);
-        System.out.println("\tSent sessionId = "+sessionId);
+        dataOut.writeLong(this.sessionId);
+        System.out.println("\tSent sessionId = "+this.sessionId);
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
@@ -98,8 +89,8 @@ public class ATMClient {
         System.out.println("\tSent ACK");
 
         //Read new sessionId > -1
-        long sessionId = readLongWTimeout(socket, dataIn, timeOut);
-        System.out.println("\tRead sessionId = "+sessionId);
+        long newSessionId = readLongWTimeout(socket, dataIn, timeOut);
+        System.out.println("\tRead sessionId = "+newSessionId);
 
         //Send ACK
         dataOut.writeInt(ACK_CODE);
@@ -113,6 +104,8 @@ public class ATMClient {
         }else {
             System.out.println("\tACK Read Error");
         }
+
+        this.sessionId = newSessionId;
 
         System.out.println("NewSessionCMD End\n");
     }
