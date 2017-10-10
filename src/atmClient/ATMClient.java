@@ -19,7 +19,7 @@ public class ATMClient {
 
     private final int ACK_CODE = 10101010;
 
-    public Result connect(){
+    public Result connect() {
 
         String ipAddress = getIpAddress();
         int port = getPort();
@@ -28,7 +28,8 @@ public class ATMClient {
         return handleNewSession(ipAddress, port, timeOut);
 
     }
-    private Result handleNewSession(String ipAddress, int port, int timeOut){
+
+    private Result handleNewSession(String ipAddress, int port, int timeOut) {
 
         //reset sessionId if set
         sessionId = -1;
@@ -45,7 +46,7 @@ public class ATMClient {
 
             return new Result(Result.SUCCESS_CODE);
 
-        }catch (SocketTimeoutException e) {
+        } catch (SocketTimeoutException e) {
 
             String errMsg = "Unable to Connect Please Try again later!!";
 
@@ -71,7 +72,7 @@ public class ATMClient {
 
     }
 
-    private void handleNewSessionExchange(Socket socket, int timeOut) throws SocketTimeoutException, IOException{
+    private void handleNewSessionExchange(Socket socket, int timeOut) throws SocketTimeoutException, IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
@@ -82,13 +83,13 @@ public class ATMClient {
 
         //Send sessionId = -1 for new sessionId
         dataOut.writeLong(this.sessionId);
-        System.out.println("\tSent sessionId = "+this.sessionId);
+        System.out.println("\tSent sessionId = " + this.sessionId);
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        if (ack == ACK_CODE){
+        if (ack == ACK_CODE) {
             System.out.println("\tRead ACK");
-        }else {
+        } else {
             System.out.println("\tACK Read Error");
         }
 
@@ -98,7 +99,7 @@ public class ATMClient {
 
         //Read new sessionId > -1
         long newSessionId = readLongWTimeout(socket, dataIn, timeOut);
-        System.out.println("\tRead sessionId = "+newSessionId);
+        System.out.println("\tRead sessionId = " + newSessionId);
 
         //Send ACK
         dataOut.writeInt(ACK_CODE);
@@ -107,9 +108,9 @@ public class ATMClient {
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
 
-        if (ack == ACK_CODE){
+        if (ack == ACK_CODE) {
             System.out.println("\tRead ACK");
-        }else {
+        } else {
             System.out.println("\tACK Read Error");
         }
 
@@ -121,7 +122,7 @@ public class ATMClient {
 
     private long readLongWTimeout(Socket socket, DataInputStream dataIn, int timeOut) throws IOException {
 
-        final long BYTE_SIZE_OF_LONG = Long.SIZE/ Byte.SIZE;
+        final long BYTE_SIZE_OF_LONG = Long.SIZE / Byte.SIZE;
 
         boolean hasLong;
 
@@ -140,7 +141,7 @@ public class ATMClient {
 
     private int readIntWTimeout(Socket socket, DataInputStream dataIn, int timeOut) throws IOException {
 
-        final int BYTE_SIZE_OF_INT = Integer.SIZE/ Byte.SIZE;
+        final int BYTE_SIZE_OF_INT = Integer.SIZE / Byte.SIZE;
 
         boolean hasInt;
 
@@ -158,29 +159,29 @@ public class ATMClient {
     }
 
 
-    public int getTimeOut(){
-        if (userDefinedTimeOut > -1){
+    public int getTimeOut() {
+        if (userDefinedTimeOut > -1) {
             return userDefinedTimeOut;
-        }else{
+        } else {
             return DEFAULT_TIMEOUT;
         }
 
     }
 
-    public int getPort(){
+    public int getPort() {
 
-        if (userDefinedPort > -1){
+        if (userDefinedPort > -1) {
             return userDefinedPort;
-        }else {
+        } else {
             return DEFAULT_PORT;
         }
 
     }
 
 
-    public String getIpAddress(){
+    public String getIpAddress() {
 
-        if (userDefinedIpAddress != null){
+        if (userDefinedIpAddress != null) {
 
             return userDefinedIpAddress;
 
@@ -201,8 +202,7 @@ public class ATMClient {
     }
 
 
-
-    public Result login(String userName, String password){
+    public Result login(String userName, String password) {
 
         String ipAddress = getIpAddress();
         int port = getPort();
@@ -212,48 +212,70 @@ public class ATMClient {
 
     }
 
-    private Result handleLogin(String ipAddress, int port, int timeOut,String userName, String password){
-        //Open a new socket Connection
+    private Result handleLogin(String ipAddress, int port, int timeOut, String userName, String password) {
 
-        //Send sessionId
+        Socket socket;
+        try {
 
-        //Read ACK
+            //Open a new socket Connection
+            socket = openNewSocket(ipAddress, port, timeOut);
 
-        //Send login cmd
 
-        //Read ACK
+            //Send sessionId
 
-        //Send userName
+            //Read ACK
 
-        //Read ACK
+            //Send login cmd
 
-        //Send password
+            //Read ACK
 
-        //Read ACK
+            //Send userName
 
-        //Send ACK
+            //Read ACK
 
-        //Read login result
+            //Send password
 
-        //Send ACK
+            //Read ACK
 
-        //Read ACK
+            //Send ACK
 
-        //Close connection
+            //Read login result
 
-        return new Result(Result.SUCCESS_CODE);
+            //Send ACK
+
+            //Read ACK
+
+            //Close connection
+
+            //Close connection
+            socket.close();
+
+            return new Result(Result.SUCCESS_CODE);
+
+        } catch (SocketTimeoutException e) {
+
+            String errMsg = "Unable to Connect Please Try again later!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
+
+        } catch (IOException e) {
+
+            String errMsg = "Connection Error Please Try again later!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
+        }
     }
 
-    public Result createNewUser(String userName, String password){
+    public Result createNewUser(String userName, String password) {
 
         return new Result(Result.SUCCESS_CODE);
 
     }
 
-    public Result setConnection(String ipAddress, int port, int timeOut){
+    public Result setConnection(String ipAddress, int port, int timeOut) {
 
         // check ipAddress
-        if(!ipAddressExists(ipAddress)){
+        if (!ipAddressExists(ipAddress)) {
             String errMsg = "IP Address Not Found!!";
 
             return new Result(Result.ERROR_CODE, errMsg);
@@ -261,14 +283,14 @@ public class ATMClient {
         }
 
         // check port
-        if (port <= -1){
+        if (port <= -1) {
             String errMsg = "Port Must Be Greater than -1 !!";
 
             return new Result(Result.ERROR_CODE, errMsg);
         }
 
         // check timeOut
-        if (timeOut <= -1){
+        if (timeOut <= -1) {
             String errMsg = "Timeout Must Be Greater than -1 !!";
 
             return new Result(Result.ERROR_CODE, errMsg);
@@ -281,7 +303,7 @@ public class ATMClient {
         return new Result(Result.SUCCESS_CODE);
     }
 
-    public boolean ipAddressExists(String ipAddress){
+    public boolean ipAddressExists(String ipAddress) {
 
         try {
 
@@ -289,7 +311,7 @@ public class ATMClient {
 
             return true;
 
-        }catch (UnknownHostException e){
+        } catch (UnknownHostException e) {
             return false;
         }
 
