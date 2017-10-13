@@ -2,6 +2,14 @@ package atmClient;
 
 public class SessionResult extends Result{
 
+    public int getSessionStatus() {
+        return sessionStatus;
+    }
+
+    public String getSessionMessage() {
+        return sessionMessage;
+    }
+
     private int sessionStatus;
     private String sessionMessage;
     public SessionResult(int sessionStatus,int status) {
