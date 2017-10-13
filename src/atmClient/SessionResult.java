@@ -2,8 +2,10 @@ package atmClient;
 
 public class SessionResult extends Result{
 
-    public static final int ERROR_CODE = 0;
     public static final int SUCCESS_CODE = 1;
+    public static final int ERROR_CODE = 0;
+    public static final int INVALID_SESSION_CODE = -1;
+    public static final int EXPIRED_SESSION_CODE = -2;
 
     public int getSessionStatus() {
         return sessionStatus;
