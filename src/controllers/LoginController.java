@@ -75,7 +75,7 @@ public class LoginController {
         if (loginResult.getSessionStatus() == SessionResult.INVALID_SESSION_CODE
                 || loginResult.getSessionStatus() == SessionResult.EXPIRED_SESSION_CODE){
 
-            System.out.println("S");
+
             errorAlert(loginResult.getSessionMessage(), APP_TITLE);
 
             return;
