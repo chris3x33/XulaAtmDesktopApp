@@ -87,11 +87,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        if (ack == ACK_CODE) {
-            System.out.println("\tRead ACK");
-        } else {
-            System.out.println("\tACK Read Error");
-        }
+        printACKResult(ack);
 
         //Send ACK
         dataOut.writeInt(ACK_CODE);
@@ -107,12 +103,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-
-        if (ack == ACK_CODE) {
-            System.out.println("\tRead ACK");
-        } else {
-            System.out.println("\tACK Read Error");
-        }
+        printACKResult(ack);
 
         this.sessionId = newSessionId;
 
@@ -313,6 +304,16 @@ public class ATMClient {
 
         } catch (UnknownHostException e) {
             return false;
+        }
+
+    }
+
+    private void printACKResult(int ack){
+
+        if (ack == ACK_CODE){
+            System.out.println("\tRead ACK");
+        }else {
+            System.out.println("\tACK Read Error");
         }
 
     }
