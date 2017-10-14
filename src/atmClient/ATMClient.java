@@ -409,7 +409,7 @@ public class ATMClient {
     }
 
 
-    public Result login(String userName, String password) {
+    public LoginResult login(String userName, String password) {
 
         String ipAddress = getIpAddress();
         int port = getPort();
@@ -418,6 +418,7 @@ public class ATMClient {
         return handleLogin(ipAddress, port, timeOut, userName, password);
 
     }
+
 
     private LoginResult handleLogin(String ipAddress, int port, int timeOut, String userName, String password) {
 
