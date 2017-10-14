@@ -419,7 +419,7 @@ public class ATMClient {
 
     }
 
-    private Result handleLogin(String ipAddress, int port, int timeOut, String userName, String password) {
+    private LoginResult handleLogin(String ipAddress, int port, int timeOut, String userName, String password) {
 
         Socket socket;
         try {
@@ -427,51 +427,29 @@ public class ATMClient {
             //Open a new socket Connection
             socket = openNewSocket(ipAddress, port, timeOut);
 
-
-            //Send sessionId
-
-            //Read ACK
-
-            //Send login cmd
-
-            //Read ACK
-
-            //Send userName
-
-            //Read ACK
-
-            //Send password
-
-            //Read ACK
-
-            //Send ACK
-
-            //Read login result
-
-            //Send ACK
-
-            //Read ACK
-
-            //Close connection
+            LoginResult loginResult = handleLoginExchange(
+                    socket, timeOut, userName, password
+            );
 
             //Close connection
             socket.close();
 
-            return new Result(Result.SUCCESS_CODE);
+            return loginResult;
 
         } catch (SocketTimeoutException e) {
 
             String errMsg = "Unable to Connect Please Try again later!!";
 
-            return new Result(Result.ERROR_CODE, errMsg);
+            return new LoginResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
 
         } catch (IOException e) {
 
             String errMsg = "Connection Error Please Try again later!!";
 
-            return new Result(Result.ERROR_CODE, errMsg);
+            return new LoginResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
         }
     }
+
 
     public Result createNewUser(String userName, String password) {
 
