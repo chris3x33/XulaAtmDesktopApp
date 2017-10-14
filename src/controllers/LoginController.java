@@ -1,7 +1,9 @@
 package controllers;
 
 import atmClient.ATMClient;
+import atmClient.LoginResult;
 import atmClient.Result;
+import atmClient.SessionResult;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -68,7 +70,25 @@ public class LoginController {
         }
 
         //Try to login
-        Result loginResult = atmClient.login(userName, password);
+        LoginResult loginResult = atmClient.login(userName, password);
+
+        if (loginResult.getSessionStatus() == SessionResult.INVALID_SESSION_CODE
+                || loginResult.getSessionStatus() == SessionResult.EXPIRED_SESSION_CODE){
+
+            System.out.println("S");
+            errorAlert(loginResult.getSessionMessage(), APP_TITLE);
+
+            return;
+
+        }
+
+        if (loginResult.getSessionStatus() == SessionResult.ERROR_CODE){
+
+            errorAlert(loginResult.getSessionMessage(), APP_TITLE);
+
+            return;
+
+        }
 
         if (loginResult.getStatus() == Result.ERROR_CODE){
 
