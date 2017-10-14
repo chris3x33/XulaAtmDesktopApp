@@ -11,7 +11,7 @@ public class ATMClient {
 
     private final String DEFAULT_IP_ADDRESS = "127.0.0.1";
     private final int DEFAULT_PORT = 55555;
-    private final int DEFAULT_TIMEOUT = 5000;
+    private final int DEFAULT_TIMEOUT = 10000;
 
     private String userDefinedIpAddress = null;
     private int userDefinedPort = -1;
@@ -112,7 +112,7 @@ public class ATMClient {
 
     private LoginResult handleLoginExchange(Socket socket, int timeOut, String userName, String password) throws IOException {
 
-        sessionId=0;
+        //sessionId=0;
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
@@ -179,121 +179,110 @@ public class ATMClient {
 
         }
 
-//        //Read ACK
-//        ack = readIntWTimeout(socket, dataIn, timeOut);
-//        if (ack == ACK_CODE) {
-//            System.out.println("\tRead ACK");
-//        } else {
-//            System.out.println("\tACK Read Error");
-//        }
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Send login cmd
+        dataOut.writeInt(XulaAtmServerCommands.LOGIN_CMD);
+        System.out.println("\tSent LOGIN_CMD");
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Send userName Length
+        dataOut.writeInt(userName.length());
+        System.out.println("\tSent userName Length");
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Send userName Bytes
+        dataOut.write(userName.getBytes());
+        System.out.println("\tSent userName Bytes");
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Send password Length
+        dataOut.writeInt(password.length());
+        System.out.println("\tSent password Length");
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Send password Bytes
+        dataOut.write(password.getBytes());
+        System.out.println("\tSent password Bytes");
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Send ACK
+        dataOut.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read login status result
+        int readResultStatus = readIntWTimeout(
+                socket,
+                dataIn,
+                timeOut
+        );
+        System.out.println("\tRead login status result: "+readResultStatus);
+
+        //Send ACK
+        dataOut.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        if(readResultStatus == Result.ERROR_CODE){
+
+            //Get Result Msg Length in bytes
+            int readResultMessageLen = readIntWTimeout(socket, dataIn, timeOut);
+            System.out.println("\tRead login Message Length");
+
+            //Send ACK
+            dataOut.writeInt(ACK_CODE);
+            System.out.println("\tSent ACK");
+
+            //Get Result Msg
+            byte[] readResultMessageBytes = readBytesWTimeout(
+                    socket,
+                    dataIn,
+                    timeOut,
+                    readResultMessageLen
+            );
+            String readResultMessage = new String(readResultMessageBytes);
+            System.out.println("\tRead login Message: "+readResultMessage);
+
 //
-//        //Send login cmd
-//        dataOut.writeInt(XulaAtmServerCommands.LOGIN_CMD);
-//
-//        //Read ACK
-//        ack = readIntWTimeout(socket, dataIn, timeOut);
-//        if (ack == ACK_CODE) {
-//            System.out.println("\tRead ACK");
-//        } else {
-//            System.out.println("\tACK Read Error");
-//        }
-//
-//        //Send userName Length
-//        dataOut.writeInt(userName.length());
-//
-//        //Read ACK
-//        ack = readIntWTimeout(socket, dataIn, timeOut);
-//        if (ack == ACK_CODE) {
-//            System.out.println("\tRead ACK");
-//        } else {
-//            System.out.println("\tACK Read Error");
-//        }
-//
-//        //Send userName Bytes
-//        dataOut.write(userName.getBytes());
-//
-//        //Read ACK
-//        ack = readIntWTimeout(socket, dataIn, timeOut);
-//        if (ack == ACK_CODE) {
-//            System.out.println("\tRead ACK");
-//        } else {
-//            System.out.println("\tACK Read Error");
-//        }
-//
-//        //Send password
-//        dataOut.writeInt(password.length());
-//
-//        //Read ACK
-//        ack = readIntWTimeout(socket, dataIn, timeOut);
-//        if (ack == ACK_CODE) {
-//            System.out.println("\tRead ACK");
-//        } else {
-//            System.out.println("\tACK Read Error");
-//        }
-//
-//        //Send ACK
-//        dataOut.write(ACK_CODE);
-//        System.out.println("\tSent ACK");
-//
-//        //Read login status result
-//        int readResultStatus = readIntWTimeout(socket, dataIn, timeOut);
-//
-//        //Send ACK
-//        dataOut.write(ACK_CODE);
-//        System.out.println("\tSent ACK");
-//
-//        if(readResultStatus == Result.ERROR_CODE){
-//
-//            //Get Session Msg Length in bytes
-//            int readResultMessageLen = readIntWTimeout(socket, dataIn, timeOut);
-//
-//            //Read ACK
-//            ack = readIntWTimeout(socket, dataIn, timeOut);
-//            if (ack == ACK_CODE) {
-//                System.out.println("\tRead ACK");
-//            } else {
-//                System.out.println("\tACK Read Error");
-//            }
-//
-//            //Get Session Msg
-//            byte[] readResultMessageBytes = readBytesWTimeout(
-//                    socket,
-//                    dataIn,
-//                    timeOut,
-//                    readResultMessageLen
-//            );
-//            String readResultMessage = new String(readResultMessageBytes);
-//
-//            //Send ACK
-//            dataOut.writeInt(ACK_CODE);
-//            System.out.println("\tSent ACK");
-//
-//            //Read ACK
-//            ack = readIntWTimeout(socket, dataIn, timeOut);
-//            if (ack == ACK_CODE) {
-//                System.out.println("\tRead ACK");
-//            } else {
-//                System.out.println("\tACK Read Error");
-//            }
-//
-//            System.out.println("LoginCMD End\n");
-//
-//            return new LoginResult(
-//                    readSessionStatus,
-//                    Result.ERROR_CODE,
-//                    readResultMessage
-//            );
-//
-//        }
-//
-//        //Read ACK
-//        if (ack == ACK_CODE) {
-//            System.out.println("\tRead ACK");
-//        } else {
-//            System.out.println("\tACK Read Error");
-//        }
-//
-//        System.out.println("LoginCMD End\n");
+            //Send ACK
+            dataOut.writeInt(ACK_CODE);
+            System.out.println("\tSent ACK");
+
+            //Read ACK
+            ack = readIntWTimeout(socket, dataIn, timeOut);
+            printACKResult(ack);
+
+            System.out.println("LoginCMD End\n");
+
+            return new LoginResult(
+                    readSessionStatus,
+                    Result.ERROR_CODE,
+                    readResultMessage
+            );
+
+        }
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        System.out.println("LoginCMD End\n");
 
         return new LoginResult(SessionResult.SUCCESS_CODE, Result.SUCCESS_CODE);
 
