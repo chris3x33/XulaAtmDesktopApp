@@ -49,4 +49,7 @@ public class UserHomeController {
 
     public void runWithdraw(ActionEvent actionEvent) {
     }
+
+    public void runLogOut(ActionEvent actionEvent) {
+    }
 }

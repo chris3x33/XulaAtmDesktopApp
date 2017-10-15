@@ -22,4 +22,6 @@
 
     </HBox>
 
+    <Button text="LogOut" onAction="#runLogOut"/>
+
 </VBox>
