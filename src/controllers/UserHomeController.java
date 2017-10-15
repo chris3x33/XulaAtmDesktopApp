@@ -20,6 +20,7 @@ public class UserHomeController {
 
     public static ATMClient atmClient = Main.atmClient;
 
+    public final String ATM_START_SCENE = Main.ATM_START_SCENE;
     public final String DEPOSIT_SCENE = Main.DEPOSIT_SCENE;
 
     public Label userHomeMsgLbl;
@@ -50,6 +51,14 @@ public class UserHomeController {
     public void runWithdraw(ActionEvent actionEvent) {
     }
 
-    public void runLogOut(ActionEvent actionEvent) {
+    public void runLogOut(ActionEvent actionEvent) throws IOException {
+
+        //init ATMStartScene
+        Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+
+        //Show ATMStartScene
+        PRIMARY_STAGE.show();
+
     }
 }
