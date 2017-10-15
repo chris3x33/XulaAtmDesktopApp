@@ -56,6 +56,13 @@ public class ATMStartController {
 
     public void runOpenAccount(ActionEvent actionEvent) throws IOException {
 
+        Result connectResult = atmClient.connect();
+
+        if(connectResult.getStatus() == Result.ERROR_CODE){
+            errorAlert(connectResult.getMessage(), APP_TITLE);
+            return;
+        }
+
         //init NewUserScene
         Parent root = FXMLLoader.load(getClass().getResource(NEW_USER_SCENE));
         PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
