@@ -438,11 +438,19 @@ public class ATMClient {
 
     }
 
-    public Result createNewUser(String userName, String password) {
+    public CreateNewUserResult createNewUser(String userName, String password) {
 
-        return new Result(Result.SUCCESS_CODE);
+        String ipAddress = getIpAddress();
+        int port = getPort();
+        int timeOut = getTimeOut();
+
+        return handleCreateNewUser(
+                ipAddress, port, timeOut,
+                userName, password
+        );
 
     }
+
     private CreateNewUserResult handleCreateNewUser(
             String ipAddress, int port, int timeOut, String userName, String password) {
 
