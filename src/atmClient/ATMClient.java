@@ -443,6 +443,37 @@ public class ATMClient {
         return new Result(Result.SUCCESS_CODE);
 
     }
+    private CreateNewUserResult handleCreateNewUser(
+            String ipAddress, int port, int timeOut, String userName, String password) {
+
+        Socket socket;
+        try {
+
+            //Open a new socket Connection
+            socket = openNewSocket(ipAddress, port, timeOut);
+
+            CreateNewUserResult createNewUserResult = handleCreateNewUserExchange(
+                    socket, timeOut, userName, password
+            );
+
+            //Close connection
+            socket.close();
+
+            return createNewUserResult;
+
+        } catch (SocketTimeoutException e) {
+
+            String errMsg = "Unable to Connect Please Try again later!!";
+
+            return new CreateNewUserResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+
+        } catch (IOException e) {
+
+            String errMsg = "Connection Error Please Try again later!!";
+
+            return new CreateNewUserResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+        }
+    }
 
     private CreateNewUserResult handleCreateNewUserExchange(
             Socket socket, int timeOut, String userName, String password) throws IOException {
