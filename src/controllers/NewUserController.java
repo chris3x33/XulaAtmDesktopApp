@@ -1,7 +1,9 @@
 package controllers;
 
 import atmClient.ATMClient;
+import atmClient.CreateNewUserResult;
 import atmClient.Result;
+import atmClient.SessionResult;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +16,7 @@ import main.Main;
 import java.io.IOException;
 
 import static com.utils.Alerts.errorAlert;
+import static com.utils.Alerts.informationAlert;
 
 public class NewUserController {
 
@@ -67,15 +70,41 @@ public class NewUserController {
         }
 
         //Try to createNewUser
-        Result newUserResult = atmClient.createNewUser(userName, password);
+        CreateNewUserResult createNewUserResult = atmClient.createNewUser(userName, password);
 
-        if (newUserResult.getStatus() == Result.ERROR_CODE){
+        if (createNewUserResult.getSessionStatus() == SessionResult.INVALID_SESSION_CODE
+                || createNewUserResult.getSessionStatus() == SessionResult.EXPIRED_SESSION_CODE){
 
-            errorAlert(newUserResult.getMessage(), APP_TITLE);
+
+            errorAlert(createNewUserResult.getSessionMessage(), APP_TITLE);
 
             return;
 
         }
+
+        if (createNewUserResult.getSessionStatus() == SessionResult.ERROR_CODE){
+
+            errorAlert(createNewUserResult.getSessionMessage(), APP_TITLE);
+
+            return;
+
+        }
+
+        if (createNewUserResult.getStatus() == Result.ERROR_CODE){
+
+            errorAlert(createNewUserResult.getMessage(), APP_TITLE);
+
+            return;
+
+        }
+
+        if (createNewUserResult.getStatus() != Result.SUCCESS_CODE){
+            errorAlert("Unknown State!! Status Code: "+createNewUserResult.getStatus(), APP_TITLE);
+
+            return;
+        }
+
+        informationAlert("New User Created!!", APP_TITLE);
 
         //init ATMStartScene
         Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
