@@ -35,7 +35,7 @@ public class LoginController {
 
 
     public void initialize() {
-
+        loginMsgLbl.setText("X.U.L.A ATM Login");
     }
 
 
