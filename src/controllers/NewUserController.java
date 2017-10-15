@@ -36,7 +36,7 @@ public class NewUserController {
     }
 
 
-    public void register(ActionEvent actionEvent) {
+    public void register(ActionEvent actionEvent) throws IOException {
 
         //get password and userName
         String userName = userNameTxt.getText();
@@ -76,6 +76,13 @@ public class NewUserController {
             return;
 
         }
+
+        //init ATMStartScene
+        Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+
+        //Show ATMStartScene
+        PRIMARY_STAGE.show();
 
     }
 
