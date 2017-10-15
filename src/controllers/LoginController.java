@@ -72,6 +72,7 @@ public class LoginController {
         //Try to login
         LoginResult loginResult = atmClient.login(userName, password);
 
+        //Check Session Status
         if (loginResult.getSessionStatus() == SessionResult.INVALID_SESSION_CODE
                 || loginResult.getSessionStatus() == SessionResult.EXPIRED_SESSION_CODE){
 
@@ -90,12 +91,23 @@ public class LoginController {
 
         }
 
+        //Check Result Status
         if (loginResult.getStatus() == Result.ERROR_CODE){
 
             errorAlert(loginResult.getMessage(), APP_TITLE);
 
             return;
 
+        }
+
+        //Check if Unknown State
+        if (loginResult.getStatus() != Result.SUCCESS_CODE){
+            errorAlert(
+                    "Unknown State!! Status Code: "+loginResult.getStatus(),
+                    APP_TITLE
+            );
+
+            return;
         }
 
         //Go to UserHomeScene if login success
