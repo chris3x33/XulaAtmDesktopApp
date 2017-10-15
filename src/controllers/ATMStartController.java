@@ -31,7 +31,7 @@ public class ATMStartController {
 
 
     public void initialize() {
-
+        welcomeMsgLbl.setText("Welcome to X.U.L.A ATM");
     }
 
 
