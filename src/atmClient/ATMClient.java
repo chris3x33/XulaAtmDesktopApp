@@ -659,6 +659,142 @@ public class ATMClient {
 
     }
 
+    public LogOutResult logout(){
+
+        String ipAddress = getIpAddress();
+        int port = getPort();
+        int timeOut = getTimeOut();
+
+        return handleLogout(ipAddress, port, timeOut);
+
+    }
+
+    private LogOutResult handleLogout(String ipAddress, int port, int timeOut) {
+
+        Socket socket;
+        try {
+
+            //Open a new socket Connection
+            socket = openNewSocket(ipAddress, port, timeOut);
+
+            LogOutResult logOutResult = handleLogoutExchange(
+                    socket,
+                    timeOut
+            );
+
+            //Close connection
+            socket.close();
+
+            return logOutResult;
+
+        } catch (SocketTimeoutException e) {
+
+            String errMsg = "Unable to Connect Please Try again later!!";
+
+            return new LogOutResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+
+        } catch (IOException e) {
+
+            String errMsg = "Connection Error Please Try again later!!";
+
+            return new LogOutResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+        }
+
+
+
+    }
+
+    private LogOutResult handleLogoutExchange(Socket socket, int timeOut) throws IOException {
+
+        DataInputStream dataIn = getDataInputStream(socket);
+        DataOutputStream dataOut = getDataOutputStream(socket);
+
+        System.out.println("\n\nLogoutCMD Start");
+
+        int ack;
+
+        //Send sessionId
+        dataOut.writeLong(sessionId);
+        System.out.println("\tSent sessionId: "+sessionId);
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Send ACK
+        dataOut.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read session Result
+        int readSessionStatus = readIntWTimeout(socket, dataIn, timeOut);
+        System.out.println("\tRead readSessionStatus: "+readSessionStatus);
+
+        //Send ACK
+        dataOut.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        if (readSessionStatus <= SessionResult.ERROR_CODE) {
+
+            //Get Session Msg Length in bytes
+            int readSessionMessageLen = readIntWTimeout(socket, dataIn, timeOut);
+            System.out.println("\tRead readSessionMessage Length");
+
+            //Send ACK
+            dataOut.writeInt(ACK_CODE);
+            System.out.println("\tSent ACK");
+
+            //Get Session Msg
+            byte[] readSessionBytes = readBytesWTimeout(
+                    socket,
+                    dataIn,
+                    timeOut,
+                    readSessionMessageLen
+            );
+            String readSessionMessage = new String(readSessionBytes);
+            System.out.println("\tRead readSessionMessage: "+readSessionMessage);
+
+            //Send ACK
+            dataOut.writeInt(ACK_CODE);
+            System.out.println("\tSent ACK");
+
+            //Read ACK
+            ack = readIntWTimeout(socket, dataIn, timeOut);
+            printACKResult(ack);
+
+            System.out.println("LogoutCMD End\n");
+
+            return new LogOutResult(
+                    readSessionStatus,
+                    readSessionMessage,
+                    Result.ERROR_CODE
+            );
+
+        }
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Send Logout cmd
+        dataOut.writeInt(XulaAtmServerCommands.LOGOUT_CMD);
+        System.out.println("\tSent LogoutCMD");
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Send ACK
+        dataOut.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        System.out.println("LogoutCMD End\n");
+
+        return new LogOutResult(SessionResult.SUCCESS_CODE, Result.SUCCESS_CODE);
+    }
 
     public Result setConnection(String ipAddress, int port, int timeOut) {
 

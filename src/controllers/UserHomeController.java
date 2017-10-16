@@ -1,6 +1,8 @@
 package controllers;
 
 import atmClient.ATMClient;
+import atmClient.LogOutResult;
+import atmClient.SessionResult;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +12,8 @@ import javafx.stage.Stage;
 import main.Main;
 
 import java.io.IOException;
+
+import static com.utils.Alerts.errorAlert;
 
 public class UserHomeController {
 
@@ -52,6 +56,28 @@ public class UserHomeController {
     }
 
     public void runLogOut(ActionEvent actionEvent) throws IOException {
+
+        //LogOut
+        LogOutResult logoutResult = atmClient.logout();
+
+        //Check Session Status
+        if (logoutResult.getSessionStatus() == SessionResult.INVALID_SESSION_CODE
+                || logoutResult.getSessionStatus() == SessionResult.EXPIRED_SESSION_CODE){
+
+
+            errorAlert(logoutResult.getSessionMessage(), APP_TITLE);
+
+            return;
+
+        }
+
+        if (logoutResult.getSessionStatus() == SessionResult.ERROR_CODE){
+
+            errorAlert(logoutResult.getSessionMessage(), APP_TITLE);
+
+            return;
+
+        }
 
         //init ATMStartScene
         Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
