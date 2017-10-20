@@ -7,6 +7,10 @@ public class SessionResult extends Result{
     public static final int INVALID_SESSION_CODE = -1;
     public static final int EXPIRED_SESSION_CODE = -2;
 
+    public SessionResult(int sessionStatus) {
+        this.sessionStatus = sessionStatus;
+    }
+
     public int getSessionStatus() {
         return sessionStatus;
     }
