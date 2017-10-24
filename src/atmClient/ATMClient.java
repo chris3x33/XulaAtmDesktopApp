@@ -110,6 +110,58 @@ public class ATMClient {
         System.out.println("NewSessionCMD End\n");
     }
 
+    private void sendString(
+            Socket socket, int timeOut, String sendStr) throws IOException {
+
+        int ack;
+
+        DataInputStream dataIn = getDataInputStream(socket);
+        DataOutputStream dataOut = getDataOutputStream(socket);
+
+        //Send sendStr Length
+        dataOut.writeInt(sendStr.length());
+        System.out.println("\tSent sendStr Length");
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Send sendStr Bytes
+        dataOut.write(sendStr.getBytes());
+        System.out.println("\tSent sendStr: "+sendStr);
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+    }
+
+    private String readString(
+            Socket socket, int timeOut, String sendStr) throws IOException {
+
+        DataInputStream dataIn = getDataInputStream(socket);
+        DataOutputStream dataOut = getDataOutputStream(socket);
+
+        //read Str Len
+        int readStrLen = readIntWTimeout(socket,dataIn,timeOut);
+        System.out.println("\tRead readStr Len");
+
+        //Send Ack
+        dataOut.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read Str
+        String readStr = new String(readBytesWTimeout( socket, dataIn, timeOut, readStrLen));
+        System.out.println("\tRead readStr: "+readStr);
+
+        //Send Ack
+        dataOut.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        return readStr;
+
+    }
+
     private long readLongWTimeout(Socket socket, DataInputStream dataIn, int timeOut) throws IOException {
 
         final long BYTE_SIZE_OF_LONG = Long.SIZE / Byte.SIZE;
@@ -433,37 +485,11 @@ public class ATMClient {
         ack = readIntWTimeout(socket, dataIn, timeOut);
         printACKResult(ack);
 
-        //Send userName Length
-        dataOut.writeInt(userName.length());
-        System.out.println("\tSent userName Length");
+        //Send userName
+        sendString(socket, timeOut, userName);
 
-        //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
-
-        //Send userName Bytes
-        dataOut.write(userName.getBytes());
-        System.out.println("\tSent userName Bytes");
-
-        //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
-
-        //Send password Length
-        dataOut.writeInt(password.length());
-        System.out.println("\tSent password Length");
-
-        //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
-
-        //Send password Bytes
-        dataOut.write(password.getBytes());
-        System.out.println("\tSent password Bytes");
-
-        //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        //Send password
+        sendString(socket, timeOut, password);
 
         Result result = getResult(socket, timeOut);
 
@@ -556,37 +582,11 @@ public class ATMClient {
         ack = readIntWTimeout(socket, dataIn, timeOut);
         printACKResult(ack);
 
-        //Send userName Length
-        dataOut.writeInt(userName.length());
-        System.out.println("\tSent userName Length");
+        //Send userName
+        sendString(socket, timeOut, userName);
 
-        //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
-
-        //Send userName Bytes
-        dataOut.write(userName.getBytes());
-        System.out.println("\tSent userName Bytes");
-
-        //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
-
-        //Send password Length
-        dataOut.writeInt(password.length());
-        System.out.println("\tSent password Length");
-
-        //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
-
-        //Send password Bytes
-        dataOut.write(password.getBytes());
-        System.out.println("\tSent password Bytes");
-
-        //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        //Send password
+        sendString(socket, timeOut, password);
 
         Result result = getResult(socket, timeOut);
 
