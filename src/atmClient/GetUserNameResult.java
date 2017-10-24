@@ -19,4 +19,13 @@ public class GetUserNameResult extends SessionResult {
     public GetUserNameResult(int sessionStatus, String sessionMessage, int status, String message) {
         super(sessionStatus, sessionMessage, status, message);
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
 }
