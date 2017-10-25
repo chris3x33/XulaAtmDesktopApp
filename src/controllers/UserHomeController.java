@@ -1,8 +1,6 @@
 package controllers;
 
-import atmClient.ATMClient;
-import atmClient.LogOutResult;
-import atmClient.SessionResult;
+import atmClient.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,9 +27,51 @@ public class UserHomeController {
 
     public Label userHomeHeaderLbl;
 
-    public void initialize() {
+    public void initialize() throws IOException {
+
+        //Get UserName
+        GetUserNameResult getUserNameResult = atmClient.getUserName();
+
+        //Check Session Status
+        if (getUserNameResult.getSessionStatus() == SessionResult.INVALID_SESSION_CODE
+                || getUserNameResult.getSessionStatus() == SessionResult.EXPIRED_SESSION_CODE){
+
+            errorAlert(getUserNameResult.getSessionMessage(), APP_TITLE);
+
+            //Go back to ATMStartScene
+            goToATMStartScene();
+
+            return;
+
+        }
+
+        if (getUserNameResult.getSessionStatus() == SessionResult.ERROR_CODE){
+
+            errorAlert(getUserNameResult.getSessionMessage(), APP_TITLE);
+
+            setDefaultHeaderLbl();
+
+            return;
+
+        }
+
+        //Check Result Status
+        if (getUserNameResult.getStatus() == Result.ERROR_CODE){
+
+            errorAlert(getUserNameResult.getMessage(), APP_TITLE);
+
+            setDefaultHeaderLbl();
+
+            return;
+
+        }
+
+        //Get UserName
+        String userName = getUserNameResult.getUserName();
+        setHeaderLbl("Welcome, "+userName);
 
     }
+
 
     private void setHeaderLbl(String msg) {
         userHomeHeaderLbl.setText(msg);
