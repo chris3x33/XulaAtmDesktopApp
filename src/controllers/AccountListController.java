@@ -2,10 +2,15 @@ package controllers;
 
 import atmClient.ATMClient;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import main.Main;
+
+import java.io.IOException;
 
 public class AccountListController {
 
@@ -31,6 +36,14 @@ public class AccountListController {
     public void runViewAccount(ActionEvent actionEvent) {
     }
 
-    public void back(ActionEvent actionEvent) {
+    public void back(ActionEvent actionEvent) throws IOException {
+
+        //init UserHomeScene
+        Parent root = FXMLLoader.load(getClass().getResource(USER_HOME_SCENE));
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+
+        //Show USER_HOME_SCENE
+        PRIMARY_STAGE.show();
+
     }
 }
