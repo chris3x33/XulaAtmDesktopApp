@@ -24,6 +24,7 @@ public class UserHomeController {
 
     public final String ATM_START_SCENE = Main.ATM_START_SCENE;
     public final String DEPOSIT_SCENE = Main.DEPOSIT_SCENE;
+    public final String ACCOUNT_LIST_SCENE = Main.ACCOUNT_LIST_SCENE;
 
     public Label userHomeHeaderLbl;
 
