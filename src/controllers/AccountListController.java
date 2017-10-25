@@ -15,6 +15,7 @@ public class AccountListController {
     public static final Stage PRIMARY_STAGE = Main.primaryStage;
 
     public static ATMClient atmClient = Main.atmClient;
+    public final String USER_HOME_SCENE = Main.USER_HOME_SCENE;
 
     public Label headerLbl;
     public ListView accountsListView;
