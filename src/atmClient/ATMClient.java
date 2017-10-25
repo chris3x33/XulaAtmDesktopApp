@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
 
 public class ATMClient {
 
@@ -133,6 +134,35 @@ public class ATMClient {
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
         printACKResult(ack);
+
+    }
+
+    private ArrayList<Long> readLongs(Socket socket, int timeOut) throws IOException {
+
+        DataInputStream dataIn = getDataInputStream(socket);
+        DataOutputStream dataOut = getDataOutputStream(socket);
+
+        //read ArrayList<Long> Len
+        int readLen = readIntWTimeout(socket,dataIn,timeOut);
+        System.out.println("\tRead ArrayList<Long> Len");
+
+        //Send Ack
+        dataOut.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        ArrayList<Long> longs = new ArrayList<Long>();
+        for (int i = 0; i < readLen; i++) {
+
+            long curLong = readLongWTimeout(socket, dataIn, timeOut);
+            longs.add(curLong);
+
+            //Send Ack
+            dataOut.writeInt(ACK_CODE);
+            System.out.println("\tSent ACK");
+
+        }
+
+        return longs;
 
     }
 
