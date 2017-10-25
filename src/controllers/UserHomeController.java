@@ -33,6 +33,16 @@ public class UserHomeController {
 
     }
 
+    private void goToATMStartScene() throws IOException {
+
+        //init ATMStartScene
+        Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+
+        //Show ATMStartScene
+        PRIMARY_STAGE.show();
+
+    }
 
     public void runViewAccounts(ActionEvent actionEvent) {
     }
