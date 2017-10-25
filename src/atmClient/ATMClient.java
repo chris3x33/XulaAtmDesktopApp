@@ -961,6 +961,116 @@ public class ATMClient {
 
     }
 
+    public GetAccountBalanceResult getAccountBalance(long accountId){
+
+        String ipAddress = getIpAddress();
+        int port = getPort();
+        int timeOut = getTimeOut();
+
+        return handleGetAccountBalance(
+                ipAddress, port, timeOut, accountId
+        );
+    }
+
+    private GetAccountBalanceResult handleGetAccountBalance(String ipAddress, int port, int timeOut, long accountId) {
+
+        Socket socket;
+        try {
+
+            //Open a new socket Connection
+            socket = openNewSocket(ipAddress, port, timeOut);
+            GetAccountBalanceResult getAccountBalanceResult = handleGetAccountBalanceExchange(
+                    socket,
+                    timeOut,
+                    accountId
+            );
+
+            //Close connection
+            socket.close();
+
+            return getAccountBalanceResult;
+
+        } catch (SocketTimeoutException e) {
+
+            String errMsg = "Unable to Connect Please Try again later!!";
+
+            return new GetAccountBalanceResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+
+        } catch (IOException e) {
+
+            String errMsg = "Connection Error Please Try again later!!";
+
+            return new GetAccountBalanceResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+        }
+
+    }
+
+    private GetAccountBalanceResult handleGetAccountBalanceExchange(Socket socket, int timeOut, long accountId) throws IOException {
+
+        DataInputStream dataIn = getDataInputStream(socket);
+        DataOutputStream dataOut = getDataOutputStream(socket);
+
+        System.out.println("\n\nGetAccountBalanceCMD Start");
+
+        int ack;
+
+        SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
+
+        int readSessionStatus = sessionResult.getSessionStatus();
+
+        if(readSessionStatus == SessionResult.ERROR_CODE){
+
+            System.out.println("GetAccountBalanceCMD End\n");
+
+            return new GetAccountBalanceResult(
+                    sessionResult.getSessionStatus(),
+                    sessionResult.getSessionMessage(),
+                    Result.ERROR_CODE
+            );
+
+        }
+
+        System.out.println("\tSent GetAccountBalanceCMD");
+        sendCommand(socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.GET_ACCOUNT_BALANCE_CMD);
+
+        //Send AccountId
+        dataOut.writeLong(accountId);
+        System.out.println("\tSent AccountId: "+accountId);
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Send ACK
+        dataOut.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read Result
+        Result result = getResult(socket, timeOut);
+        if(result.getStatus() == Result.ERROR_CODE){
+            System.out.println("GetAccountBalanceCMD End\n");
+            return new GetAccountBalanceResult(
+                    sessionResult.getSessionStatus(),
+                    result.getStatus(),
+                    result.getMessage()
+            );
+        }
+
+        //read accountBalance
+        double accountBalance = readDoubleWTimeout(socket,dataIn,timeOut);
+        System.out.println("\tRead accountBalance: "+accountBalance+"\n");
+
+        System.out.println("GetAccountBalanceCMD End\n");
+
+        return new GetAccountBalanceResult(
+                sessionResult.getSessionStatus(),
+                result.getStatus(),
+                accountBalance
+        );
+
+    }
+
+
     private void sendCommand(Socket socket, DataInputStream dataIn, DataOutputStream dataOut, int timeOut, int command) throws IOException {
 
         int ack;
