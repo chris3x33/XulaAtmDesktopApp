@@ -33,6 +33,10 @@ public class UserHomeController {
 
     }
 
+    private void setDefaultHeaderLbl(){
+        userHomeHeaderLbl.setText("Welcome");
+    }
+
     private void goToATMStartScene() throws IOException {
 
         //init ATMStartScene
