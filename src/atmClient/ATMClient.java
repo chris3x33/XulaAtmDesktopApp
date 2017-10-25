@@ -137,7 +137,7 @@ public class ATMClient {
     }
 
     private String readString(
-            Socket socket, int timeOut, String sendStr) throws IOException {
+            Socket socket, int timeOut) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
@@ -642,8 +642,6 @@ public class ATMClient {
             return new LogOutResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
         }
 
-
-
     }
 
     private LogOutResult handleLogoutExchange(Socket socket, int timeOut) throws IOException {
@@ -721,7 +719,10 @@ public class ATMClient {
         userDefinedTimeOut = timeOut;
 
         return new Result(Result.SUCCESS_CODE);
+
     }
+
+    
 
     public boolean ipAddressExists(String ipAddress) {
 
