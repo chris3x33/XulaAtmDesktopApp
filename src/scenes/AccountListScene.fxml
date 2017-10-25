@@ -10,5 +10,6 @@
     <ListView fx:id="accountsListView" />
 
     <Button text="View" onAction="#runViewAccount" />
+    <Button text="Back" onAction="#back" />
 
 </VBox>

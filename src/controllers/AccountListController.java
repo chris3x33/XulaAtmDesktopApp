@@ -29,4 +29,7 @@ public class AccountListController {
 
     public void runViewAccount(ActionEvent actionEvent) {
     }
+
+    public void back(ActionEvent actionEvent) {
+    }
 }
