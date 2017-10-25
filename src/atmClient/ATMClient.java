@@ -722,7 +722,111 @@ public class ATMClient {
 
     }
 
-    
+    public GetUserNameResult getUserName(){
+
+        String ipAddress = getIpAddress();
+        int port = getPort();
+        int timeOut = getTimeOut();
+
+        return handleGetUserName(ipAddress, port, timeOut);
+
+    }
+
+    private GetUserNameResult handleGetUserName(String ipAddress, int port, int timeOut) {
+
+        Socket socket;
+        try {
+
+            //Open a new socket Connection
+            socket = openNewSocket(ipAddress, port, timeOut);
+
+            GetUserNameResult getUserNameResult = handleGetUserNameExchange(
+                    socket,
+                    timeOut
+            );
+
+            //Close connection
+            socket.close();
+
+            return getUserNameResult;
+
+        } catch (SocketTimeoutException e) {
+
+            String errMsg = "Unable to Connect Please Try again later!!";
+
+            return new GetUserNameResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+
+        } catch (IOException e) {
+
+            String errMsg = "Connection Error Please Try again later!!";
+
+            return new GetUserNameResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+        }
+
+
+
+    }
+
+    private GetUserNameResult handleGetUserNameExchange(Socket socket, int timeOut) throws IOException {
+
+        DataInputStream dataIn = getDataInputStream(socket);
+        DataOutputStream dataOut = getDataOutputStream(socket);
+
+        System.out.println("\n\nGetUserNameCMD Start");
+
+        int ack;
+
+        SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
+
+        int readSessionStatus = sessionResult.getSessionStatus();
+
+        if(readSessionStatus == SessionResult.ERROR_CODE){
+
+            System.out.println("GetUserNameCMD End\n");
+
+            return new GetUserNameResult(
+                    sessionResult.getSessionStatus(),
+                    sessionResult.getSessionMessage(),
+                    Result.ERROR_CODE
+            );
+
+        }
+
+        //Send GetUserName cmd
+        dataOut.writeInt(XulaAtmServerCommands.GET_USERNAME_CMD);
+        System.out.println("\tSent GetUserNameCMD");
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+        //Get Result
+        Result result = getResult(socket, timeOut);
+
+        //Check Result
+        if (result.getStatus() == Result.ERROR_CODE){
+
+            System.out.println("GetUserNameCMD End\n");
+
+            return new GetUserNameResult(
+                    sessionResult.getStatus(), result.getStatus(), result.getMessage()
+            );
+
+        }
+
+        String userName = readString(socket, timeOut);
+
+        GetUserNameResult getUserNameResult = new GetUserNameResult(
+                sessionResult.getStatus(), result.getStatus()
+        );
+        getUserNameResult.setUserName(userName);
+
+        System.out.println("GetUserNameCMD End\n");
+
+        return getUserNameResult;
+
+    }
+
 
     public boolean ipAddressExists(String ipAddress) {
 
