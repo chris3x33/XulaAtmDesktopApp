@@ -33,6 +33,10 @@ public class UserHomeController {
 
     }
 
+    private void setHeaderLbl(String msg) {
+        userHomeHeaderLbl.setText(msg);
+    }
+
     private void setDefaultHeaderLbl(){
         userHomeHeaderLbl.setText("Welcome");
     }
