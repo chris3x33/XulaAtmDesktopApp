@@ -856,7 +856,102 @@ public class ATMClient {
         return getUserNameResult;
 
     }
+    public GetAccountIdsResult getAccountIds(){
 
+        String ipAddress = getIpAddress();
+        int port = getPort();
+        int timeOut = getTimeOut();
+
+        return handleGetAccountIds(
+                ipAddress, port, timeOut
+        );
+    }
+
+    private GetAccountIdsResult handleGetAccountIds(String ipAddress, int port, int timeOut) {
+
+        Socket socket;
+        try {
+
+            //Open a new socket Connection
+            socket = openNewSocket(ipAddress, port, timeOut);
+            GetAccountIdsResult getAccountIdsResult = handleGetAccountIdsExchange(
+                    socket,
+                    timeOut
+            );
+
+            //Close connection
+            socket.close();
+
+            return getAccountIdsResult;
+
+        } catch (SocketTimeoutException e) {
+
+            String errMsg = "Unable to Connect Please Try again later!!";
+
+            return new GetAccountIdsResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+
+        } catch (IOException e) {
+
+            String errMsg = "Connection Error Please Try again later!!";
+
+            return new GetAccountIdsResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+        }
+
+    }
+
+    private GetAccountIdsResult handleGetAccountIdsExchange(Socket socket, int timeOut) throws IOException {
+
+        DataInputStream dataIn = getDataInputStream(socket);
+        DataOutputStream dataOut = getDataOutputStream(socket);
+
+        System.out.println("\n\nCreateNewUserCMD Start");
+
+        int ack;
+
+        SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
+
+        int readSessionStatus = sessionResult.getSessionStatus();
+
+        if(readSessionStatus == SessionResult.ERROR_CODE){
+
+            System.out.println("GetAccountIdsCMD End\n");
+
+            return new GetAccountIdsResult(
+                    sessionResult.getSessionStatus(),
+                    sessionResult.getSessionMessage(),
+                    Result.ERROR_CODE
+            );
+
+        }
+
+        //Send Create New User cmd
+        dataOut.writeInt(XulaAtmServerCommands.GET_USER_ACCOUNTIDS_CMD);
+        System.out.println("\tSent GetAccountIdsCMD");
+
+        //Read ACK
+        ack = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ack);
+
+
+        Result result = getResult(socket, timeOut);
+        if(result.getStatus() == Result.ERROR_CODE){
+            System.out.println("GetAccountIdsCMD End\n");
+            return new GetAccountIdsResult(sessionResult.getSessionStatus(), result.getStatus(), result.getMessage());
+        }
+
+        //read accountIDs
+        ArrayList<Long> accountIDs = readLongs(socket,timeOut);
+        System.out.println("\taccountIDs: "+accountIDs+"\n");
+
+        System.out.println("GetAccountIdsCMD End\n");
+
+        return new GetAccountIdsResult(
+                sessionResult.getSessionStatus(),
+                result.getStatus(),
+                accountIDs
+        );
+
+    }
 
     public boolean ipAddressExists(String ipAddress) {
 
