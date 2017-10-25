@@ -6,7 +6,7 @@
 <VBox fx:controller="controllers.UserHomeController"
       xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
 
-    <Label fx:id="userHomeMsgLbl"/>
+    <Label fx:id="userHomeHeaderLbl"/>
 
     <HBox alignment="center" spacing="10">
 
