@@ -20,6 +20,7 @@ public class Main extends Application {
     public static final String USER_HOME_SCENE = "/scenes/UserHomeScene.fxml";
     public static final String DEPOSIT_SCENE = "/scenes/DepositScene.fxml";
     public static final String SETUP_CONNECTION_SCENE = "/scenes/SetupConnectionScene.fxml";
+    public static final String ACCOUNT_LIST_SCENE = "/scenes/AccountListScene.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
