@@ -7,5 +7,5 @@ public class XulaAtmServerCommands {
     public static final int LOGOUT_CMD = 3;
     public static final int GET_USERNAME_CMD = 4;
     public static final int GET_USER_ACCOUNTIDS_CMD = 5;
-
+    public static final int GET_ACCOUNT_BALANCE_CMD = 6;
 }
