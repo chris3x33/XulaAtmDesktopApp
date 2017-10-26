@@ -9,6 +9,7 @@ import java.net.*;
 import java.util.ArrayList;
 
 import static atmClient.socketData.SocketDataReader.readIntWTimeout;
+import static atmClient.socketData.SocketDataReader.readLongWTimeout;
 
 public class ATMClient {
 
@@ -194,25 +195,6 @@ public class ATMClient {
 
         return readStr;
 
-    }
-
-    private long readLongWTimeout(Socket socket, DataInputStream dataIn, int timeOut) throws IOException {
-
-        final long BYTE_SIZE_OF_LONG = Long.SIZE / Byte.SIZE;
-
-        boolean hasLong;
-
-        long startTime = System.currentTimeMillis();
-
-        do {
-            hasLong = (socket.getInputStream().available() >= BYTE_SIZE_OF_LONG);
-        } while (!hasLong && (System.currentTimeMillis() - startTime) < timeOut);
-
-        if (hasLong) {
-            return dataIn.readLong();
-        } else {
-            throw new SocketTimeoutException();
-        }
     }
 
     private byte[] readBytesWTimeout(Socket socket, DataInputStream dataIn, int timeOut, int numOfBytes) throws IOException {
