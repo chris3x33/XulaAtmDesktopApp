@@ -171,7 +171,7 @@ public class ATMClient {
     }
 
     private String readString(
-            Socket socket, int timeOut) throws IOException {
+            Socket socket, int timeOut, int ack) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
@@ -181,7 +181,7 @@ public class ATMClient {
         System.out.println("\tRead readStr Len");
 
         //Send Ack
-        dataOut.writeInt(ACK_CODE);
+        dataOut.writeInt(ack);
         System.out.println("\tSent ACK");
 
         //Read Str
@@ -189,7 +189,7 @@ public class ATMClient {
         System.out.println("\tRead readStr: "+readStr);
 
         //Send Ack
-        dataOut.writeInt(ACK_CODE);
+        dataOut.writeInt(ack);
         System.out.println("\tSent ACK");
 
         return readStr;
@@ -774,7 +774,7 @@ public class ATMClient {
 
         }
 
-        String userName = readString(socket, timeOut);
+        String userName = readString(socket, timeOut, ACK_CODE);
 
         GetUserNameResult getUserNameResult = new GetUserNameResult(
                 sessionResult.getStatus(), result.getStatus()
