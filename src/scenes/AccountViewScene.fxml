@@ -1,6 +1,18 @@
 <?import javafx.scene.layout.VBox?>
-<VBox fx:controller="main.Controller"
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Button?>
+<VBox fx:controller="controllers.AccountViewController"
       xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="10">
 
+
+    <Label fx:id="accountIdLbl"/>
+    <Label fx:id="accountTypeLbl"/>
+    <Label fx:id="accountBalanceLbl"/>
+
+    <ListView fx:id="transactionsListView"/>
+
+    <Button text="View Statement" onAction="#runStatementViewer"/>
+    <Button text="back" onAction="#back"/>
 
 </VBox>
