@@ -37,7 +37,9 @@ public class NewUserController {
     public void initialize() {
 
     }
-
+    public void requestPasswordTxtFocus(ActionEvent actionEvent) {
+        passwordTxt.requestFocus();
+    }
 
     public void register(ActionEvent actionEvent) throws IOException {
 
