@@ -1,7 +1,11 @@
 package atmClient;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Socket;
+
+import static atmClient.socketData.SocketDataReader.readIntWTimeout;
 
 public class SocketACK {
 
@@ -21,6 +25,17 @@ public class SocketACK {
 
         dataOut.writeInt(ack);
         System.out.println("\tSent ACK");
+
+    }
+
+    public static boolean readACK(
+            Socket socket, DataInputStream dataIn, int timeOut,
+            int ackCode) throws IOException {
+
+        int ackTest = readIntWTimeout(socket, dataIn, timeOut);
+        printACKResult(ackCode, ackTest);
+
+        return (ackTest == ackCode);
 
     }
 

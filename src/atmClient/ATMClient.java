@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 
-import static atmClient.SocketACK.printACKResult;
+import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
 import static atmClient.socketData.SocketDataReader.*;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
@@ -87,15 +87,12 @@ public class ATMClient {
 
         System.out.println("\n\nNewSessionCMD Start");
 
-        int ack;
-
         //Send sessionId = -1 for new sessionId
         dataOut.writeLong(this.sessionId);
         System.out.println("\tSent sessionId = " + this.sessionId);
 
         //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ACK_CODE, ack);
+        readACK(socket, dataIn, timeOut, ACK_CODE);
 
         //Send ACK
         sendACK(dataOut,ACK_CODE);
@@ -108,8 +105,7 @@ public class ATMClient {
         sendACK(dataOut,ACK_CODE);
 
         //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ACK_CODE, ack);
+        readACK(socket, dataIn, timeOut, ACK_CODE);
 
         this.sessionId = newSessionId;
 
@@ -119,8 +115,6 @@ public class ATMClient {
     private void sendString(
             Socket socket, int timeOut, String sendStr) throws IOException {
 
-        int ack;
-
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
 
@@ -129,16 +123,14 @@ public class ATMClient {
         System.out.println("\tSent sendStr Length: " + sendStr.length());
 
         //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ACK_CODE, ack);
+        readACK(socket, dataIn, timeOut, ACK_CODE);
 
         //Send sendStr Bytes
         dataOut.write(sendStr.getBytes());
         System.out.println("\tSent sendStr: "+sendStr);
 
         //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ACK_CODE, ack);
+        readACK(socket, dataIn, timeOut, ACK_CODE);
 
     }
 
@@ -176,22 +168,17 @@ public class ATMClient {
 
     }
 
-
-
     private SessionResult getSessionResult(Socket socket, int timeOut, long sessionId) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
-
-        int ack;
 
         //Send sessionId
         dataOut.writeLong(sessionId);
         System.out.println("\tSent sessionId: "+sessionId);
 
         //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ACK_CODE, ack);
+        readACK(socket, dataIn, timeOut, ACK_CODE);
 
         //Send ACK
         sendACK(dataOut,ACK_CODE);
@@ -226,8 +213,7 @@ public class ATMClient {
             sendACK(dataOut,ACK_CODE);
 
             //Read ACK
-            ack = readIntWTimeout(socket, dataIn, timeOut);
-            printACKResult(ACK_CODE, ack);
+            readACK(socket, dataIn, timeOut, ACK_CODE);
 
             return new SessionResult(
                     readSessionStatus,
@@ -238,8 +224,7 @@ public class ATMClient {
         }
 
         //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ACK_CODE, ack);
+        readACK(socket, dataIn, timeOut, ACK_CODE);
 
         return new SessionResult(SessionResult.SUCCESS_CODE);
 
@@ -249,8 +234,6 @@ public class ATMClient {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
-
-        int ack;
 
         //Read status result
         int readResultStatus = readIntWTimeout(
@@ -286,8 +269,7 @@ public class ATMClient {
             sendACK(dataOut,ACK_CODE);
 
             //Read ACK
-            ack = readIntWTimeout(socket, dataIn, timeOut);
-            printACKResult(ACK_CODE, ack);
+            readACK(socket, dataIn, timeOut, ACK_CODE);
 
             return new Result(
                     Result.ERROR_CODE,
@@ -297,8 +279,7 @@ public class ATMClient {
         }
 
         //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ACK_CODE, ack);
+        readACK(socket, dataIn, timeOut, ACK_CODE);
 
         return new Result(Result.SUCCESS_CODE);
 
@@ -349,14 +330,10 @@ public class ATMClient {
 
     private LoginResult handleLoginExchange(Socket socket, int timeOut, String userName, String password) throws IOException {
 
-        //sessionId=0;
-
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
 
         System.out.println("\n\nLoginCMD Start");
-
-        int ack;
 
         SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
 
@@ -452,8 +429,6 @@ public class ATMClient {
 
         System.out.println("\n\nCreateNewUserCMD Start");
 
-        int ack;
-
         SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
@@ -492,7 +467,6 @@ public class ATMClient {
         }
 
         return new CreateNewUserResult(sessionResult.getSessionStatus(), result.getStatus());
-
 
     }
 
@@ -546,8 +520,6 @@ public class ATMClient {
 
         System.out.println("\n\nLogoutCMD Start");
 
-        int ack;
-
         SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
@@ -572,8 +544,7 @@ public class ATMClient {
         sendACK(dataOut,ACK_CODE);
 
         //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ACK_CODE, ack);
+        readACK(socket, dataIn, timeOut, ACK_CODE);
 
         System.out.println("LogoutCMD End\n");
 
@@ -653,8 +624,6 @@ public class ATMClient {
             return new GetUserNameResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
         }
 
-
-
     }
 
     private GetUserNameResult handleGetUserNameExchange(Socket socket, int timeOut) throws IOException {
@@ -663,8 +632,6 @@ public class ATMClient {
         DataOutputStream dataOut = getDataOutputStream(socket);
 
         System.out.println("\n\nGetUserNameCMD Start");
-
-        int ack;
 
         SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
 
@@ -765,8 +732,6 @@ public class ATMClient {
 
         System.out.println("\n\nGetAccountIdsCMD Start");
 
-        int ack;
-
         SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
@@ -861,8 +826,6 @@ public class ATMClient {
 
         System.out.println("\n\nGetAccountBalanceCMD Start");
 
-        int ack;
-
         SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
@@ -887,8 +850,7 @@ public class ATMClient {
         System.out.println("\tSent AccountId: "+accountId);
 
         //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ACK_CODE, ack);
+        readACK(socket, dataIn, timeOut, ACK_CODE);
 
         //Send ACK
         sendACK(dataOut,ACK_CODE);
@@ -921,14 +883,11 @@ public class ATMClient {
 
     private void sendCommand(Socket socket, DataInputStream dataIn, DataOutputStream dataOut, int timeOut, int command) throws IOException {
 
-        int ack;
-
         //Send Command
         dataOut.writeInt(command);
 
         //Read ACK
-        ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ACK_CODE, ack);
+        readACK(socket, dataIn, timeOut, ACK_CODE);
 
     }
 
