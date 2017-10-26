@@ -9,6 +9,7 @@ import java.net.*;
 import java.util.ArrayList;
 
 import static atmClient.SocketACK.printACKResult;
+import static atmClient.SocketACK.sendACK;
 import static atmClient.socketData.SocketDataReader.*;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 
@@ -97,16 +98,14 @@ public class ATMClient {
         printACKResult(ACK_CODE, ack);
 
         //Send ACK
-        dataOut.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ACK_CODE);
 
         //Read new sessionId > -1
         long newSessionId = readLongWTimeout(socket, dataIn, timeOut);
         System.out.println("\tRead sessionId = " + newSessionId);
 
         //Send ACK
-        dataOut.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ACK_CODE);
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
@@ -195,16 +194,14 @@ public class ATMClient {
         printACKResult(ACK_CODE, ack);
 
         //Send ACK
-        dataOut.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ACK_CODE);
 
         //Read session Result
         int readSessionStatus = readIntWTimeout(socket, dataIn, timeOut);
         System.out.println("\tRead readSessionStatus: "+readSessionStatus);
 
         //Send ACK
-        dataOut.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ACK_CODE);
 
         if (readSessionStatus <= SessionResult.ERROR_CODE) {
 
@@ -213,8 +210,7 @@ public class ATMClient {
             System.out.println("\tRead readSessionMessage Length");
 
             //Send ACK
-            dataOut.writeInt(ACK_CODE);
-            System.out.println("\tSent ACK");
+            sendACK(dataOut,ACK_CODE);
 
             //Get Session Msg
             byte[] readSessionBytes = readBytesWTimeout(
@@ -227,8 +223,7 @@ public class ATMClient {
             System.out.println("\tRead readSessionMessage: "+readSessionMessage);
 
             //Send ACK
-            dataOut.writeInt(ACK_CODE);
-            System.out.println("\tSent ACK");
+            sendACK(dataOut,ACK_CODE);
 
             //Read ACK
             ack = readIntWTimeout(socket, dataIn, timeOut);
@@ -266,8 +261,7 @@ public class ATMClient {
         System.out.println("\tRead result status: "+readResultStatus);
 
         //Send ACK
-        dataOut.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ACK_CODE);
 
         if(readResultStatus == Result.ERROR_CODE){
 
@@ -276,8 +270,7 @@ public class ATMClient {
             System.out.println("\tRead Result Message Length");
 
             //Send ACK
-            dataOut.writeInt(ACK_CODE);
-            System.out.println("\tSent ACK");
+            sendACK(dataOut,ACK_CODE);
 
             //Get Result Msg
             byte[] readResultMessageBytes = readBytesWTimeout(
@@ -290,8 +283,7 @@ public class ATMClient {
             System.out.println("\tRead result Message: "+readResultMessage);
 
             //Send ACK
-            dataOut.writeInt(ACK_CODE);
-            System.out.println("\tSent ACK");
+            sendACK(dataOut,ACK_CODE);
 
             //Read ACK
             ack = readIntWTimeout(socket, dataIn, timeOut);
@@ -393,8 +385,7 @@ public class ATMClient {
         sendString(socket, timeOut, password);
 
         //Send ACK
-        dataOut.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ACK_CODE);
 
         Result result = getResult(socket, timeOut);
 
@@ -490,8 +481,7 @@ public class ATMClient {
         sendString(socket, timeOut, password);
 
         //Send ACK
-        dataOut.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ACK_CODE);
 
         Result result = getResult(socket, timeOut);
 
@@ -579,8 +569,7 @@ public class ATMClient {
         sendCommand( socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.LOGOUT_CMD);
 
         //Send ACK
-        dataOut.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ACK_CODE);
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
@@ -698,8 +687,7 @@ public class ATMClient {
         sendCommand( socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.GET_USERNAME_CMD);
 
         //Send ACK
-        dataOut.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ACK_CODE);
 
         //Get Result
         Result result = getResult(socket, timeOut);
@@ -800,8 +788,7 @@ public class ATMClient {
         sendCommand( socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.GET_USER_ACCOUNTIDS_CMD);
 
         //Send ACK
-        dataOut.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ACK_CODE);
 
         Result result = getResult(socket, timeOut);
         if(result.getStatus() == Result.ERROR_CODE){
@@ -904,8 +891,7 @@ public class ATMClient {
         printACKResult(ACK_CODE, ack);
 
         //Send ACK
-        dataOut.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ACK_CODE);
 
         //Read Result
         Result result = getResult(socket, timeOut);
