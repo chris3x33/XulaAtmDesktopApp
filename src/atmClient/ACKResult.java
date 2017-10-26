@@ -1,4 +1,4 @@
-package atmClient.result;
+package atmClient;
 
 public class ACKResult {
 

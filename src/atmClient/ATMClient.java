@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 
-import static atmClient.result.ACKResult.printACKResult;
+import static atmClient.ACKResult.printACKResult;
 import static atmClient.socketData.SocketDataReader.*;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 
