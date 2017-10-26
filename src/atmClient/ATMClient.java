@@ -142,7 +142,7 @@ public class ATMClient {
 
     }
 
-    private ArrayList<Long> readLongs(Socket socket, int timeOut) throws IOException {
+    private ArrayList<Long> readLongs(Socket socket, int timeOut, int ack) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
@@ -152,7 +152,7 @@ public class ATMClient {
         System.out.println("\tRead ArrayList<Long> Len");
 
         //Send Ack
-        dataOut.writeInt(ACK_CODE);
+        dataOut.writeInt(ack);
         System.out.println("\tSent ACK");
 
         ArrayList<Long> longs = new ArrayList<Long>();
@@ -162,7 +162,7 @@ public class ATMClient {
             longs.add(curLong);
 
             //Send Ack
-            dataOut.writeInt(ACK_CODE);
+            dataOut.writeInt(ack);
             System.out.println("\tSent ACK");
 
         }
@@ -838,7 +838,7 @@ public class ATMClient {
         }
 
         //read accountIDs
-        ArrayList<Long> accountIDs = readLongs(socket,timeOut);
+        ArrayList<Long> accountIDs = readLongs(socket,timeOut,ACK_CODE);
         System.out.println("\tRead accountIDs: "+accountIDs+"\n");
 
         System.out.println("GetAccountIdsCMD End\n");
