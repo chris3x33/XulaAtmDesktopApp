@@ -12,7 +12,7 @@
 
         <HBox alignment="center" spacing="10">
             <Label text="UserName: "/>
-            <TextField fx:id="userNameTxt"/>
+            <TextField fx:id="userNameTxt" onAction="#requestPasswordTxtFocus"/>
         </HBox>
 
         <HBox alignment="center" spacing="10">

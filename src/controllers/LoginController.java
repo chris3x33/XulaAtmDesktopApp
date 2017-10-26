@@ -128,4 +128,8 @@ public class LoginController {
         //Show ATMStartScene
         PRIMARY_STAGE.show();
     }
+
+    public void requestPasswordTxtFocus(ActionEvent actionEvent) {
+        passwordTxt.requestFocus();
+    }
 }
