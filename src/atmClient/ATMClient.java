@@ -230,10 +230,6 @@ public class ATMClient {
 
     }
 
-    private DataInputStream getDataInputStream(Socket socket) throws IOException {
-        return new DataInputStream(socket.getInputStream());
-    }
-
     private DataOutputStream getDataOutputStream(Socket socket) throws IOException {
         return new DataOutputStream(socket.getOutputStream());
     }

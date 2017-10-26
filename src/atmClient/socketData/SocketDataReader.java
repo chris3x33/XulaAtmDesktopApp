@@ -90,4 +90,8 @@ public class SocketDataReader {
         }
     }
 
+    public static DataInputStream getDataInputStream(Socket socket) throws IOException {
+        return new DataInputStream(socket.getInputStream());
+    }
+
 }
