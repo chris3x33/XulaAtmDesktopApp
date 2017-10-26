@@ -17,7 +17,7 @@
 
         <HBox alignment="center" spacing="10">
             <Label text="Password: "/>
-            <TextField fx:id="passwordTxt"/>
+            <TextField fx:id="passwordTxt" onAction="#login"/>
         </HBox>
         <Button text="Login" onAction="#login"/>
     </VBox>
