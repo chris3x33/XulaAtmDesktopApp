@@ -142,35 +142,6 @@ public class ATMClient {
 
     }
 
-    private ArrayList<Long> readLongs(Socket socket, int timeOut, int ack) throws IOException {
-
-        DataInputStream dataIn = getDataInputStream(socket);
-        DataOutputStream dataOut = getDataOutputStream(socket);
-
-        //read ArrayList<Long> Len
-        int readLen = readIntWTimeout(socket,dataIn,timeOut);
-        System.out.println("\tRead ArrayList<Long> Len");
-
-        //Send Ack
-        dataOut.writeInt(ack);
-        System.out.println("\tSent ACK");
-
-        ArrayList<Long> longs = new ArrayList<Long>();
-        for (int i = 0; i < readLen; i++) {
-
-            long curLong = readLongWTimeout(socket, dataIn, timeOut);
-            longs.add(curLong);
-
-            //Send Ack
-            dataOut.writeInt(ack);
-            System.out.println("\tSent ACK");
-
-        }
-
-        return longs;
-
-    }
-
     public int getTimeOut() {
         if (userDefinedTimeOut > -1) {
             return userDefinedTimeOut;

@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 
@@ -120,6 +121,35 @@ public class SocketDataReader {
         System.out.println("\tSent ACK");
 
         return readStr;
+
+    }
+
+    public static ArrayList<Long> readLongs(Socket socket, int timeOut, int ack) throws IOException {
+
+        DataInputStream dataIn = getDataInputStream(socket);
+        DataOutputStream dataOut = getDataOutputStream(socket);
+
+        //read ArrayList<Long> Len
+        int readLen = readIntWTimeout(socket,dataIn,timeOut);
+        System.out.println("\tRead ArrayList<Long> Len");
+
+        //Send Ack
+        dataOut.writeInt(ack);
+        System.out.println("\tSent ACK");
+
+        ArrayList<Long> longs = new ArrayList<Long>();
+        for (int i = 0; i < readLen; i++) {
+
+            long curLong = readLongWTimeout(socket, dataIn, timeOut);
+            longs.add(curLong);
+
+            //Send Ack
+            dataOut.writeInt(ack);
+            System.out.println("\tSent ACK");
+
+        }
+
+        return longs;
 
     }
 
