@@ -93,7 +93,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        printACKResult(ACK_CODE, ack);
 
         //Send ACK
         dataOut.writeInt(ACK_CODE);
@@ -109,7 +109,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        printACKResult(ACK_CODE, ack);
 
         this.sessionId = newSessionId;
 
@@ -130,7 +130,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        printACKResult(ACK_CODE, ack);
 
         //Send sendStr Bytes
         dataOut.write(sendStr.getBytes());
@@ -138,7 +138,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        printACKResult(ACK_CODE, ack);
 
     }
 
@@ -191,7 +191,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        printACKResult(ACK_CODE, ack);
 
         //Send ACK
         dataOut.writeInt(ACK_CODE);
@@ -231,7 +231,7 @@ public class ATMClient {
 
             //Read ACK
             ack = readIntWTimeout(socket, dataIn, timeOut);
-            printACKResult(ack);
+            printACKResult(ACK_CODE, ack);
 
             return new SessionResult(
                     readSessionStatus,
@@ -243,7 +243,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        printACKResult(ACK_CODE, ack);
 
         return new SessionResult(SessionResult.SUCCESS_CODE);
 
@@ -294,7 +294,7 @@ public class ATMClient {
 
             //Read ACK
             ack = readIntWTimeout(socket, dataIn, timeOut);
-            printACKResult(ack);
+            printACKResult(ACK_CODE, ack);
 
             return new Result(
                     Result.ERROR_CODE,
@@ -305,7 +305,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        printACKResult(ACK_CODE, ack);
 
         return new Result(Result.SUCCESS_CODE);
 
@@ -583,7 +583,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        printACKResult(ACK_CODE, ack);
 
         System.out.println("LogoutCMD End\n");
 
@@ -900,7 +900,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        printACKResult(ACK_CODE, ack);
 
         //Send ACK
         dataOut.writeInt(ACK_CODE);
@@ -941,7 +941,7 @@ public class ATMClient {
 
         //Read ACK
         ack = readIntWTimeout(socket, dataIn, timeOut);
-        printACKResult(ack);
+        printACKResult(ACK_CODE, ack);
 
     }
 
@@ -959,9 +959,9 @@ public class ATMClient {
 
     }
 
-    private void printACKResult(int ack){
+    private void printACKResult(int ackCode, int ackTest){
 
-        if (ack == ACK_CODE){
+        if (ackTest == ackCode){
             System.out.println("\tRead ACK");
         }else {
             System.out.println("\tACK Read Error");
