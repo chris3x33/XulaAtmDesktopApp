@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 
+import static atmClient.socketData.SocketDataReader.readIntWTimeout;
+
 public class ATMClient {
 
     private long sessionId = -1;
@@ -213,25 +215,6 @@ public class ATMClient {
         }
     }
 
-    private int readIntWTimeout(Socket socket, DataInputStream dataIn, int timeOut) throws IOException {
-
-        final int BYTE_SIZE_OF_INT = Integer.SIZE / Byte.SIZE;
-
-        boolean hasInt;
-
-        long startTime = System.currentTimeMillis();
-
-        do {
-            hasInt = (socket.getInputStream().available() >= BYTE_SIZE_OF_INT);
-        } while (!hasInt && (System.currentTimeMillis() - startTime) < timeOut);
-
-        if (hasInt) {
-            return dataIn.readInt();
-        } else {
-            throw new SocketTimeoutException();
-        }
-    }
-
     private byte[] readBytesWTimeout(Socket socket, DataInputStream dataIn, int timeOut, int numOfBytes) throws IOException {
 
         final int BYTE_SIZE = 1;
@@ -397,7 +380,7 @@ public class ATMClient {
 
         int ack;
 
-        //Read login status result
+        //Read status result
         int readResultStatus = readIntWTimeout(
                 socket,
                 dataIn,
