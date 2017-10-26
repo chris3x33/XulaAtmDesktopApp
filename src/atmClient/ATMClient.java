@@ -9,6 +9,7 @@ import java.net.*;
 import java.util.ArrayList;
 
 import static atmClient.socketData.SocketDataReader.*;
+import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 
 public class ATMClient {
 
@@ -230,9 +231,7 @@ public class ATMClient {
 
     }
 
-    private DataOutputStream getDataOutputStream(Socket socket) throws IOException {
-        return new DataOutputStream(socket.getOutputStream());
-    }
+
 
     private SessionResult getSessionResult(Socket socket, int timeOut, long sessionId) throws IOException {
 
