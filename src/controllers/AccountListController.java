@@ -1,9 +1,8 @@
 package controllers;
 
-import atmClient.ATMClient;
-import atmClient.GetAccountIdsResult;
-import atmClient.Result;
-import atmClient.SessionResult;
+import atmClient.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,8 +28,9 @@ public class AccountListController {
     public final String USER_HOME_SCENE = Main.USER_HOME_SCENE;
 
     public Label headerLbl;
-    public ListView accountsListView;
+    public ListView<String> accountsListView;
     private ArrayList<Long> accountIds;
+    private ArrayList<Double> accountBalances;
 
 
     public void initialize() {
@@ -65,9 +65,64 @@ public class AccountListController {
             return;
 
         }
+
         accountIds = getAccountIdsResult.getAccountIds();
 
+        accountBalances = getAccountBalances(accountIds);
 
+        setAccountsListView(accountIds, accountBalances);
+
+    }
+
+    private void setAccountsListView(
+            ArrayList<Long> accountIds, ArrayList<Double> accountBalances) {
+
+        ArrayList<String> formattedAccounts = getFormattedAccounts(accountIds, accountBalances);
+
+        ObservableList<String> formattedAccountLists = FXCollections.observableArrayList();
+
+        formattedAccountLists.addAll(formattedAccounts);
+
+        accountsListView.setItems(formattedAccountLists);
+
+        accountsListView.getSelectionModel().select(0);
+
+    }
+
+    private ArrayList<String> getFormattedAccounts(ArrayList<Long> accountIds, ArrayList<Double> accountBalances) {
+
+        ArrayList<String> formattedAccounts = new ArrayList<String>();
+
+        for (int i = 0; i < accountIds.size(); i++) {
+
+            String formattedAccount = String.format(
+                    "Account: %d, Balance: %.2f",
+                    accountIds.get(i),
+                    accountBalances.get(i)
+            );
+
+            formattedAccounts.add(formattedAccount);
+
+        }
+
+        return formattedAccounts;
+
+    }
+
+    private ArrayList<Double> getAccountBalances(ArrayList<Long> accountIds) {
+
+        ArrayList<Double> accountBalances = new ArrayList<Double>();
+
+        for (long accountId: accountIds){
+            GetAccountBalanceResult getAccountBalanceResult = atmClient.getAccountBalance(accountId);
+
+            double accountBalance = getAccountBalanceResult.getAccountBalance();
+
+            accountBalances.add(accountBalance);
+
+        }
+
+        return accountBalances;
     }
 
 
