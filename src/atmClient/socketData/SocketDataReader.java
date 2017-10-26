@@ -1,9 +1,12 @@
 package atmClient.socketData;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+
+import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 
 public class SocketDataReader {
 
@@ -92,6 +95,32 @@ public class SocketDataReader {
 
     public static DataInputStream getDataInputStream(Socket socket) throws IOException {
         return new DataInputStream(socket.getInputStream());
+    }
+
+    public static String readString(
+            Socket socket, int timeOut, int ack) throws IOException {
+
+        DataInputStream dataIn = getDataInputStream(socket);
+        DataOutputStream dataOut = getDataOutputStream(socket);
+
+        //read Str Len
+        int readStrLen = readIntWTimeout(socket,dataIn,timeOut);
+        System.out.println("\tRead readStr Len");
+
+        //Send Ack
+        dataOut.writeInt(ack);
+        System.out.println("\tSent ACK");
+
+        //Read Str
+        String readStr = new String(readBytesWTimeout( socket, dataIn, timeOut, readStrLen));
+        System.out.println("\tRead readStr: "+readStr);
+
+        //Send Ack
+        dataOut.writeInt(ack);
+        System.out.println("\tSent ACK");
+
+        return readStr;
+
     }
 
 }

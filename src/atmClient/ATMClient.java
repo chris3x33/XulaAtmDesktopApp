@@ -171,32 +171,6 @@ public class ATMClient {
 
     }
 
-    private String readString(
-            Socket socket, int timeOut, int ack) throws IOException {
-
-        DataInputStream dataIn = getDataInputStream(socket);
-        DataOutputStream dataOut = getDataOutputStream(socket);
-
-        //read Str Len
-        int readStrLen = readIntWTimeout(socket,dataIn,timeOut);
-        System.out.println("\tRead readStr Len");
-
-        //Send Ack
-        dataOut.writeInt(ack);
-        System.out.println("\tSent ACK");
-
-        //Read Str
-        String readStr = new String(readBytesWTimeout( socket, dataIn, timeOut, readStrLen));
-        System.out.println("\tRead readStr: "+readStr);
-
-        //Send Ack
-        dataOut.writeInt(ack);
-        System.out.println("\tSent ACK");
-
-        return readStr;
-
-    }
-
     public int getTimeOut() {
         if (userDefinedTimeOut > -1) {
             return userDefinedTimeOut;
