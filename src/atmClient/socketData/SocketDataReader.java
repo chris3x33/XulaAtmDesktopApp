@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
+import static atmClient.SocketACK.sendACK;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 
 public class SocketDataReader {
@@ -109,16 +110,14 @@ public class SocketDataReader {
         System.out.println("\tRead readStr Len");
 
         //Send Ack
-        dataOut.writeInt(ack);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ack);
 
         //Read Str
         String readStr = new String(readBytesWTimeout( socket, dataIn, timeOut, readStrLen));
         System.out.println("\tRead readStr: "+readStr);
 
         //Send Ack
-        dataOut.writeInt(ack);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ack);
 
         return readStr;
 
@@ -134,8 +133,7 @@ public class SocketDataReader {
         System.out.println("\tRead ArrayList<Long> Len");
 
         //Send Ack
-        dataOut.writeInt(ack);
-        System.out.println("\tSent ACK");
+        sendACK(dataOut,ack);
 
         ArrayList<Long> longs = new ArrayList<Long>();
         for (int i = 0; i < readLen; i++) {
@@ -144,8 +142,7 @@ public class SocketDataReader {
             longs.add(curLong);
 
             //Send Ack
-            dataOut.writeInt(ack);
-            System.out.println("\tSent ACK");
+            sendACK(dataOut,ack);
 
         }
 
