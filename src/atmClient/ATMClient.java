@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 
-import static atmClient.socketData.SocketDataReader.readBytesWTimeout;
-import static atmClient.socketData.SocketDataReader.readIntWTimeout;
-import static atmClient.socketData.SocketDataReader.readLongWTimeout;
+import static atmClient.socketData.SocketDataReader.*;
 
 public class ATMClient {
 
@@ -196,27 +194,6 @@ public class ATMClient {
 
         return readStr;
 
-    }
-
-
-
-    private double readDoubleWTimeout(Socket socket, DataInputStream dataIn, int timeOut) throws IOException {
-
-        final int BYTE_SIZE_OF_DOUBLE = Double.SIZE / Byte.SIZE;
-
-        boolean hasDouble;
-
-        long startTime = System.currentTimeMillis();
-
-        do {
-            hasDouble = (socket.getInputStream().available() >= BYTE_SIZE_OF_DOUBLE);
-        } while (!hasDouble && (System.currentTimeMillis() - startTime) < timeOut);
-
-        if (hasDouble) {
-            return dataIn.readDouble();
-        } else {
-            throw new SocketTimeoutException();
-        }
     }
 
     public int getTimeOut() {

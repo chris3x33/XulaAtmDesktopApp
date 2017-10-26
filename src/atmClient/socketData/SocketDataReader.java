@@ -71,4 +71,23 @@ public class SocketDataReader {
         return readBytes;
     }
 
+    public static double readDoubleWTimeout(Socket socket, DataInputStream dataIn, int timeOut) throws IOException {
+
+        final int BYTE_SIZE_OF_DOUBLE = Double.SIZE / Byte.SIZE;
+
+        boolean hasDouble;
+
+        long startTime = System.currentTimeMillis();
+
+        do {
+            hasDouble = (socket.getInputStream().available() >= BYTE_SIZE_OF_DOUBLE);
+        } while (!hasDouble && (System.currentTimeMillis() - startTime) < timeOut);
+
+        if (hasDouble) {
+            return dataIn.readDouble();
+        } else {
+            throw new SocketTimeoutException();
+        }
+    }
+
 }
