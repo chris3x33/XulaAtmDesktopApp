@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 
-import static atmClient.ACKResult.printACKResult;
+import static atmClient.SocketACK.printACKResult;
 import static atmClient.socketData.SocketDataReader.*;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 
@@ -24,7 +24,7 @@ public class ATMClient {
     private int userDefinedPort = -1;
     private int userDefinedTimeOut = -1;
 
-    private final int ACK_CODE = 10101010;
+    private final int ACK_CODE = SocketACK.ACK_CODE;
 
     public Result connect() {
 
