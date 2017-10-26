@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 
+import static atmClient.result.ACKResult.printACKResult;
 import static atmClient.socketData.SocketDataReader.*;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 
@@ -958,14 +959,5 @@ public class ATMClient {
         }
 
     }
-
-    private void printACKResult(int ackCode, int ackTest){
-
-        if (ackTest == ackCode){
-            System.out.println("\tRead ACK");
-        }else {
-            System.out.println("\tACK Read Error");
-        }
-
-    }
+    
 }
