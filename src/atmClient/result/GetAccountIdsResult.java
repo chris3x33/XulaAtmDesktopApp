@@ -1,4 +1,4 @@
-package atmClient;
+package atmClient.result;
 
 import java.util.ArrayList;
 

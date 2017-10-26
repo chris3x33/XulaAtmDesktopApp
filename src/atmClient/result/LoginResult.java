@@ -1,4 +1,4 @@
-package atmClient;
+package atmClient.result;
 
 public class LoginResult extends SessionResult {
 

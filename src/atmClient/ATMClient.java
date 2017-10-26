@@ -1,5 +1,7 @@
 package atmClient;
 
+import atmClient.result.*;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

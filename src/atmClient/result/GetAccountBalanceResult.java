@@ -1,6 +1,4 @@
-package atmClient;
-
-import java.util.ArrayList;
+package atmClient.result;
 
 public class GetAccountBalanceResult extends SessionResult {
 

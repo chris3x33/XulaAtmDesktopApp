@@ -1,6 +1,10 @@
 package controllers;
 
 import atmClient.*;
+import atmClient.result.GetUserNameResult;
+import atmClient.result.LogOutResult;
+import atmClient.result.Result;
+import atmClient.result.SessionResult;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

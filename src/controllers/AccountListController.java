@@ -1,6 +1,10 @@
 package controllers;
 
 import atmClient.*;
+import atmClient.result.GetAccountBalanceResult;
+import atmClient.result.GetAccountIdsResult;
+import atmClient.result.Result;
+import atmClient.result.SessionResult;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
