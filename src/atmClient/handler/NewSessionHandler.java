@@ -44,7 +44,7 @@ public class NewSessionHandler {
         }
     }
 
-    public static NewSessionResult handleNewSessionExchange(Socket socket, int timeOut, int ackCode) throws SocketTimeoutException, IOException {
+    private static NewSessionResult handleNewSessionExchange(Socket socket, int timeOut, int ackCode) throws SocketTimeoutException, IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
