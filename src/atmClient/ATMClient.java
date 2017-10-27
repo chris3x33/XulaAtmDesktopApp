@@ -14,6 +14,7 @@ import static atmClient.SocketACK.sendACK;
 import static atmClient.handler.CommandHandler.sendCommand;
 import static atmClient.handler.CreateNewUserHandler.handleCreateNewUser;
 import static atmClient.handler.LoginHandler.handleLogin;
+import static atmClient.handler.LogoutHandler.handleLogoutExchange;
 import static atmClient.handler.NewSessionHandler.handleNewSession;
 import static atmClient.handler.ResultHandler.getResult;
 import static atmClient.handler.SessionHandler.getSessionResult;
@@ -169,49 +170,6 @@ public class ATMClient {
 
         }
 
-    }
-
-    private LogOutResult handleLogoutExchange(
-            Socket socket, int timeOut, int ackCode, long sessionId) throws IOException {
-
-        DataInputStream dataIn = getDataInputStream(socket);
-        DataOutputStream dataOut = getDataOutputStream(socket);
-
-        System.out.println("\n\nLogoutCMD Start");
-
-        SessionResult sessionResult = getSessionResult(socket, timeOut, ackCode, sessionId);
-
-        int readSessionStatus = sessionResult.getSessionStatus();
-
-        if(readSessionStatus == SessionResult.ERROR_CODE){
-
-            System.out.println("LogoutCMD End\n");
-
-            return new LogOutResult(
-                    sessionResult.getSessionStatus(),
-                    sessionResult.getSessionMessage(),
-                    Result.ERROR_CODE
-            );
-
-        }
-
-        //Send Logout cmd
-        System.out.println("\tSent LogoutCMD");
-        sendCommand(
-                socket, dataIn, dataOut, timeOut,
-                ackCode,
-                XulaAtmServerCommands.LOGOUT_CMD
-        );
-
-        //Send ACK
-        sendACK(dataOut,ackCode);
-
-        //Read ACK
-        readACK(socket, dataIn, timeOut, ackCode);
-
-        System.out.println("LogoutCMD End\n");
-
-        return new LogOutResult(SessionResult.SUCCESS_CODE, Result.SUCCESS_CODE);
     }
 
     public Result setConnection(String ipAddress, int port, int timeOut) {
