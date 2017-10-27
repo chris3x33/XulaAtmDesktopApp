@@ -36,39 +36,45 @@ public class ATMClient {
         int port = getPort();
         int timeOut = getTimeOut();
 
-        return handleNewSession(ipAddress, port, timeOut);
+        //reset sessionId if set
+        sessionId = -1;
+
+        NewSessionResult newSessionResult = handleNewSession(ipAddress, port, timeOut);
+
+        if (newSessionResult.getStatus() == Result.SUCCESS_CODE){
+            this.sessionId = newSessionResult.getSessionId();
+        }
+
+        return newSessionResult;
 
     }
 
-    private Result handleNewSession(String ipAddress, int port, int timeOut) {
-
-        //reset sessionId if set
-        sessionId = -1;
+    private NewSessionResult handleNewSession(String ipAddress, int port, int timeOut) {
 
         Socket socket;
         try {
 
             socket = openNewSocket(ipAddress, port, timeOut);
 
-            handleNewSessionExchange(socket, timeOut);
+            NewSessionResult newSessionResult = handleNewSessionExchange(socket, timeOut);
 
             //Close connection
             socket.close();
 
-            return new Result(Result.SUCCESS_CODE);
+            return newSessionResult;
 
         } catch (SocketTimeoutException e) {
 
-            return new Result(Result.ERROR_CODE, SessionHandler.SOCKET_TIMEOUT_ERROR_MSG);
+            return new NewSessionResult(Result.ERROR_CODE, SessionHandler.SOCKET_TIMEOUT_ERROR_MSG);
 
         } catch (IOException e) {
 
-            return new Result(Result.ERROR_CODE, SessionHandler.IO_EXCEPTION_ERROR_MSG);
+            return new NewSessionResult(Result.ERROR_CODE, SessionHandler.IO_EXCEPTION_ERROR_MSG);
 
         }
     }
 
-    private void handleNewSessionExchange(Socket socket, int timeOut) throws SocketTimeoutException, IOException {
+    private NewSessionResult handleNewSessionExchange(Socket socket, int timeOut) throws SocketTimeoutException, IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
@@ -95,9 +101,10 @@ public class ATMClient {
         //Read ACK
         readACK(socket, dataIn, timeOut, ACK_CODE);
 
-        this.sessionId = newSessionId;
-
         System.out.println("NewSessionCMD End\n");
+
+        return new NewSessionResult(Result.SUCCESS_CODE, newSessionId);
+
     }
 
     public int getTimeOut() {
