@@ -12,6 +12,7 @@ import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
 import static atmClient.socketData.SocketDataReader.*;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
+import static atmClient.socketData.SocketDataWriter.sendString;
 
 public class ATMClient {
 
@@ -110,28 +111,6 @@ public class ATMClient {
         this.sessionId = newSessionId;
 
         System.out.println("NewSessionCMD End\n");
-    }
-
-    private void sendString(
-            Socket socket, int timeOut, int ackCode, String sendStr) throws IOException {
-
-        DataInputStream dataIn = getDataInputStream(socket);
-        DataOutputStream dataOut = getDataOutputStream(socket);
-
-        //Send sendStr Length
-        dataOut.writeInt(sendStr.length());
-        System.out.println("\tSent sendStr Length: " + sendStr.length());
-
-        //Read ACK
-        readACK(socket, dataIn, timeOut, ackCode);
-
-        //Send sendStr Bytes
-        dataOut.write(sendStr.getBytes());
-        System.out.println("\tSent sendStr: "+sendStr);
-
-        //Read ACK
-        readACK(socket, dataIn, timeOut, ackCode);
-
     }
 
     public int getTimeOut() {
