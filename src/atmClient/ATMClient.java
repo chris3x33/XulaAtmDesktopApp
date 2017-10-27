@@ -171,11 +171,12 @@ public class ATMClient {
         int port = getPort();
         int timeOut = getTimeOut();
 
-        return handleGetUserName(ipAddress, port, timeOut);
+        return handleGetUserName(ipAddress, port, timeOut, ACK_CODE, sessionId);
 
     }
 
-    private GetUserNameResult handleGetUserName(String ipAddress, int port, int timeOut) {
+    private GetUserNameResult handleGetUserName(
+            String ipAddress, int port, int timeOut, int ackCode, long sessionId) {
 
         Socket socket;
         try {
@@ -186,7 +187,7 @@ public class ATMClient {
             GetUserNameResult getUserNameResult = handleGetUserNameExchange(
                     socket,
                     timeOut,
-                    ACK_CODE,
+                    ackCode,
                     sessionId
             );
 
