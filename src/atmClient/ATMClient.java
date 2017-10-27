@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
 import static atmClient.handler.CommandHandler.sendCommand;
+import static atmClient.handler.CreateNewUserHandler.handleCreateNewUserExchange;
 import static atmClient.handler.LoginHandler.handleLogin;
 import static atmClient.handler.NewSessionHandler.handleNewSession;
 import static atmClient.handler.ResultHandler.getResult;
@@ -154,67 +155,6 @@ public class ATMClient {
                     Result.ERROR_CODE
             );
         }
-    }
-
-    private CreateNewUserResult handleCreateNewUserExchange(
-            Socket socket, int timeOut, int ackCode,
-            long sessionId, String userName, String password) throws IOException {
-
-        DataInputStream dataIn = getDataInputStream(socket);
-        DataOutputStream dataOut = getDataOutputStream(socket);
-
-        System.out.println("\n\nCreateNewUserCMD Start");
-
-        SessionResult sessionResult = getSessionResult(socket, timeOut, ackCode, sessionId);
-
-        int readSessionStatus = sessionResult.getSessionStatus();
-
-        if(readSessionStatus == SessionResult.ERROR_CODE){
-
-            System.out.println("CreateNewUserCMD End\n");
-
-            return new CreateNewUserResult(
-                    sessionResult.getSessionStatus(),
-                    sessionResult.getSessionMessage(),
-                    Result.ERROR_CODE
-            );
-
-        }
-
-        //Send Create New User cmd
-        System.out.println("\tSent CreateNewUserCMD");
-        sendCommand(
-                socket, dataIn, dataOut, timeOut,
-                ackCode,
-                XulaAtmServerCommands.CREATE_NEW_USER_CMD
-        );
-
-        //Send userName
-        sendString(socket, timeOut, ackCode, userName);
-
-        //Send password
-        sendString(socket, timeOut, ackCode, password);
-
-        //Send ACK
-        sendACK(dataOut,ackCode);
-
-        Result result = getResult(socket, timeOut, ackCode);
-
-        System.out.println("CreateNewUserCMD End\n");
-
-        if(result.getStatus() == Result.ERROR_CODE){
-            return new CreateNewUserResult(
-                    sessionResult.getSessionStatus(),
-                    result.getStatus(),
-                    result.getMessage()
-            );
-        }
-
-        return new CreateNewUserResult(
-                sessionResult.getSessionStatus(),
-                result.getStatus()
-        );
-
     }
 
     public LogOutResult logout(){
