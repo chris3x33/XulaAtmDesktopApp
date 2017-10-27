@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
 import static atmClient.handler.CommandHandler.sendCommand;
-import static atmClient.handler.LoginHandler.handleLoginExchange;
+import static atmClient.handler.LoginHandler.handleLogin;
 import static atmClient.handler.NewSessionHandler.handleNewSession;
 import static atmClient.handler.ResultHandler.getResult;
 import static atmClient.handler.SessionHandler.getSessionResult;
@@ -106,47 +106,6 @@ public class ATMClient {
         );
 
     }
-
-    private LoginResult handleLogin(
-            String ipAddress, int port, int timeOut, int ackCode,
-            long sessionId, String userName, String password) {
-
-        Socket socket;
-        try {
-
-            //Open a new socket Connection
-            socket = openNewSocket(ipAddress, port, timeOut);
-
-            LoginResult loginResult = handleLoginExchange(
-                    socket, timeOut, ackCode,
-                    sessionId,
-                    userName, password
-            );
-
-            //Close connection
-            socket.close();
-
-            return loginResult;
-
-        } catch (SocketTimeoutException e) {
-
-            return new LoginResult(
-                    SessionResult.ERROR_CODE,
-                    SessionHandler.SOCKET_TIMEOUT_ERROR_MSG,
-                    Result.ERROR_CODE
-            );
-
-        } catch (IOException e) {
-
-            return new LoginResult(
-                    SessionResult.ERROR_CODE,
-                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
-                    Result.ERROR_CODE
-            );
-        }
-    }
-
-
 
     public CreateNewUserResult createNewUser(String userName, String password) {
 
