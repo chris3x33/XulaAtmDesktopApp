@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
+import static atmClient.handler.CommandHandler.sendCommand;
 import static atmClient.handler.NewSessionHandler.handleNewSession;
 import static atmClient.handler.ResultHandler.getResult;
 import static atmClient.handler.SessionHandler.getSessionResult;
@@ -739,17 +740,6 @@ public class ATMClient {
                 result.getStatus(),
                 accountBalance
         );
-
-    }
-
-
-    private void sendCommand(Socket socket, DataInputStream dataIn, DataOutputStream dataOut, int timeOut,int ackCode, int command) throws IOException {
-
-        //Send Command
-        dataOut.writeInt(command);
-
-        //Read ACK
-        readACK(socket, dataIn, timeOut, ackCode);
 
     }
 
