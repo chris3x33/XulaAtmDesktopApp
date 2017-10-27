@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
+import static atmClient.handler.NewSessionHandler.handleNewSession;
 import static atmClient.handler.NewSessionHandler.handleNewSessionExchange;
 import static atmClient.handler.SocketHandler.openNewSocket;
 import static atmClient.socketData.SocketDataReader.*;
@@ -40,7 +41,12 @@ public class ATMClient {
         //reset sessionId if set
         sessionId = -1;
 
-        NewSessionResult newSessionResult = handleNewSession(ipAddress, port, timeOut, ACK_CODE);
+        NewSessionResult newSessionResult = handleNewSession(
+                ipAddress,
+                port,
+                timeOut,
+                ACK_CODE
+        );
 
         if (newSessionResult.getStatus() == Result.SUCCESS_CODE){
             this.sessionId = newSessionResult.getSessionId();
@@ -48,31 +54,6 @@ public class ATMClient {
 
         return newSessionResult;
 
-    }
-
-    private NewSessionResult handleNewSession(String ipAddress, int port, int timeOut, int ackCode) {
-
-        Socket socket;
-        try {
-
-            socket = openNewSocket(ipAddress, port, timeOut);
-
-            NewSessionResult newSessionResult = handleNewSessionExchange(socket, timeOut, ackCode);
-
-            //Close connection
-            socket.close();
-
-            return newSessionResult;
-
-        } catch (SocketTimeoutException e) {
-
-            return new NewSessionResult(Result.ERROR_CODE, SessionHandler.SOCKET_TIMEOUT_ERROR_MSG);
-
-        } catch (IOException e) {
-
-            return new NewSessionResult(Result.ERROR_CODE, SessionHandler.IO_EXCEPTION_ERROR_MSG);
-
-        }
     }
 
     public int getTimeOut() {
