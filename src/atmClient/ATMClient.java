@@ -166,7 +166,11 @@ public class ATMClient {
 
         //Send login cmd
         System.out.println("\tSend LoginCMD");
-        sendCommand( socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.LOGIN_CMD);
+        sendCommand(
+                socket, dataIn, dataOut, timeOut,
+                ACK_CODE,
+                XulaAtmServerCommands.LOGIN_CMD
+        );
 
         //Send userName
         sendString(socket, timeOut, ackCode, userName);
@@ -182,7 +186,11 @@ public class ATMClient {
         System.out.println("LoginCMD End\n");
 
         if(result.getStatus() == Result.ERROR_CODE){
-            return new LoginResult(sessionResult.getSessionStatus(), result.getStatus(), result.getMessage());
+            return new LoginResult(
+                    sessionResult.getSessionStatus(),
+                    result.getStatus(),
+                    result.getMessage()
+            );
         }
 
         return new LoginResult(sessionResult.getSessionStatus(), result.getStatus());
@@ -264,7 +272,11 @@ public class ATMClient {
 
         //Send Create New User cmd
         System.out.println("\tSent CreateNewUserCMD");
-        sendCommand( socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.CREATE_NEW_USER_CMD);
+        sendCommand(
+                socket, dataIn, dataOut, timeOut,
+                ACK_CODE,
+                XulaAtmServerCommands.CREATE_NEW_USER_CMD
+        );
 
         //Send userName
         sendString(socket, timeOut, ACK_CODE, userName);
@@ -360,7 +372,11 @@ public class ATMClient {
 
         //Send Logout cmd
         System.out.println("\tSent LogoutCMD");
-        sendCommand( socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.LOGOUT_CMD);
+        sendCommand(
+                socket, dataIn, dataOut, timeOut,
+                ACK_CODE,
+                XulaAtmServerCommands.LOGOUT_CMD
+        );
 
         //Send ACK
         sendACK(dataOut,ACK_CODE);
@@ -476,7 +492,11 @@ public class ATMClient {
 
         //Send GetUserName cmd
         System.out.println("\tSent GetUserNameCMD");
-        sendCommand( socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.GET_USERNAME_CMD);
+        sendCommand(
+                socket, dataIn, dataOut, timeOut,
+                ACK_CODE,
+                XulaAtmServerCommands.GET_USERNAME_CMD
+        );
 
         //Send ACK
         sendACK(dataOut,ACK_CODE);
@@ -580,7 +600,11 @@ public class ATMClient {
 
         //Send Get AccountIds cmd
         System.out.println("\tSent GetAccountIdsCMD");
-        sendCommand( socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.GET_USER_ACCOUNTIDS_CMD);
+        sendCommand(
+                socket, dataIn, dataOut, timeOut,
+                ACK_CODE,
+                XulaAtmServerCommands.GET_USER_ACCOUNTIDS_CMD
+        );
 
         //Send ACK
         sendACK(dataOut,ACK_CODE);
@@ -677,7 +701,11 @@ public class ATMClient {
         }
 
         System.out.println("\tSent GetAccountBalanceCMD");
-        sendCommand(socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.GET_ACCOUNT_BALANCE_CMD);
+        sendCommand(
+                socket, dataIn, dataOut, timeOut,
+                ACK_CODE,
+                XulaAtmServerCommands.GET_ACCOUNT_BALANCE_CMD
+        );
 
         //Send AccountId
         dataOut.writeLong(accountId);
@@ -715,13 +743,13 @@ public class ATMClient {
     }
 
 
-    private void sendCommand(Socket socket, DataInputStream dataIn, DataOutputStream dataOut, int timeOut, int command) throws IOException {
+    private void sendCommand(Socket socket, DataInputStream dataIn, DataOutputStream dataOut, int timeOut,int ackCode, int command) throws IOException {
 
         //Send Command
         dataOut.writeInt(command);
 
         //Read ACK
-        readACK(socket, dataIn, timeOut, ACK_CODE);
+        readACK(socket, dataIn, timeOut, ackCode);
 
     }
 
