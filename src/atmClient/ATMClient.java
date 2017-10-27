@@ -63,9 +63,8 @@ public class ATMClient {
 
         } catch (IOException e) {
 
-            String errMsg = "Connection Error Please Try again later!!";
+            return new Result(Result.ERROR_CODE, SessionHandler.IO_EXCEPTION_ERROR_MSG);
 
-            return new Result(Result.ERROR_CODE, errMsg);
         }
     }
 
@@ -283,13 +282,19 @@ public class ATMClient {
 
         } catch (SocketTimeoutException e) {
 
-            return new LoginResult(SessionResult.ERROR_CODE, SessionHandler.SOCKET_TIMEOUT_ERROR_MSG, Result.ERROR_CODE);
+            return new LoginResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.SOCKET_TIMEOUT_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
 
         } catch (IOException e) {
 
-            String errMsg = "Connection Error Please Try again later!!";
-
-            return new LoginResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+            return new LoginResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
         }
     }
 
@@ -374,13 +379,19 @@ public class ATMClient {
 
         } catch (SocketTimeoutException e) {
 
-            return new CreateNewUserResult(SessionResult.ERROR_CODE, SessionHandler.SOCKET_TIMEOUT_ERROR_MSG, Result.ERROR_CODE);
+            return new CreateNewUserResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.SOCKET_TIMEOUT_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
 
         } catch (IOException e) {
 
-            String errMsg = "Connection Error Please Try again later!!";
-
-            return new CreateNewUserResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+            return new CreateNewUserResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
         }
     }
 
@@ -463,13 +474,20 @@ public class ATMClient {
 
         } catch (SocketTimeoutException e) {
 
-            return new LogOutResult(SessionResult.ERROR_CODE, SessionHandler.SOCKET_TIMEOUT_ERROR_MSG, Result.ERROR_CODE);
+            return new LogOutResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.SOCKET_TIMEOUT_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
 
         } catch (IOException e) {
 
-            String errMsg = "Connection Error Please Try again later!!";
+            return new LogOutResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
 
-            return new LogOutResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
         }
 
     }
@@ -574,13 +592,18 @@ public class ATMClient {
 
         } catch (SocketTimeoutException e) {
 
-            return new GetUserNameResult(SessionResult.ERROR_CODE, SessionHandler.SOCKET_TIMEOUT_ERROR_MSG, Result.ERROR_CODE);
+            return new GetUserNameResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.SOCKET_TIMEOUT_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
 
         } catch (IOException e) {
 
-            String errMsg = "Connection Error Please Try again later!!";
-
-            return new GetUserNameResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+            return new GetUserNameResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
+                    Result.ERROR_CODE);
         }
 
     }
@@ -679,9 +702,12 @@ public class ATMClient {
 
         } catch (IOException e) {
 
-            String errMsg = "Connection Error Please Try again later!!";
+            return new GetAccountIdsResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
 
-            return new GetAccountIdsResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
         }
 
     }
@@ -767,13 +793,19 @@ public class ATMClient {
 
         } catch (SocketTimeoutException e) {
 
-            return new GetAccountBalanceResult(SessionResult.ERROR_CODE, SessionHandler.SOCKET_TIMEOUT_ERROR_MSG, Result.ERROR_CODE);
+            return new GetAccountBalanceResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.SOCKET_TIMEOUT_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
 
         } catch (IOException e) {
 
-            String errMsg = "Connection Error Please Try again later!!";
-
-            return new GetAccountBalanceResult(SessionResult.ERROR_CODE, errMsg, Result.ERROR_CODE);
+            return new GetAccountBalanceResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
         }
 
     }
