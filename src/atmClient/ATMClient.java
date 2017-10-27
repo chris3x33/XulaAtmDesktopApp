@@ -14,7 +14,7 @@ import static atmClient.SocketACK.sendACK;
 import static atmClient.handler.CommandHandler.sendCommand;
 import static atmClient.handler.CreateNewUserHandler.handleCreateNewUser;
 import static atmClient.handler.LoginHandler.handleLogin;
-import static atmClient.handler.LogoutHandler.handleLogoutExchange;
+import static atmClient.handler.LogoutHandler.handleLogout;
 import static atmClient.handler.NewSessionHandler.handleNewSession;
 import static atmClient.handler.ResultHandler.getResult;
 import static atmClient.handler.SessionHandler.getSessionResult;
@@ -129,47 +129,6 @@ public class ATMClient {
         int timeOut = getTimeOut();
 
         return handleLogout(ipAddress, port, timeOut, ACK_CODE, this.sessionId);
-
-    }
-
-    private LogOutResult handleLogout(
-            String ipAddress, int port, int timeOut, int ackCode, long sessionId) {
-
-        Socket socket;
-        try {
-
-            //Open a new socket Connection
-            socket = openNewSocket(ipAddress, port, timeOut);
-
-            LogOutResult logOutResult = handleLogoutExchange(
-                    socket,
-                    timeOut,
-                    ackCode,
-                    sessionId
-            );
-
-            //Close connection
-            socket.close();
-
-            return logOutResult;
-
-        } catch (SocketTimeoutException e) {
-
-            return new LogOutResult(
-                    SessionResult.ERROR_CODE,
-                    SessionHandler.SOCKET_TIMEOUT_ERROR_MSG,
-                    Result.ERROR_CODE
-            );
-
-        } catch (IOException e) {
-
-            return new LogOutResult(
-                    SessionResult.ERROR_CODE,
-                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
-                    Result.ERROR_CODE
-            );
-
-        }
 
     }
 
