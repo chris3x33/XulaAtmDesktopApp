@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
+import static atmClient.handler.NewSessionHandler.handleNewSessionExchange;
 import static atmClient.handler.SocketHandler.openNewSocket;
 import static atmClient.socketData.SocketDataReader.*;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
@@ -72,39 +73,6 @@ public class ATMClient {
             return new NewSessionResult(Result.ERROR_CODE, SessionHandler.IO_EXCEPTION_ERROR_MSG);
 
         }
-    }
-
-    private NewSessionResult handleNewSessionExchange(Socket socket, int timeOut, int ackCode) throws SocketTimeoutException, IOException {
-
-        DataInputStream dataIn = getDataInputStream(socket);
-        DataOutputStream dataOut = getDataOutputStream(socket);
-
-        System.out.println("\n\nNewSessionCMD Start");
-
-        //Send sessionId = -1 for new sessionId
-        dataOut.writeLong(this.sessionId);
-        System.out.println("\tSent sessionId = " + this.sessionId);
-
-        //Read ACK
-        readACK(socket, dataIn, timeOut, ackCode);
-
-        //Send ACK
-        sendACK(dataOut, ackCode);
-
-        //Read new sessionId > -1
-        long newSessionId = readLongWTimeout(socket, dataIn, timeOut);
-        System.out.println("\tRead sessionId = " + newSessionId);
-
-        //Send ACK
-        sendACK(dataOut, ackCode);
-
-        //Read ACK
-        readACK(socket, dataIn, timeOut, ackCode);
-
-        System.out.println("NewSessionCMD End\n");
-
-        return new NewSessionResult(Result.SUCCESS_CODE, newSessionId);
-
     }
 
     public int getTimeOut() {
