@@ -99,12 +99,17 @@ public class ATMClient {
         int port = getPort();
         int timeOut = getTimeOut();
 
-        return handleLogin(ipAddress, port, timeOut, userName, password);
+        return handleLogin(
+                ipAddress, port, timeOut, ACK_CODE,
+                this.sessionId,
+                userName, password
+        );
 
     }
 
-
-    private LoginResult handleLogin(String ipAddress, int port, int timeOut, String userName, String password) {
+    private LoginResult handleLogin(
+            String ipAddress, int port, int timeOut, int ackCode,
+            long sessionId, String userName, String password) {
 
         Socket socket;
         try {
@@ -113,8 +118,8 @@ public class ATMClient {
             socket = openNewSocket(ipAddress, port, timeOut);
 
             LoginResult loginResult = handleLoginExchange(
-                    socket, timeOut, ACK_CODE,
-                    this.sessionId,
+                    socket, timeOut, ackCode,
+                    sessionId,
                     userName, password
             );
 
