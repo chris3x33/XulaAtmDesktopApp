@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
+import static atmClient.handler.SocketHandler.openNewSocket;
 import static atmClient.socketData.SocketDataReader.*;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 import static atmClient.socketData.SocketDataWriter.sendString;
@@ -67,18 +68,6 @@ public class ATMClient {
 
             return new Result(Result.ERROR_CODE, errMsg);
         }
-    }
-
-    public Socket openNewSocket(String ipAddress, int port, int timeOut) throws IOException {
-
-        Socket socket = new Socket();
-
-        SocketAddress socketAddress = new InetSocketAddress(ipAddress, port);
-
-        socket.connect(socketAddress, timeOut);
-
-        return socket;
-
     }
 
     private void handleNewSessionExchange(Socket socket, int timeOut) throws SocketTimeoutException, IOException {
