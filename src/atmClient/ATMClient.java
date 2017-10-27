@@ -13,6 +13,7 @@ import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
 import static atmClient.handler.CommandHandler.sendCommand;
 import static atmClient.handler.CreateNewUserHandler.handleCreateNewUser;
+import static atmClient.handler.GetUserNameHandler.handleGetUserNameExchange;
 import static atmClient.handler.LoginHandler.handleLogin;
 import static atmClient.handler.LogoutHandler.handleLogout;
 import static atmClient.handler.NewSessionHandler.handleNewSession;
@@ -212,66 +213,7 @@ public class ATMClient {
 
     }
 
-    private GetUserNameResult handleGetUserNameExchange(Socket socket, int timeOut, int ackCode, long sessionId) throws IOException {
 
-        DataInputStream dataIn = getDataInputStream(socket);
-        DataOutputStream dataOut = getDataOutputStream(socket);
-
-        System.out.println("\n\nGetUserNameCMD Start");
-
-        SessionResult sessionResult = getSessionResult(socket, timeOut, ackCode, sessionId);
-
-        int readSessionStatus = sessionResult.getSessionStatus();
-
-        if(readSessionStatus == SessionResult.ERROR_CODE){
-
-            System.out.println("GetUserNameCMD End\n");
-
-            return new GetUserNameResult(
-                    sessionResult.getSessionStatus(),
-                    sessionResult.getSessionMessage(),
-                    Result.ERROR_CODE
-            );
-
-        }
-
-        //Send GetUserName cmd
-        System.out.println("\tSent GetUserNameCMD");
-        sendCommand(
-                socket, dataIn, dataOut, timeOut,
-                ackCode,
-                XulaAtmServerCommands.GET_USERNAME_CMD
-        );
-
-        //Send ACK
-        sendACK(dataOut,ackCode);
-
-        //Get Result
-        Result result = getResult(socket, timeOut, ackCode);
-
-        //Check Result
-        if (result.getStatus() == Result.ERROR_CODE){
-
-            System.out.println("GetUserNameCMD End\n");
-
-            return new GetUserNameResult(
-                    sessionResult.getStatus(), result.getStatus(), result.getMessage()
-            );
-
-        }
-
-        String userName = readString(socket, timeOut, ackCode);
-
-        GetUserNameResult getUserNameResult = new GetUserNameResult(
-                sessionResult.getStatus(), result.getStatus()
-        );
-        getUserNameResult.setUserName(userName);
-
-        System.out.println("GetUserNameCMD End\n");
-
-        return getUserNameResult;
-
-    }
     public GetAccountIdsResult getAccountIds(){
 
         String ipAddress = getIpAddress();
