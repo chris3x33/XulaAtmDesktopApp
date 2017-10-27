@@ -56,7 +56,7 @@ public class ATMClient {
 
             socket = openNewSocket(ipAddress, port, timeOut);
 
-            NewSessionResult newSessionResult = handleNewSessionExchange(socket, timeOut);
+            NewSessionResult newSessionResult = handleNewSessionExchange(socket, timeOut, ACK_CODE);
 
             //Close connection
             socket.close();
@@ -74,7 +74,7 @@ public class ATMClient {
         }
     }
 
-    private NewSessionResult handleNewSessionExchange(Socket socket, int timeOut) throws SocketTimeoutException, IOException {
+    private NewSessionResult handleNewSessionExchange(Socket socket, int timeOut, int ackCode) throws SocketTimeoutException, IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
@@ -86,20 +86,20 @@ public class ATMClient {
         System.out.println("\tSent sessionId = " + this.sessionId);
 
         //Read ACK
-        readACK(socket, dataIn, timeOut, ACK_CODE);
+        readACK(socket, dataIn, timeOut, ackCode);
 
         //Send ACK
-        sendACK(dataOut,ACK_CODE);
+        sendACK(dataOut, ackCode);
 
         //Read new sessionId > -1
         long newSessionId = readLongWTimeout(socket, dataIn, timeOut);
         System.out.println("\tRead sessionId = " + newSessionId);
 
         //Send ACK
-        sendACK(dataOut,ACK_CODE);
+        sendACK(dataOut, ackCode);
 
         //Read ACK
-        readACK(socket, dataIn, timeOut, ACK_CODE);
+        readACK(socket, dataIn, timeOut, ackCode);
 
         System.out.println("NewSessionCMD End\n");
 
