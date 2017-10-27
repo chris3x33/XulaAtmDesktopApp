@@ -113,7 +113,7 @@ public class ATMClient {
     }
 
     private void sendString(
-            Socket socket, int timeOut, String sendStr) throws IOException {
+            Socket socket, int timeOut, int ackCode, String sendStr) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
@@ -123,14 +123,14 @@ public class ATMClient {
         System.out.println("\tSent sendStr Length: " + sendStr.length());
 
         //Read ACK
-        readACK(socket, dataIn, timeOut, ACK_CODE);
+        readACK(socket, dataIn, timeOut, ackCode);
 
         //Send sendStr Bytes
         dataOut.write(sendStr.getBytes());
         System.out.println("\tSent sendStr: "+sendStr);
 
         //Read ACK
-        readACK(socket, dataIn, timeOut, ACK_CODE);
+        readACK(socket, dataIn, timeOut, ackCode);
 
     }
 
@@ -356,10 +356,10 @@ public class ATMClient {
         sendCommand( socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.LOGIN_CMD);
 
         //Send userName
-        sendString(socket, timeOut, userName);
+        sendString(socket, timeOut, ACK_CODE, userName);
 
         //Send password
-        sendString(socket, timeOut, password);
+        sendString(socket, timeOut, ACK_CODE, password);
 
         //Send ACK
         sendACK(dataOut,ACK_CODE);
@@ -450,10 +450,10 @@ public class ATMClient {
         sendCommand( socket, dataIn, dataOut, timeOut, XulaAtmServerCommands.CREATE_NEW_USER_CMD);
 
         //Send userName
-        sendString(socket, timeOut, userName);
+        sendString(socket, timeOut, ACK_CODE, userName);
 
         //Send password
-        sendString(socket, timeOut, password);
+        sendString(socket, timeOut, ACK_CODE, password);
 
         //Send ACK
         sendACK(dataOut,ACK_CODE);
