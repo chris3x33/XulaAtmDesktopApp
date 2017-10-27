@@ -128,11 +128,12 @@ public class ATMClient {
         int port = getPort();
         int timeOut = getTimeOut();
 
-        return handleLogout(ipAddress, port, timeOut);
+        return handleLogout(ipAddress, port, timeOut, ACK_CODE, this.sessionId);
 
     }
 
-    private LogOutResult handleLogout(String ipAddress, int port, int timeOut) {
+    private LogOutResult handleLogout(
+            String ipAddress, int port, int timeOut, int ackCode, long sessionId) {
 
         Socket socket;
         try {
@@ -143,7 +144,7 @@ public class ATMClient {
             LogOutResult logOutResult = handleLogoutExchange(
                     socket,
                     timeOut,
-                    ACK_CODE,
+                    ackCode,
                     sessionId
             );
 
