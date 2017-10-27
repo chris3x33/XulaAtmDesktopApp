@@ -92,7 +92,7 @@ public class ATMClient {
 
 
 
-    public Result getResult(Socket socket, int timeOut) throws IOException {
+    public Result getResult(Socket socket, int timeOut, int ackCode) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
@@ -106,7 +106,7 @@ public class ATMClient {
         System.out.println("\tRead result status: "+readResultStatus);
 
         //Send ACK
-        sendACK(dataOut,ACK_CODE);
+        sendACK(dataOut,ackCode);
 
         if(readResultStatus == Result.ERROR_CODE){
 
@@ -115,7 +115,7 @@ public class ATMClient {
             System.out.println("\tRead Result Message Length");
 
             //Send ACK
-            sendACK(dataOut,ACK_CODE);
+            sendACK(dataOut,ackCode);
 
             //Get Result Msg
             byte[] readResultMessageBytes = readBytesWTimeout(
@@ -128,10 +128,10 @@ public class ATMClient {
             System.out.println("\tRead result Message: "+readResultMessage);
 
             //Send ACK
-            sendACK(dataOut,ACK_CODE);
+            sendACK(dataOut,ackCode);
 
             //Read ACK
-            readACK(socket, dataIn, timeOut, ACK_CODE);
+            readACK(socket, dataIn, timeOut, ackCode);
 
             return new Result(
                     Result.ERROR_CODE,
@@ -141,7 +141,7 @@ public class ATMClient {
         }
 
         //Read ACK
-        readACK(socket, dataIn, timeOut, ACK_CODE);
+        readACK(socket, dataIn, timeOut, ackCode);
 
         return new Result(Result.SUCCESS_CODE);
 
@@ -230,7 +230,7 @@ public class ATMClient {
         //Send ACK
         sendACK(dataOut,ACK_CODE);
 
-        Result result = getResult(socket, timeOut);
+        Result result = getResult(socket, timeOut, ACK_CODE);
 
         System.out.println("LoginCMD End\n");
 
@@ -328,7 +328,7 @@ public class ATMClient {
         //Send ACK
         sendACK(dataOut,ACK_CODE);
 
-        Result result = getResult(socket, timeOut);
+        Result result = getResult(socket, timeOut, ACK_CODE);
 
         System.out.println("CreateNewUserCMD End\n");
 
@@ -535,7 +535,7 @@ public class ATMClient {
         sendACK(dataOut,ACK_CODE);
 
         //Get Result
-        Result result = getResult(socket, timeOut);
+        Result result = getResult(socket, timeOut, ACK_CODE);
 
         //Check Result
         if (result.getStatus() == Result.ERROR_CODE){
@@ -638,7 +638,7 @@ public class ATMClient {
         //Send ACK
         sendACK(dataOut,ACK_CODE);
 
-        Result result = getResult(socket, timeOut);
+        Result result = getResult(socket, timeOut, ACK_CODE);
         if(result.getStatus() == Result.ERROR_CODE){
             System.out.println("GetAccountIdsCMD End\n");
             return new GetAccountIdsResult(sessionResult.getSessionStatus(), result.getStatus(), result.getMessage());
@@ -743,7 +743,7 @@ public class ATMClient {
         sendACK(dataOut,ACK_CODE);
 
         //Read Result
-        Result result = getResult(socket, timeOut);
+        Result result = getResult(socket, timeOut, ACK_CODE);
         if(result.getStatus() == Result.ERROR_CODE){
             System.out.println("GetAccountBalanceCMD End\n");
             return new GetAccountBalanceResult(
