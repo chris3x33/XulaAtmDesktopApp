@@ -40,7 +40,7 @@ public class ATMClient {
         //reset sessionId if set
         sessionId = -1;
 
-        NewSessionResult newSessionResult = handleNewSession(ipAddress, port, timeOut);
+        NewSessionResult newSessionResult = handleNewSession(ipAddress, port, timeOut, ACK_CODE);
 
         if (newSessionResult.getStatus() == Result.SUCCESS_CODE){
             this.sessionId = newSessionResult.getSessionId();
@@ -50,14 +50,14 @@ public class ATMClient {
 
     }
 
-    private NewSessionResult handleNewSession(String ipAddress, int port, int timeOut) {
+    private NewSessionResult handleNewSession(String ipAddress, int port, int timeOut, int ackCode) {
 
         Socket socket;
         try {
 
             socket = openNewSocket(ipAddress, port, timeOut);
 
-            NewSessionResult newSessionResult = handleNewSessionExchange(socket, timeOut, ACK_CODE);
+            NewSessionResult newSessionResult = handleNewSessionExchange(socket, timeOut, ackCode);
 
             //Close connection
             socket.close();
