@@ -184,7 +184,9 @@ public class ATMClient {
 
             GetUserNameResult getUserNameResult = handleGetUserNameExchange(
                     socket,
-                    timeOut
+                    timeOut,
+                    ACK_CODE,
+                    sessionId
             );
 
             //Close connection
@@ -210,14 +212,14 @@ public class ATMClient {
 
     }
 
-    private GetUserNameResult handleGetUserNameExchange(Socket socket, int timeOut) throws IOException {
+    private GetUserNameResult handleGetUserNameExchange(Socket socket, int timeOut, int ackCode, long sessionId) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
 
         System.out.println("\n\nGetUserNameCMD Start");
 
-        SessionResult sessionResult = getSessionResult(socket, timeOut, ACK_CODE, sessionId);
+        SessionResult sessionResult = getSessionResult(socket, timeOut, ackCode, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
@@ -237,15 +239,15 @@ public class ATMClient {
         System.out.println("\tSent GetUserNameCMD");
         sendCommand(
                 socket, dataIn, dataOut, timeOut,
-                ACK_CODE,
+                ackCode,
                 XulaAtmServerCommands.GET_USERNAME_CMD
         );
 
         //Send ACK
-        sendACK(dataOut,ACK_CODE);
+        sendACK(dataOut,ackCode);
 
         //Get Result
-        Result result = getResult(socket, timeOut, ACK_CODE);
+        Result result = getResult(socket, timeOut, ackCode);
 
         //Check Result
         if (result.getStatus() == Result.ERROR_CODE){
@@ -258,7 +260,7 @@ public class ATMClient {
 
         }
 
-        String userName = readString(socket, timeOut, ACK_CODE);
+        String userName = readString(socket, timeOut, ackCode);
 
         GetUserNameResult getUserNameResult = new GetUserNameResult(
                 sessionResult.getStatus(), result.getStatus()
