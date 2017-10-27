@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
 import static atmClient.handler.NewSessionHandler.handleNewSession;
-import static atmClient.handler.NewSessionHandler.handleNewSessionExchange;
 import static atmClient.handler.SocketHandler.openNewSocket;
 import static atmClient.socketData.SocketDataReader.*;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
@@ -90,7 +89,7 @@ public class ATMClient {
 
     }
 
-    private SessionResult getSessionResult(Socket socket, int timeOut, long sessionId) throws IOException {
+    private SessionResult getSessionResult(Socket socket, int timeOut, int ackCode,long sessionId) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
@@ -100,17 +99,17 @@ public class ATMClient {
         System.out.println("\tSent sessionId: "+sessionId);
 
         //Read ACK
-        readACK(socket, dataIn, timeOut, ACK_CODE);
+        readACK(socket, dataIn, timeOut, ackCode);
 
         //Send ACK
-        sendACK(dataOut,ACK_CODE);
+        sendACK(dataOut,ackCode);
 
         //Read session Result
         int readSessionStatus = readIntWTimeout(socket, dataIn, timeOut);
         System.out.println("\tRead readSessionStatus: "+readSessionStatus);
 
         //Send ACK
-        sendACK(dataOut,ACK_CODE);
+        sendACK(dataOut,ackCode);
 
         if (readSessionStatus <= SessionResult.ERROR_CODE) {
 
@@ -119,7 +118,7 @@ public class ATMClient {
             System.out.println("\tRead readSessionMessage Length");
 
             //Send ACK
-            sendACK(dataOut,ACK_CODE);
+            sendACK(dataOut,ackCode);
 
             //Get Session Msg
             byte[] readSessionBytes = readBytesWTimeout(
@@ -132,10 +131,10 @@ public class ATMClient {
             System.out.println("\tRead readSessionMessage: "+readSessionMessage);
 
             //Send ACK
-            sendACK(dataOut,ACK_CODE);
+            sendACK(dataOut,ackCode);
 
             //Read ACK
-            readACK(socket, dataIn, timeOut, ACK_CODE);
+            readACK(socket, dataIn, timeOut, ackCode);
 
             return new SessionResult(
                     readSessionStatus,
@@ -146,7 +145,7 @@ public class ATMClient {
         }
 
         //Read ACK
-        readACK(socket, dataIn, timeOut, ACK_CODE);
+        readACK(socket, dataIn, timeOut, ackCode);
 
         return new SessionResult(SessionResult.SUCCESS_CODE);
 
@@ -261,7 +260,7 @@ public class ATMClient {
 
         System.out.println("\n\nLoginCMD Start");
 
-        SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
+        SessionResult sessionResult = getSessionResult(socket, timeOut, ACK_CODE, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
@@ -359,7 +358,7 @@ public class ATMClient {
 
         System.out.println("\n\nCreateNewUserCMD Start");
 
-        SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
+        SessionResult sessionResult = getSessionResult(socket, timeOut, ACK_CODE, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
@@ -455,7 +454,7 @@ public class ATMClient {
 
         System.out.println("\n\nLogoutCMD Start");
 
-        SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
+        SessionResult sessionResult = getSessionResult(socket, timeOut, ACK_CODE, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
@@ -571,7 +570,7 @@ public class ATMClient {
 
         System.out.println("\n\nGetUserNameCMD Start");
 
-        SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
+        SessionResult sessionResult = getSessionResult(socket, timeOut, ACK_CODE, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
@@ -675,7 +674,7 @@ public class ATMClient {
 
         System.out.println("\n\nGetAccountIdsCMD Start");
 
-        SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
+        SessionResult sessionResult = getSessionResult(socket, timeOut, ACK_CODE, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
@@ -773,7 +772,7 @@ public class ATMClient {
 
         System.out.println("\n\nGetAccountBalanceCMD Start");
 
-        SessionResult sessionResult = getSessionResult(socket, timeOut, sessionId);
+        SessionResult sessionResult = getSessionResult(socket, timeOut, ACK_CODE, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
