@@ -9,18 +9,59 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 import static atmClient.SocketACK.sendACK;
 import static atmClient.handler.CommandHandler.sendCommand;
 import static atmClient.handler.ResultHandler.getResult;
 import static atmClient.handler.SessionHandler.getSessionResult;
+import static atmClient.handler.SocketHandler.openNewSocket;
 import static atmClient.socketData.SocketDataReader.getDataInputStream;
 import static atmClient.socketData.SocketDataReader.readString;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 
 public class GetUserNameHandler {
 
-    public static GetUserNameResult handleGetUserNameExchange(Socket socket, int timeOut, int ackCode, long sessionId) throws IOException {
+    public static GetUserNameResult handleGetUserName(
+            String ipAddress, int port, int timeOut, int ackCode, long sessionId) {
+
+        Socket socket;
+        try {
+
+            //Open a new socket Connection
+            socket = openNewSocket(ipAddress, port, timeOut);
+
+            GetUserNameResult getUserNameResult = handleGetUserNameExchange(
+                    socket,
+                    timeOut,
+                    ackCode,
+                    sessionId
+            );
+
+            //Close connection
+            socket.close();
+
+            return getUserNameResult;
+
+        } catch (SocketTimeoutException e) {
+
+            return new GetUserNameResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.SOCKET_TIMEOUT_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
+
+        } catch (IOException e) {
+
+            return new GetUserNameResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
+                    Result.ERROR_CODE);
+        }
+
+    }
+
+    private static GetUserNameResult handleGetUserNameExchange(Socket socket, int timeOut, int ackCode, long sessionId) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
