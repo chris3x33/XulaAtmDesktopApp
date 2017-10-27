@@ -141,7 +141,9 @@ public class ATMClient {
 
             LogOutResult logOutResult = handleLogoutExchange(
                     socket,
-                    timeOut
+                    timeOut,
+                    ACK_CODE,
+                    sessionId
             );
 
             //Close connection
@@ -169,14 +171,15 @@ public class ATMClient {
 
     }
 
-    private LogOutResult handleLogoutExchange(Socket socket, int timeOut) throws IOException {
+    private LogOutResult handleLogoutExchange(
+            Socket socket, int timeOut, int ackCode, long sessionId) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
 
         System.out.println("\n\nLogoutCMD Start");
 
-        SessionResult sessionResult = getSessionResult(socket, timeOut, ACK_CODE, sessionId);
+        SessionResult sessionResult = getSessionResult(socket, timeOut, ackCode, sessionId);
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
@@ -196,15 +199,15 @@ public class ATMClient {
         System.out.println("\tSent LogoutCMD");
         sendCommand(
                 socket, dataIn, dataOut, timeOut,
-                ACK_CODE,
+                ackCode,
                 XulaAtmServerCommands.LOGOUT_CMD
         );
 
         //Send ACK
-        sendACK(dataOut,ACK_CODE);
+        sendACK(dataOut,ackCode);
 
         //Read ACK
-        readACK(socket, dataIn, timeOut, ACK_CODE);
+        readACK(socket, dataIn, timeOut, ackCode);
 
         System.out.println("LogoutCMD End\n");
 
