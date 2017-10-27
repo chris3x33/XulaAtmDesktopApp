@@ -115,14 +115,16 @@ public class ATMClient {
         int timeOut = getTimeOut();
 
         return handleCreateNewUser(
-                ipAddress, port, timeOut,
+                ipAddress, port, timeOut, ACK_CODE,
+                this.sessionId,
                 userName, password
         );
 
     }
 
     private CreateNewUserResult handleCreateNewUser(
-            String ipAddress, int port, int timeOut, String userName, String password) {
+            String ipAddress, int port, int timeOut, int ackCode,
+            long sessionId,String userName, String password) {
 
         Socket socket;
         try {
@@ -131,7 +133,8 @@ public class ATMClient {
             socket = openNewSocket(ipAddress, port, timeOut);
 
             CreateNewUserResult createNewUserResult = handleCreateNewUserExchange(
-                    socket, timeOut,ACK_CODE, this.sessionId, userName, password
+                    socket, timeOut,ackCode,
+                    sessionId, userName, password
             );
 
             //Close connection
