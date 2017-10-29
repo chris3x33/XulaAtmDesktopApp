@@ -9,19 +9,62 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import static atmClient.SocketACK.sendACK;
 import static atmClient.handler.CommandHandler.sendCommand;
 import static atmClient.handler.ResultHandler.getResult;
 import static atmClient.handler.SessionHandler.getSessionResult;
+import static atmClient.handler.SocketHandler.openNewSocket;
 import static atmClient.socketData.SocketDataReader.getDataInputStream;
 import static atmClient.socketData.SocketDataReader.readLongs;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 
 public class GetAccountIdsHandler {
 
-    public static GetAccountIdsResult handleGetAccountIdsExchange(Socket socket, int timeOut, int ackCode, long sessionId) throws IOException {
+    public static  GetAccountIdsResult handleGetAccountIds(
+            String ipAddress, int port, int timeOut, int ackCode, long sessionId) {
+
+        Socket socket;
+        try {
+
+            //Open a new socket Connection
+            socket = openNewSocket(ipAddress, port, timeOut);
+            GetAccountIdsResult getAccountIdsResult = handleGetAccountIdsExchange(
+                    socket,
+                    timeOut,
+                    ackCode,
+                    sessionId
+            );
+
+            //Close connection
+            socket.close();
+
+            return getAccountIdsResult;
+
+        } catch (SocketTimeoutException e) {
+
+            return new GetAccountIdsResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.SOCKET_TIMEOUT_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
+
+        } catch (IOException e) {
+
+            return new GetAccountIdsResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
+
+        }
+
+    }
+
+    private static  GetAccountIdsResult handleGetAccountIdsExchange(
+            Socket socket, int timeOut, int ackCode, long sessionId) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);

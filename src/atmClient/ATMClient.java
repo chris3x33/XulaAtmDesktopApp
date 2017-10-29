@@ -7,13 +7,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
-import java.util.ArrayList;
 
 import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
 import static atmClient.handler.CommandHandler.sendCommand;
 import static atmClient.handler.CreateNewUserHandler.handleCreateNewUser;
-import static atmClient.handler.GetAccountIdsHandler.handleGetAccountIdsExchange;
+import static atmClient.handler.GetAccountIdsHandler.handleGetAccountIds;
 import static atmClient.handler.GetUserNameHandler.handleGetUserName;
 import static atmClient.handler.LoginHandler.handleLogin;
 import static atmClient.handler.LogoutHandler.handleLogout;
@@ -187,46 +186,6 @@ public class ATMClient {
                 ACK_CODE,
                 sessionId
         );
-    }
-
-    private GetAccountIdsResult handleGetAccountIds(
-            String ipAddress, int port, int timeOut, int ackCode, long sessionId) {
-
-        Socket socket;
-        try {
-
-            //Open a new socket Connection
-            socket = openNewSocket(ipAddress, port, timeOut);
-            GetAccountIdsResult getAccountIdsResult = handleGetAccountIdsExchange(
-                    socket,
-                    timeOut,
-                    ackCode,
-                    sessionId
-            );
-
-            //Close connection
-            socket.close();
-
-            return getAccountIdsResult;
-
-        } catch (SocketTimeoutException e) {
-
-            return new GetAccountIdsResult(
-                    SessionResult.ERROR_CODE,
-                    SessionHandler.SOCKET_TIMEOUT_ERROR_MSG,
-                    Result.ERROR_CODE
-            );
-
-        } catch (IOException e) {
-
-            return new GetAccountIdsResult(
-                    SessionResult.ERROR_CODE,
-                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
-                    Result.ERROR_CODE
-            );
-
-        }
-
     }
 
     public GetAccountBalanceResult getAccountBalance(long accountId){
