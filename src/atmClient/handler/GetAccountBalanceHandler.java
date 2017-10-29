@@ -35,9 +35,9 @@ public class GetAccountBalanceHandler {
             GetAccountBalanceResult getAccountBalanceResult = handleGetAccountBalanceExchange(
                     socket,
                     timeOut,
-                    accountId,
                     ackCode,
-                    sessionId
+                    sessionId,
+                    accountId
             );
 
             //Close connection
@@ -65,8 +65,8 @@ public class GetAccountBalanceHandler {
     }
 
     private static GetAccountBalanceResult handleGetAccountBalanceExchange(
-            Socket socket, int timeOut, long accountId, int ackCode,
-            long sessionId) throws IOException {
+            Socket socket, int timeOut,int ackCode,
+            long sessionId, long accountId) throws IOException {
 
         DataInputStream dataIn = getDataInputStream(socket);
         DataOutputStream dataOut = getDataOutputStream(socket);
