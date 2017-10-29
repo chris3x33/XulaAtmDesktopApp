@@ -9,19 +9,62 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
 import static atmClient.handler.CommandHandler.sendCommand;
 import static atmClient.handler.ResultHandler.getResult;
 import static atmClient.handler.SessionHandler.getSessionResult;
+import static atmClient.handler.SocketHandler.openNewSocket;
 import static atmClient.socketData.SocketDataReader.getDataInputStream;
 import static atmClient.socketData.SocketDataReader.readDoubleWTimeout;
 import static atmClient.socketData.SocketDataWriter.getDataOutputStream;
 
 public class GetAccountBalanceHandler {
 
-    public static GetAccountBalanceResult handleGetAccountBalanceExchange(
+    public static GetAccountBalanceResult handleGetAccountBalance(
+            String ipAddress, int port, int timeOut,
+            int ackCode, long sessionId, long accountId) {
+
+        Socket socket;
+        try {
+
+            //Open a new socket Connection
+            socket = openNewSocket(ipAddress, port, timeOut);
+            GetAccountBalanceResult getAccountBalanceResult = handleGetAccountBalanceExchange(
+                    socket,
+                    timeOut,
+                    accountId,
+                    ackCode,
+                    sessionId
+            );
+
+            //Close connection
+            socket.close();
+
+            return getAccountBalanceResult;
+
+        } catch (SocketTimeoutException e) {
+
+            return new GetAccountBalanceResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.SOCKET_TIMEOUT_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
+
+        } catch (IOException e) {
+
+            return new GetAccountBalanceResult(
+                    SessionResult.ERROR_CODE,
+                    SessionHandler.IO_EXCEPTION_ERROR_MSG,
+                    Result.ERROR_CODE
+            );
+        }
+
+    }
+
+    private static GetAccountBalanceResult handleGetAccountBalanceExchange(
             Socket socket, int timeOut, long accountId, int ackCode,
             long sessionId) throws IOException {
 
