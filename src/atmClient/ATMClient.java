@@ -196,11 +196,15 @@ public class ATMClient {
         int timeOut = getTimeOut();
 
         return handleGetAccountBalance(
-                ipAddress, port, timeOut, accountId
+                ipAddress, port, timeOut,ACK_CODE,
+                sessionId,
+                accountId
         );
     }
 
-    private GetAccountBalanceResult handleGetAccountBalance(String ipAddress, int port, int timeOut, long accountId) {
+    private GetAccountBalanceResult handleGetAccountBalance(
+            String ipAddress, int port, int timeOut,
+            int ackCode, long sessionId, long accountId) {
 
         Socket socket;
         try {
@@ -211,7 +215,7 @@ public class ATMClient {
                     socket,
                     timeOut,
                     accountId,
-                    ACK_CODE,
+                    ackCode,
                     sessionId
             );
 
