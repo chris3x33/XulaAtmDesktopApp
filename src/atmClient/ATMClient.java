@@ -183,11 +183,14 @@ public class ATMClient {
         int timeOut = getTimeOut();
 
         return handleGetAccountIds(
-                ipAddress, port, timeOut
+                ipAddress, port, timeOut,
+                ACK_CODE,
+                sessionId
         );
     }
 
-    private GetAccountIdsResult handleGetAccountIds(String ipAddress, int port, int timeOut) {
+    private GetAccountIdsResult handleGetAccountIds(
+            String ipAddress, int port, int timeOut, int ackCode, long sessionId) {
 
         Socket socket;
         try {
@@ -197,7 +200,7 @@ public class ATMClient {
             GetAccountIdsResult getAccountIdsResult = handleGetAccountIdsExchange(
                     socket,
                     timeOut,
-                    ACK_CODE,
+                    ackCode,
                     sessionId
             );
 
