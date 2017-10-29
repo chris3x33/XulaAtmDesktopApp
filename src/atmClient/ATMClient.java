@@ -13,6 +13,7 @@ import static atmClient.SocketACK.readACK;
 import static atmClient.SocketACK.sendACK;
 import static atmClient.handler.CommandHandler.sendCommand;
 import static atmClient.handler.CreateNewUserHandler.handleCreateNewUser;
+import static atmClient.handler.GetAccountIdsHandler.handleGetAccountIdsExchange;
 import static atmClient.handler.GetUserNameHandler.handleGetUserName;
 import static atmClient.handler.LoginHandler.handleLogin;
 import static atmClient.handler.LogoutHandler.handleLogout;
@@ -222,66 +223,6 @@ public class ATMClient {
             );
 
         }
-
-    }
-
-    private GetAccountIdsResult handleGetAccountIdsExchange(Socket socket, int timeOut, int ackCode, long sessionId) throws IOException {
-
-        DataInputStream dataIn = getDataInputStream(socket);
-        DataOutputStream dataOut = getDataOutputStream(socket);
-
-        System.out.println("\n\nGetAccountIdsCMD Start");
-
-        SessionResult sessionResult = getSessionResult(socket, timeOut, ackCode, sessionId);
-
-        int readSessionStatus = sessionResult.getSessionStatus();
-
-        if(readSessionStatus == SessionResult.ERROR_CODE){
-
-            System.out.println("GetAccountIdsCMD End\n");
-
-            return new GetAccountIdsResult(
-                    sessionResult.getSessionStatus(),
-                    sessionResult.getSessionMessage(),
-                    Result.ERROR_CODE
-            );
-
-        }
-
-        //Send Get AccountIds cmd
-        System.out.println("\tSent GetAccountIdsCMD");
-        sendCommand(
-                socket, dataIn, dataOut, timeOut,
-                ackCode,
-                XulaAtmServerCommands.GET_USER_ACCOUNTIDS_CMD
-        );
-
-        //Send ACK
-        sendACK(dataOut,ackCode);
-
-        Result result = getResult(socket, timeOut, ackCode);
-        if(result.getStatus() == Result.ERROR_CODE){
-
-            System.out.println("GetAccountIdsCMD End\n");
-
-            return new GetAccountIdsResult(
-                    sessionResult.getSessionStatus(),
-                    result.getStatus(),
-                    result.getMessage()
-            );
-        }
-
-        //read accountIDs
-        ArrayList<Long> accountIDs = readLongs(socket,timeOut,ackCode);
-        System.out.println("\tRead accountIDs: "+accountIDs+"\n");
-
-        System.out.println("GetAccountIdsCMD End\n");
-
-        return new GetAccountIdsResult(
-                sessionResult.getSessionStatus(),
-                result.getStatus(),
-                accountIDs
-        );
 
     }
 
