@@ -14,6 +14,7 @@ public class Main extends Application {
     public static final int WINDOWWIDTH = 400;
     public static Stage primaryStage;
     public static ATMClient atmClient = new ATMClient();
+
     public static final String ATM_START_SCENE = "/scenes/ATMStartScene.fxml";
     public static final String LOGIN_SCENE = "/scenes/LoginScene.fxml";
     public static final String NEW_USER_SCENE = "/scenes/NewUserScene.fxml";
@@ -21,6 +22,7 @@ public class Main extends Application {
     public static final String DEPOSIT_SCENE = "/scenes/DepositScene.fxml";
     public static final String SETUP_CONNECTION_SCENE = "/scenes/SetupConnectionScene.fxml";
     public static final String ACCOUNT_LIST_SCENE = "/scenes/AccountListScene.fxml";
+    public static final String ACCOUNT_VIEW_SCENE = "/scenes/AccountViewScene.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
