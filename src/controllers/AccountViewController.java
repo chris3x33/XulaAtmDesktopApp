@@ -2,6 +2,8 @@ package controllers;
 
 import atmClient.ATMClient;
 import atmClient.result.GetAccountBalanceResult;
+import atmClient.result.Result;
+import atmClient.result.SessionResult;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -48,8 +50,48 @@ public class AccountViewController {
             goToAccountList();
         }
 
+        setAccountBalance();
 
     }
+
+    private void setAccountBalance() throws IOException {
+        //Get Account Balance
+        GetAccountBalanceResult accountBalanceResult = atmClient.getAccountBalance(accountId);
+
+        int sessionStatus = accountBalanceResult.getSessionStatus();
+        if(sessionStatus == SessionResult.EXPIRED_SESSION_CODE ||
+                sessionStatus == SessionResult.INVALID_SESSION_CODE ){
+
+            errorAlert(
+                    accountBalanceResult.getSessionMessage(),
+                    APP_TITLE
+            );
+
+            atmClient.clearSession();
+
+            goToATMStartScene();
+
+            return;
+
+        }
+
+        int status = accountBalanceResult.getStatus();
+        if (status == Result.ERROR_CODE){
+
+            errorAlert(
+                    accountBalanceResult.getMessage(),
+                    APP_TITLE
+            );
+
+            goToAccountList();
+
+            return;
+        }
+
+        accountBalance = accountBalanceResult.getAccountBalance();
+
+    }
+
     private void goToATMStartScene() throws IOException {
 
         //init ATMStartScene
