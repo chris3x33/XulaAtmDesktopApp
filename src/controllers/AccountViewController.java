@@ -26,6 +26,10 @@ public class AccountViewController {
 
     }
 
+    private void setAccountIdLbl(long accountId) {
+        accountIdLbl.setText("Account: "+accountId);
+    }
+
 
     public void runStatementViewer(ActionEvent actionEvent) {
     }
