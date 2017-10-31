@@ -30,6 +30,7 @@ public class AccountListController {
 
     public static ATMClient atmClient = Main.atmClient;
     public final String USER_HOME_SCENE = Main.USER_HOME_SCENE;
+    public final String ACCOUNT_VIEW_SCENE = Main.ACCOUNT_VIEW_SCENE;
 
     public Label headerLbl;
     public ListView<String> accountsListView;
@@ -130,7 +131,8 @@ public class AccountListController {
     }
 
 
-    public void runViewAccount(ActionEvent actionEvent) {
+    public void runViewAccount(ActionEvent actionEvent)  {
+
     }
 
     public void back(ActionEvent actionEvent) throws IOException {
