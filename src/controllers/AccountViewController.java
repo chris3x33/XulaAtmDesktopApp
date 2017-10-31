@@ -27,6 +27,7 @@ public class AccountViewController {
     public static ATMClient atmClient = Main.atmClient;
 
     public final String ACCOUNT_LIST_SCENE = Main.ACCOUNT_LIST_SCENE;
+    public final String ATM_START_SCENE = Main.ATM_START_SCENE;
 
     public Label accountIdLbl;
     public Label accountTypeLbl;
@@ -39,7 +40,7 @@ public class AccountViewController {
     public void initialize() throws IOException {
 
 
-        long accountId = atmClient.getSelectedAccountId();
+        accountId = atmClient.getSelectedAccountId();
 
         //Check if Invalid AccountId
         if (accountId <0){
