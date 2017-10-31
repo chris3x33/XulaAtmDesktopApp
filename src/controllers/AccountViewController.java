@@ -33,6 +33,7 @@ public class AccountViewController {
     public Label accountBalanceLbl;
     public ListView transactionsListView;
 
+    private long accountId = -1;
     private double accountBalance = -1;
 
     public void initialize() throws IOException {
