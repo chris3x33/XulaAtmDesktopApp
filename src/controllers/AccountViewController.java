@@ -43,6 +43,8 @@ public class AccountViewController {
             goToAccountList();
         }
 
+
+
     }
 
     private void goToAccountList() throws IOException {
@@ -59,6 +61,9 @@ public class AccountViewController {
         accountIdLbl.setText("Account: "+accountId);
     }
 
+    private void setAccountBalanceLbl(double balance) {
+        accountIdLbl.setText("Balance: "+balance);
+    }
 
     public void runStatementViewer(ActionEvent actionEvent) {
     }
