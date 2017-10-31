@@ -12,6 +12,8 @@ import main.Main;
 
 import java.io.IOException;
 
+import static com.utils.Alerts.errorAlert;
+
 
 public class AccountViewController {
 
@@ -30,7 +32,16 @@ public class AccountViewController {
     public Label accountBalanceLbl;
     public ListView transactionsListView;
 
-    public void initialize() {
+    public void initialize() throws IOException {
+
+
+        long accountId = atmClient.getSelectedAccountId();
+
+        //Check if Invalid AccountId
+        if (accountId <0){
+            errorAlert("Invalid accountId cannot view account!!", APP_TITLE);
+            goToAccountList();
+        }
 
     }
 
