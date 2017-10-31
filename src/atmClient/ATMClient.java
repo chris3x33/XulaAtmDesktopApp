@@ -1,5 +1,6 @@
 package atmClient;
 
+import atmClient.handler.SessionHandler;
 import atmClient.result.*;
 
 import java.net.*;
@@ -211,6 +212,10 @@ public class ATMClient {
 
     public void setSelectedAccountId(long selectedAccountId) {
         this.selectedAccountId = selectedAccountId;
+    }
+
+    public void clearSession(){
+        sessionId = SessionHandler.INVALID_SESSION;
     }
 
 }
