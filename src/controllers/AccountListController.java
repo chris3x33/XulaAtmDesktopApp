@@ -131,7 +131,20 @@ public class AccountListController {
     }
 
 
-    public void runViewAccount(ActionEvent actionEvent)  {
+    public void runViewAccount(ActionEvent actionEvent) throws IOException {
+
+        int selectedAccountIndex = accountsListView.getSelectionModel().getSelectedIndex();
+
+        long accountId = accountIds.get(selectedAccountIndex);
+
+        atmClient.setSelectedAccountId(accountId);
+
+        //init ACCOUNT_VIEW_SCENE
+        Parent root = FXMLLoader.load(getClass().getResource(ACCOUNT_VIEW_SCENE));
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+
+        //Show ACCOUNT_VIEW_SCENE
+        PRIMARY_STAGE.show();
 
     }
 
