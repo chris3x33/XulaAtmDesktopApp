@@ -15,6 +15,7 @@ import static atmClient.handler.NewSessionHandler.handleNewSession;
 public class ATMClient {
 
     private long sessionId = -1;
+    private long selectedAccountId = -1;
 
     private final String DEFAULT_IP_ADDRESS = "127.0.0.1";
     private final int DEFAULT_PORT = 55555;
@@ -203,5 +204,13 @@ public class ATMClient {
         }
 
     }
-    
+
+    public long getSelectedAccountId() {
+        return selectedAccountId;
+    }
+
+    public void setSelectedAccountId(long selectedAccountId) {
+        this.selectedAccountId = selectedAccountId;
+    }
+
 }
