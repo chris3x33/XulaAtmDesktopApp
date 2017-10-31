@@ -1,6 +1,7 @@
 package controllers;
 
 import atmClient.ATMClient;
+import atmClient.result.GetAccountBalanceResult;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,6 +33,8 @@ public class AccountViewController {
     public Label accountBalanceLbl;
     public ListView transactionsListView;
 
+    private double accountBalance = -1;
+
     public void initialize() throws IOException {
 
 
@@ -42,7 +45,6 @@ public class AccountViewController {
             errorAlert("Invalid accountId cannot view account!!", APP_TITLE);
             goToAccountList();
         }
-
 
 
     }
