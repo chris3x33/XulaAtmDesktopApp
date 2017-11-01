@@ -77,7 +77,7 @@ public class GetAccountBalanceHandler {
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
-        if(readSessionStatus == SessionResult.ERROR_CODE){
+        if(readSessionStatus <= SessionResult.ERROR_CODE){
 
             System.out.println("GetAccountBalanceCMD End\n");
 

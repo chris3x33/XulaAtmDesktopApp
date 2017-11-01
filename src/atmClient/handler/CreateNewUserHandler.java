@@ -73,7 +73,7 @@ public class CreateNewUserHandler {
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
-        if(readSessionStatus == SessionResult.ERROR_CODE){
+        if(readSessionStatus <= SessionResult.ERROR_CODE){
 
             System.out.println("CreateNewUserCMD End\n");
 

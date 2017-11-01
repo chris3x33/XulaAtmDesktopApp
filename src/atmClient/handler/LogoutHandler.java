@@ -74,7 +74,7 @@ public class LogoutHandler {
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
-        if(readSessionStatus == SessionResult.ERROR_CODE){
+        if(readSessionStatus <= SessionResult.ERROR_CODE){
 
             System.out.println("LogoutCMD End\n");
 

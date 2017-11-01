@@ -74,7 +74,7 @@ public class LoginHandler {
 
         int readSessionStatus = sessionResult.getSessionStatus();
 
-        if(readSessionStatus == SessionResult.ERROR_CODE){
+        if(readSessionStatus <= SessionResult.ERROR_CODE){
 
             System.out.println("LoginCMD End\n");
 
