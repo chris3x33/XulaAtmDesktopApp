@@ -63,9 +63,7 @@ public class AccountViewController {
         //Get Account Balance
         GetAccountBalanceResult accountBalanceResult = atmClient.getAccountBalance(accountId);
 
-        int sessionStatus = accountBalanceResult.getSessionStatus();
-        if(sessionStatus == SessionResult.EXPIRED_SESSION_CODE ||
-                sessionStatus == SessionResult.INVALID_SESSION_CODE ){
+        if(!isValidSession(accountBalanceResult)){
 
             errorAlert(
                     accountBalanceResult.getSessionMessage(),
@@ -95,6 +93,13 @@ public class AccountViewController {
 
         accountBalance = accountBalanceResult.getAccountBalance();
 
+    }
+
+    private boolean isValidSession(SessionResult sessionResult){
+
+        int sessionStatus = sessionResult.getSessionStatus();
+        return !((sessionStatus == SessionResult.EXPIRED_SESSION_CODE) ||
+                (sessionStatus == SessionResult.INVALID_SESSION_CODE));
     }
 
     private void goToATMStartScene() throws IOException {
