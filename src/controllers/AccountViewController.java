@@ -53,7 +53,9 @@ public class AccountViewController {
 
         setAccountBalance();
 
+        //set Labels
         setAccountIdLbl(accountId);
+        setAccountBalanceLbl(accountBalance);
 
     }
 
