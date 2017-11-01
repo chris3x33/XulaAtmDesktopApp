@@ -44,6 +44,27 @@ public class AccountViewController {
 
     }
 
+    public SessionResult initData(long accountId){
+
+        this.accountId = accountId;
+
+        //Get Account Balance
+        GetAccountBalanceResult accountBalanceResult = atmClient.getAccountBalance(accountId);
+
+        if (!isValidSession(accountBalanceResult) ||
+                accountBalanceResult.getStatus() == Result.ERROR_CODE){
+            return accountBalanceResult;
+        }
+        accountBalance = accountBalanceResult.getAccountBalance();
+
+        //set Labels
+        setAccountIdLbl(accountId);
+        setAccountBalanceLbl(accountBalance);
+
+        return accountBalanceResult;
+    }
+
+
     private void setAccountBalance() throws IOException {
         //Get Account Balance
         GetAccountBalanceResult accountBalanceResult = atmClient.getAccountBalance(accountId);
