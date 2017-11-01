@@ -42,21 +42,6 @@ public class AccountViewController {
 
     public void initialize() throws IOException {
 
-
-        accountId = atmClient.getSelectedAccountId();
-
-        //Check if Invalid AccountId
-        if (accountId <0){
-            errorAlert("Invalid accountId cannot view account!!", APP_TITLE);
-            goToAccountList();
-        }
-
-        setAccountBalance();
-
-        //set Labels
-        setAccountIdLbl(accountId);
-        setAccountBalanceLbl(accountBalance);
-
     }
 
     private void setAccountBalance() throws IOException {
