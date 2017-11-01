@@ -106,7 +106,7 @@ public class CreateNewUserHandler {
 
         System.out.println("CreateNewUserCMD End\n");
 
-        if(result.getStatus() == Result.ERROR_CODE){
+        if(result.getStatus() <= Result.ERROR_CODE){
             return new CreateNewUserResult(
                     sessionResult.getSessionStatus(),
                     result.getStatus(),

@@ -99,7 +99,7 @@ public class GetUserNameHandler {
         Result result = getResult(socket, timeOut, ackCode);
 
         //Check Result
-        if (result.getStatus() == Result.ERROR_CODE){
+        if (result.getStatus() <= Result.ERROR_CODE){
 
             System.out.println("GetUserNameCMD End\n");
 

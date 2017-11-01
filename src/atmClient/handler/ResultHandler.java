@@ -32,7 +32,7 @@ public class ResultHandler {
         //Send ACK
         sendACK(dataOut,ackCode);
 
-        if(readResultStatus == Result.ERROR_CODE){
+        if(readResultStatus <= Result.ERROR_CODE){
 
             //Get Result Msg Length in bytes
             int readResultMessageLen = readIntWTimeout(socket, dataIn, timeOut);

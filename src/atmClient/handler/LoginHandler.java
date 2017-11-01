@@ -107,7 +107,7 @@ public class LoginHandler {
 
         System.out.println("LoginCMD End\n");
 
-        if(result.getStatus() == Result.ERROR_CODE){
+        if(result.getStatus() <= Result.ERROR_CODE){
             return new LoginResult(
                     sessionResult.getSessionStatus(),
                     result.getStatus(),

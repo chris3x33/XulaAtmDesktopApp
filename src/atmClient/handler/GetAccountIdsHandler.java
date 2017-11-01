@@ -99,7 +99,7 @@ public class GetAccountIdsHandler {
         sendACK(dataOut,ackCode);
 
         Result result = getResult(socket, timeOut, ackCode);
-        if(result.getStatus() == Result.ERROR_CODE){
+        if(result.getStatus() <= Result.ERROR_CODE){
 
             System.out.println("GetAccountIdsCMD End\n");
 

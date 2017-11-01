@@ -108,7 +108,7 @@ public class GetAccountBalanceHandler {
 
         //Read Result
         Result result = getResult(socket, timeOut, ackCode);
-        if(result.getStatus() == Result.ERROR_CODE){
+        if(result.getStatus() <= Result.ERROR_CODE){
             System.out.println("GetAccountBalanceCMD End\n");
             return new GetAccountBalanceResult(
                     sessionResult.getSessionStatus(),
