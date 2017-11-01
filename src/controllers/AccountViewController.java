@@ -128,7 +128,7 @@ public class AccountViewController {
     }
 
     private void setAccountBalanceLbl(double balance) {
-        accountIdLbl.setText("Balance: "+balance);
+        accountBalanceLbl.setText("Balance: "+balance);
     }
 
     public void runStatementViewer(ActionEvent actionEvent) {
