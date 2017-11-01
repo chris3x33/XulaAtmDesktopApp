@@ -38,6 +38,7 @@ public class AccountViewController {
 
     private long accountId = -1;
     private double accountBalance = -1;
+    private int accountType;
 
     public void initialize() throws IOException {
 
@@ -51,6 +52,8 @@ public class AccountViewController {
         }
 
         setAccountBalance();
+
+
 
     }
 
