@@ -31,7 +31,8 @@ public class AccountViewController {
 
     public final String ACCOUNT_LIST_SCENE = Main.ACCOUNT_LIST_SCENE;
     public final String ATM_START_SCENE = Main.ATM_START_SCENE;
-
+    public static final String ACCOUNT_VIEW_SCENE = Main.ACCOUNT_VIEW_SCENE;
+    
     public Label accountIdLbl;
     public Label accountTypeLbl;
     public Label accountBalanceLbl;
