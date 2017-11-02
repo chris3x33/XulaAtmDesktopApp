@@ -55,7 +55,7 @@ public class AccountListController {
 
         }
 
-        if (getAccountIdsResult.getSessionStatus() == SessionResult.ERROR_CODE){
+        if (getAccountIdsResult.getSessionStatus() <= SessionResult.ERROR_CODE){
 
             errorAlert(getAccountIdsResult.getSessionMessage(), APP_TITLE);
 

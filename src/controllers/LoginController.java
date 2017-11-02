@@ -83,7 +83,7 @@ public class LoginController {
 
         }
 
-        if (loginResult.getSessionStatus() == SessionResult.ERROR_CODE){
+        if (loginResult.getSessionStatus() <= SessionResult.ERROR_CODE){
 
             errorAlert(loginResult.getSessionMessage(), APP_TITLE);
 

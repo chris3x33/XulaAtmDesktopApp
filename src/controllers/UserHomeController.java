@@ -50,7 +50,7 @@ public class UserHomeController {
 
         }
 
-        if (getUserNameResult.getSessionStatus() == SessionResult.ERROR_CODE){
+        if (getUserNameResult.getSessionStatus() <= SessionResult.ERROR_CODE){
 
             errorAlert(getUserNameResult.getSessionMessage(), APP_TITLE);
 
@@ -141,7 +141,7 @@ public class UserHomeController {
 
         }
 
-        if (logoutResult.getSessionStatus() == SessionResult.ERROR_CODE){
+        if (logoutResult.getSessionStatus() <= SessionResult.ERROR_CODE){
 
             errorAlert(logoutResult.getSessionMessage(), APP_TITLE);
 

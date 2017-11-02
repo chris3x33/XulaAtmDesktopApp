@@ -84,7 +84,7 @@ public class NewUserController {
 
         }
 
-        if (createNewUserResult.getSessionStatus() == SessionResult.ERROR_CODE){
+        if (createNewUserResult.getSessionStatus() <= SessionResult.ERROR_CODE){
 
             errorAlert(createNewUserResult.getSessionMessage(), APP_TITLE);
 
