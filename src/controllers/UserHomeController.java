@@ -15,6 +15,7 @@ import main.Main;
 
 import java.io.IOException;
 
+import static atmClient.handler.SessionHandler.isValidSession;
 import static com.utils.Alerts.errorAlert;
 
 public class UserHomeController {
@@ -77,6 +78,38 @@ public class UserHomeController {
 
     }
 
+    public SessionResult initData() throws IOException {
+
+        //Get UserName
+        GetUserNameResult getUserNameResult = atmClient.getUserName();
+
+        //Check Session Status
+        if (!isValidSession(getUserNameResult)){
+
+            return getUserNameResult;
+
+        }
+
+        if (getUserNameResult.getSessionStatus() <= SessionResult.ERROR_CODE){
+
+            return getUserNameResult;
+
+        }
+
+        //Check Result Status
+        if (getUserNameResult.getStatus() <= Result.ERROR_CODE){
+
+            return getUserNameResult;
+
+        }
+
+        //Get UserName
+        String userName = getUserNameResult.getUserName();
+        setHeaderLbl("Welcome, "+userName);
+
+        return getUserNameResult;
+
+    }
 
     private void setHeaderLbl(String msg) {
         userHomeHeaderLbl.setText(msg);
