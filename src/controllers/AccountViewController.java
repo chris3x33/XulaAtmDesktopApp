@@ -135,9 +135,8 @@ public class AccountViewController {
             return;
         }
 
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
         //Show ACCOUNT_VIEW_SCENE
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
         PRIMARY_STAGE.show();
 
     }

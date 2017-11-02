@@ -146,12 +146,7 @@ public class AccountListController {
 
     public void back(ActionEvent actionEvent) throws IOException {
 
-        //init UserHomeScene
-        Parent root = FXMLLoader.load(getClass().getResource(USER_HOME_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
-        //Show USER_HOME_SCENE
-        PRIMARY_STAGE.show();
+        UserHomeController.handleSceneShow();
 
     }
 }
