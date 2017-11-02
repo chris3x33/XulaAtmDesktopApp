@@ -64,43 +64,6 @@ public class AccountViewController {
         return accountBalanceResult;
     }
 
-
-    private void setAccountBalance() throws IOException {
-        //Get Account Balance
-        GetAccountBalanceResult accountBalanceResult = atmClient.getAccountBalance(accountId);
-
-        if(!isValidSession(accountBalanceResult)){
-
-            errorAlert(
-                    accountBalanceResult.getSessionMessage(),
-                    APP_TITLE
-            );
-
-            atmClient.clearSession();
-
-            goToATMStartScene();
-
-            return;
-
-        }
-
-        int status = accountBalanceResult.getStatus();
-        if (status <= Result.ERROR_CODE){
-
-            errorAlert(
-                    accountBalanceResult.getMessage(),
-                    APP_TITLE
-            );
-
-            goToAccountList();
-
-            return;
-        }
-
-        accountBalance = accountBalanceResult.getAccountBalance();
-
-    }
-
     private boolean isValidSession(SessionResult sessionResult){
 
         int sessionStatus = sessionResult.getSessionStatus();
