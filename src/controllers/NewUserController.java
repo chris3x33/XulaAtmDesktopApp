@@ -92,18 +92,12 @@ public class NewUserController {
 
         }
 
-        if (createNewUserResult.getStatus() == Result.ERROR_CODE){
+        if (createNewUserResult.getStatus() <= Result.ERROR_CODE){
 
             errorAlert(createNewUserResult.getMessage(), APP_TITLE);
 
             return;
 
-        }
-
-        if (createNewUserResult.getStatus() != Result.SUCCESS_CODE){
-            errorAlert("Unknown State!! Status Code: "+createNewUserResult.getStatus(), APP_TITLE);
-
-            return;
         }
 
         informationAlert("New User Created!!", APP_TITLE);

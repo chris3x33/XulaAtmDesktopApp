@@ -39,7 +39,7 @@ public class ATMStartController {
 
         Result connectResult = atmClient.connect();
 
-        if(connectResult.getStatus() == Result.ERROR_CODE){
+        if(connectResult.getStatus() <= Result.ERROR_CODE){
             errorAlert(connectResult.getMessage(), APP_TITLE);
             return;
         }
@@ -58,7 +58,7 @@ public class ATMStartController {
 
         Result connectResult = atmClient.connect();
 
-        if(connectResult.getStatus() == Result.ERROR_CODE){
+        if(connectResult.getStatus() <= Result.ERROR_CODE){
             errorAlert(connectResult.getMessage(), APP_TITLE);
             return;
         }

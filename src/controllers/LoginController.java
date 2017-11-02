@@ -92,22 +92,12 @@ public class LoginController {
         }
 
         //Check Result Status
-        if (loginResult.getStatus() == Result.ERROR_CODE){
+        if (loginResult.getStatus() <= Result.ERROR_CODE){
 
             errorAlert(loginResult.getMessage(), APP_TITLE);
 
             return;
 
-        }
-
-        //Check if Unknown State
-        if (loginResult.getStatus() != Result.SUCCESS_CODE){
-            errorAlert(
-                    "Unknown State!! Status Code: "+loginResult.getStatus(),
-                    APP_TITLE
-            );
-
-            return;
         }
 
         //Go to UserHomeScene if login success

@@ -61,7 +61,7 @@ public class UserHomeController {
         }
 
         //Check Result Status
-        if (getUserNameResult.getStatus() == Result.ERROR_CODE){
+        if (getUserNameResult.getStatus() <= Result.ERROR_CODE){
 
             errorAlert(getUserNameResult.getMessage(), APP_TITLE);
 

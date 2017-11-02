@@ -85,7 +85,7 @@ public class AccountViewController {
         }
 
         int status = accountBalanceResult.getStatus();
-        if (status == Result.ERROR_CODE){
+        if (status <= Result.ERROR_CODE){
 
             errorAlert(
                     accountBalanceResult.getMessage(),

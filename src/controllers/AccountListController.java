@@ -64,7 +64,7 @@ public class AccountListController {
         }
 
         //Check Result Status
-        if (getAccountIdsResult.getStatus() == Result.ERROR_CODE){
+        if (getAccountIdsResult.getStatus() <= Result.ERROR_CODE){
 
             errorAlert(getAccountIdsResult.getMessage(), APP_TITLE);
 
