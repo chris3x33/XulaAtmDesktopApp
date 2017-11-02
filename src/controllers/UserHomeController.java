@@ -25,8 +25,7 @@ public class UserHomeController {
     public static final Stage PRIMARY_STAGE = Main.primaryStage;
 
     public static ATMClient atmClient = Main.atmClient;
-
-    public final String ATM_START_SCENE = Main.ATM_START_SCENE;
+    
     public final String DEPOSIT_SCENE = Main.DEPOSIT_SCENE;
     public final String ACCOUNT_LIST_SCENE = Main.ACCOUNT_LIST_SCENE;
 
@@ -142,4 +141,5 @@ public class UserHomeController {
         ATMStartController.handleSceneShow();
 
     }
+
 }
