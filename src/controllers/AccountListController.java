@@ -140,47 +140,7 @@ public class AccountListController {
 
         atmClient.setSelectedAccountId(accountId);
 
-        //init ACCOUNT_VIEW_SCENE
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ACCOUNT_VIEW_SCENE));
-        Parent root = fxmlLoader.load();
-
-
-        //Get AccountViewController
-        AccountViewController accountViewController =
-                (AccountViewController) fxmlLoader.getController();
-
-        //Setup accountViewController Data
-        SessionResult sessionResult = accountViewController.initData(accountId);
-
-
-        int sessionStatus = sessionResult.getSessionStatus();
-        if ((sessionStatus == SessionResult.EXPIRED_SESSION_CODE) ||
-                (sessionStatus == SessionResult.INVALID_SESSION_CODE)){
-
-            errorAlert(sessionResult.getSessionMessage(),APP_TITLE);
-
-            return;
-        }
-
-        if (sessionStatus <= SessionResult.ERROR_CODE){
-
-            errorAlert(sessionResult.getSessionMessage(),APP_TITLE);
-
-            return;
-        }
-
-        int status = sessionResult.getStatus();
-        if (status <= Result.ERROR_CODE){
-
-            errorAlert( sessionResult.getSessionMessage(),APP_TITLE);
-
-            return;
-        }
-
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
-        //Show ACCOUNT_VIEW_SCENE
-        PRIMARY_STAGE.show();
+        AccountViewController.handleSceneShow(accountId);
 
     }
 

@@ -32,7 +32,7 @@ public class AccountViewController {
     public final String ACCOUNT_LIST_SCENE = Main.ACCOUNT_LIST_SCENE;
     public final String ATM_START_SCENE = Main.ATM_START_SCENE;
     public static final String ACCOUNT_VIEW_SCENE = Main.ACCOUNT_VIEW_SCENE;
-    
+
     public Label accountIdLbl;
     public Label accountTypeLbl;
     public Label accountBalanceLbl;
@@ -92,4 +92,55 @@ public class AccountViewController {
         goToAccountList();
 
     }
+
+    public static void handleSceneShow(long accountId) throws IOException {
+
+        //init ACCOUNT_VIEW_SCENE
+        FXMLLoader fxmlLoader = new FXMLLoader(AccountViewController.class.getResource(ACCOUNT_VIEW_SCENE));
+        Parent root = fxmlLoader.load();
+
+
+        //Get AccountViewController
+        AccountViewController accountViewController =
+                (AccountViewController) fxmlLoader.getController();
+
+        //Setup accountViewController Data
+        SessionResult sessionResult = accountViewController.initData(accountId);
+
+
+        int sessionStatus = sessionResult.getSessionStatus();
+        if (!isValidSession(sessionResult)){
+
+            errorAlert(sessionResult.getSessionMessage(),APP_TITLE);
+
+            ATMStartController.handleSceneShow();
+
+            return;
+        }
+
+        if (sessionStatus <= SessionResult.ERROR_CODE){
+
+            errorAlert(sessionResult.getSessionMessage(),APP_TITLE);
+
+            ATMStartController.handleSceneShow();
+
+            return;
+        }
+
+        int status = sessionResult.getStatus();
+        if (status <= Result.ERROR_CODE){
+
+            errorAlert( sessionResult.getMessage(),APP_TITLE);
+
+            return;
+        }
+
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+
+        //Show ACCOUNT_VIEW_SCENE
+        PRIMARY_STAGE.show();
+
+    }
+
+
 }
