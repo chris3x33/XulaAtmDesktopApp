@@ -66,16 +66,6 @@ public class AccountViewController {
         return accountBalanceResult;
     }
 
-    private void goToAccountList() throws IOException {
-
-        //init ACCOUNT_LIST_SCENE
-        Parent root = FXMLLoader.load(getClass().getResource(ACCOUNT_LIST_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
-        //Show ACCOUNT_LIST_SCENE
-        PRIMARY_STAGE.show();
-    }
-
     private void setAccountIdLbl(long accountId) {
         accountIdLbl.setText("Account: "+accountId);
     }
@@ -89,7 +79,7 @@ public class AccountViewController {
 
     public void back(ActionEvent actionEvent) throws IOException {
 
-        goToAccountList();
+        AccountListController.handleSceneShow();
 
     }
 

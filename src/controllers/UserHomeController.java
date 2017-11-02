@@ -128,13 +128,7 @@ public class UserHomeController {
 
     public void runViewAccounts(ActionEvent actionEvent) throws IOException {
 
-        //init ACCOUNT_LIST_SCENE
-        Parent root = FXMLLoader.load(getClass().getResource(ACCOUNT_LIST_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
-        //Show ACCOUNT_LIST_SCENE
-        PRIMARY_STAGE.show();
-
+        AccountListController.handleSceneShow();
     }
 
     public void runTransfer(ActionEvent actionEvent) {
