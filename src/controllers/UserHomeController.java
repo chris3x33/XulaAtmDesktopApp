@@ -44,7 +44,7 @@ public class UserHomeController {
             errorAlert(getUserNameResult.getSessionMessage(), APP_TITLE);
 
             //Go back to ATMStartScene
-            goToATMStartScene();
+            ATMStartController.handleSceneShow();
 
             return;
 
@@ -88,13 +88,7 @@ public class UserHomeController {
 
     private void goToATMStartScene() throws IOException {
 
-        //init ATMStartScene
-        Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
-        //Show ATMStartScene
-        PRIMARY_STAGE.show();
-
+        ATMStartController.handleSceneShow();
     }
 
     public void runViewAccounts(ActionEvent actionEvent) throws IOException {
@@ -149,12 +143,8 @@ public class UserHomeController {
 
         }
 
-        //init ATMStartScene
-        Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
         //Show ATMStartScene
-        PRIMARY_STAGE.show();
+        ATMStartController.handleSceneShow();
 
     }
 }

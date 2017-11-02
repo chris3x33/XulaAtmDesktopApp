@@ -88,5 +88,15 @@ public class ATMStartController {
         PRIMARY_STAGE.show();
 
     }
+    public static void handleSceneShow() throws IOException {
+
+        //init ATMStartScene
+        Parent root = FXMLLoader.load(ATMStartController.class.getClass().getResource(ATM_START_SCENE));
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+
+        //Show ATMStartScene
+        PRIMARY_STAGE.show();
+
+    }
 
 }

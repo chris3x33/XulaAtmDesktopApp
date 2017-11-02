@@ -79,6 +79,8 @@ public class LoginController {
 
             errorAlert(loginResult.getSessionMessage(), APP_TITLE);
 
+            ATMStartController.handleSceneShow();
+
             return;
 
         }
@@ -111,12 +113,8 @@ public class LoginController {
 
     public void back(ActionEvent actionEvent) throws IOException {
 
-        //init ATMStartScene
-        Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+        ATMStartController.handleSceneShow();
 
-        //Show ATMStartScene
-        PRIMARY_STAGE.show();
     }
 
     public void requestPasswordTxtFocus(ActionEvent actionEvent) {

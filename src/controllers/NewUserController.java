@@ -102,23 +102,13 @@ public class NewUserController {
 
         informationAlert("New User Created!!", APP_TITLE);
 
-        //init ATMStartScene
-        Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
-        //Show ATMStartScene
-        PRIMARY_STAGE.show();
+        ATMStartController.handleSceneShow();
 
     }
 
     public void back(ActionEvent actionEvent) throws IOException {
 
-        //init ATMStartScene
-        Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
-        //Show ATMStartScene
-        PRIMARY_STAGE.show();
+        ATMStartController.handleSceneShow();
 
     }
 }
