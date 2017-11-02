@@ -89,4 +89,12 @@ public class SessionHandler {
         return new SessionResult(SessionResult.SUCCESS_CODE);
 
     }
+
+    public static boolean isValidSession(SessionResult sessionResult){
+
+        int sessionStatus = sessionResult.getSessionStatus();
+        return !((sessionStatus == SessionResult.EXPIRED_SESSION_CODE) ||
+                (sessionStatus == SessionResult.INVALID_SESSION_CODE));
+    }
+    
 }

@@ -15,6 +15,7 @@ import main.Main;
 
 import java.io.IOException;
 
+import static atmClient.handler.SessionHandler.isValidSession;
 import static com.utils.Alerts.errorAlert;
 
 
@@ -62,13 +63,6 @@ public class AccountViewController {
         setAccountBalanceLbl(accountBalance);
 
         return accountBalanceResult;
-    }
-
-    private boolean isValidSession(SessionResult sessionResult){
-
-        int sessionStatus = sessionResult.getSessionStatus();
-        return !((sessionStatus == SessionResult.EXPIRED_SESSION_CODE) ||
-                (sessionStatus == SessionResult.INVALID_SESSION_CODE));
     }
 
     private void goToAccountList() throws IOException {
