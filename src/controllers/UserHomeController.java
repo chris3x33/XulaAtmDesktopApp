@@ -86,11 +86,6 @@ public class UserHomeController {
         userHomeHeaderLbl.setText("Welcome");
     }
 
-    private void goToATMStartScene() throws IOException {
-
-        ATMStartController.handleSceneShow();
-    }
-
     public void runViewAccounts(ActionEvent actionEvent) throws IOException {
 
         //init ACCOUNT_LIST_SCENE
