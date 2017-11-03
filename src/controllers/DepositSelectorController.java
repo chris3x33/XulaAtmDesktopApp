@@ -92,7 +92,9 @@ public class DepositSelectorController {
         
     }
 
-    public void back(ActionEvent actionEvent) {
+    public void back(ActionEvent actionEvent) throws IOException {
+
+        UserHomeController.handleSceneShow();
 
     }
 }
