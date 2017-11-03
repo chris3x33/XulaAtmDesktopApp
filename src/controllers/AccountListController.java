@@ -82,7 +82,7 @@ public class AccountListController {
         SessionResult sessionResult = setAccountBalances(accountIds);
         if (sessionResult.getSessionStatus() <= SessionResult.ERROR_CODE
                 ||sessionResult.getStatus() <= Result.ERROR_CODE){
-            return getAccountIdsResult;
+            return sessionResult;
         }
 
         //Setup scene data
