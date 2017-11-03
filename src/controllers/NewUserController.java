@@ -27,7 +27,7 @@ public class NewUserController {
 
     public static ATMClient atmClient = Main.atmClient;
 
-    public final String ATM_START_SCENE = Main.ATM_START_SCENE;
+    public static final String NEW_USER_SCENE = Main.NEW_USER_SCENE;
 
     public Label newUserMsgLbl;
     public TextField userNameTxt;
@@ -37,6 +37,11 @@ public class NewUserController {
     public void initialize() {
 
     }
+
+    public void initData(){
+        newUserMsgLbl.setText("Create new X.U.L.A User Account");
+    }
+
     public void requestPasswordTxtFocus(ActionEvent actionEvent) {
         passwordTxt.requestFocus();
     }
@@ -111,4 +116,23 @@ public class NewUserController {
         ATMStartController.handleSceneShow();
 
     }
+
+    public static void handleSceneShow() throws IOException {
+
+        //init NEW_USER_SCENE
+        FXMLLoader fxmlLoader = new FXMLLoader(NewUserController.class.getClass().getResource(NEW_USER_SCENE));
+        Parent root = fxmlLoader.load();
+
+        //Get AccountListController
+        NewUserController newUserController =
+                (NewUserController) fxmlLoader.getController();
+
+        //init Controller Data
+        newUserController.initData();
+
+        //Show NEW_USER_SCENE
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+        PRIMARY_STAGE.show();
+    }
+
 }

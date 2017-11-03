@@ -64,12 +64,8 @@ public class ATMStartController {
             return;
         }
 
-        //init NewUserScene
-        Parent root = FXMLLoader.load(getClass().getResource(NEW_USER_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+        NewUserController.handleSceneShow();
 
-        //Show NewUserScene
-        PRIMARY_STAGE.show();
     }
 
     public void exit(ActionEvent actionEvent) {
