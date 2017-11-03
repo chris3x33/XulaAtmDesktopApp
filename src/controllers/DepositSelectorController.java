@@ -34,13 +34,13 @@ public class DepositSelectorController {
 
     public SessionResult initData() throws IOException {
 
-        return new SessionResult(SessionResult.SUCCESS_CODE, Result.ERROR_CODE);
+        return new SessionResult(SessionResult.SUCCESS_CODE, Result.SUCCESS_CODE);
 
     }
 
     public static void handleSceneShow() throws IOException{
 
-        errorAlert( "Under Development!!",APP_TITLE);
+       errorAlert( "Under Development!!",APP_TITLE);
 
 //        //init DEPOSIT_SELECTOR_SCENE
 //        FXMLLoader fxmlLoader = new FXMLLoader(
@@ -81,8 +81,6 @@ public class DepositSelectorController {
 //
 //            return;
 //        }
-//
-//        errorAlert( "Under Development!!",APP_TITLE);
 //
 //        //Show DEPOSIT_SELECTOR_SCENE
 //        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
