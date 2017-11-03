@@ -44,18 +44,18 @@ public class LoginController {
 
         //init LOGIN_SCENE
         FXMLLoader fxmlLoader = new FXMLLoader(
-                NewUserController.class.getClass().getResource(LOGIN_SCENE)
+                LoginController.class.getClass().getResource(LOGIN_SCENE)
         );
         Parent root = fxmlLoader.load();
 
-        //Get AccountListController
+        //Get LoginController
         LoginController loginController =
                 (LoginController) fxmlLoader.getController();
 
         //init Controller Data
         loginController.initData();
 
-        //Show NEW_USER_SCENE
+        //Show LOGIN_SCENE
         PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
         PRIMARY_STAGE.show();
     }

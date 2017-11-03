@@ -24,7 +24,7 @@ public class SetupConnectionController {
 
     public static ATMClient atmClient = Main.atmClient;
 
-    public final String ATM_START_SCENE = Main.ATM_START_SCENE;
+    public static final String SETUP_CONNECTION_SCENE = Main.SETUP_CONNECTION_SCENE;
 
     public Label headerLbl;
     public TextField ipAddressTxt;
@@ -107,12 +107,33 @@ public class SetupConnectionController {
 
     public void runBack(ActionEvent actionEvent) throws IOException {
 
-        //init ATMStartScene
-        Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
-        //Show ATMStartScene
-        PRIMARY_STAGE.show();
+        ATMStartController.handleSceneShow();
 
     }
-}
+
+    public void initData(){
+
+    }
+
+    public static void handleSceneShow() throws IOException {
+
+        //init SETUP_CONNECTION_SCENE
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                SetupConnectionController.class.getClass()
+                        .getResource(SETUP_CONNECTION_SCENE)
+        );
+        Parent root = fxmlLoader.load();
+
+        //Get SetupConnectionController
+        SetupConnectionController setupConnectionController =
+                (SetupConnectionController) fxmlLoader.getController();
+
+        //init Controller Data
+        setupConnectionController.initData();
+
+        //Show SETUP_CONNECTION_SCENE
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+        PRIMARY_STAGE.show();
+    }
+
+    }
