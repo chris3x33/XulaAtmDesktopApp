@@ -1,8 +1,12 @@
 package controllers;
 
 import atmClient.ATMClient;
+import atmClient.result.GetAccountBalanceResult;
+import atmClient.result.GetAccountIdsResult;
 import atmClient.result.Result;
 import atmClient.result.SessionResult;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +16,7 @@ import javafx.stage.Stage;
 import main.Main;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static atmClient.handler.SessionHandler.isValidSession;
 import static com.utils.Alerts.errorAlert;
@@ -27,14 +32,96 @@ public class DepositSelectorController {
     public static String DEPOSIT_SELECTOR_SCENE = Main.DEPOSIT_SELECTOR_SCENE;
     
     public ListView accountsListView;
+    private ArrayList<Long> accountIds;
+    private ArrayList<Double> accountBalances;
 
     public void initialize() {
 
     }
 
+    private void setAccountsListView(
+            ArrayList<Long> accountIds, ArrayList<Double> accountBalances) {
+
+        ArrayList<String> formattedAccounts = getFormattedAccounts(accountIds, accountBalances);
+
+        ObservableList<String> formattedAccountLists = FXCollections.observableArrayList();
+
+        formattedAccountLists.addAll(formattedAccounts);
+
+        accountsListView.setItems(formattedAccountLists);
+
+        accountsListView.getSelectionModel().select(0);
+
+    }
+
+    private ArrayList<String> getFormattedAccounts(ArrayList<Long> accountIds, ArrayList<Double> accountBalances) {
+
+        ArrayList<String> formattedAccounts = new ArrayList<String>();
+
+        for (int i = 0; i < accountIds.size(); i++) {
+
+            String formattedAccount = String.format(
+                    "Account: %d, Balance: %.2f",
+                    accountIds.get(i),
+                    accountBalances.get(i)
+            );
+
+            formattedAccounts.add(formattedAccount);
+
+        }
+
+        return formattedAccounts;
+
+    }
+
     public SessionResult initData() throws IOException {
 
+        //Get Account Ids
+        GetAccountIdsResult getAccountIdsResult = atmClient.getAccountIds();
+        if (getAccountIdsResult.getSessionStatus() <= SessionResult.ERROR_CODE
+                ||getAccountIdsResult.getStatus() <= Result.ERROR_CODE){
+            return getAccountIdsResult;
+        }
+        accountIds = getAccountIdsResult.getAccountIds();
+
+        //set Account Balances
+        SessionResult sessionResult = setAccountBalances(accountIds);
+        if (sessionResult.getSessionStatus() <= SessionResult.ERROR_CODE
+                ||sessionResult.getStatus() <= Result.ERROR_CODE){
+            return sessionResult;
+        }
+
+        //Setup scene data
+        setAccountsListView(accountIds, accountBalances);
+
         return new SessionResult(SessionResult.SUCCESS_CODE, Result.SUCCESS_CODE);
+
+    }
+
+    private SessionResult setAccountBalances(ArrayList<Long> accountIds) {
+
+        accountBalances = new ArrayList<Double>();
+
+        for (long accountId: accountIds){
+
+            GetAccountBalanceResult getAccountBalanceResult =
+                    atmClient.getAccountBalance(accountId);
+
+            if (getAccountBalanceResult.getSessionStatus() <= SessionResult.ERROR_CODE
+                    ||getAccountBalanceResult.getStatus() <= Result.ERROR_CODE){
+                return getAccountBalanceResult;
+            }
+
+            double accountBalance = getAccountBalanceResult.getAccountBalance();
+
+            accountBalances.add(accountBalance);
+
+        }
+
+        return new SessionResult(
+                SessionResult.SUCCESS_CODE,
+                Result.SUCCESS_CODE
+        );
 
     }
 
