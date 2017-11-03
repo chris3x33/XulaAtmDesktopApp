@@ -28,11 +28,9 @@ public class ATMStartController {
 
     public Label welcomeMsgLbl;
 
-
     public void initialize() {
-        welcomeMsgLbl.setText("Welcome to X.U.L.A ATM");
-    }
 
+    }
 
     public void runLogin(ActionEvent actionEvent) throws IOException {
 
@@ -68,18 +66,33 @@ public class ATMStartController {
 
     public void runSetupConnection(ActionEvent actionEvent) throws IOException {
 
-
         SetupConnectionController.handleSceneShow();
+
+    }
+
+    public void initData(){
+
+        welcomeMsgLbl.setText("Welcome to X.U.L.A ATM");
 
     }
 
     public static void handleSceneShow() throws IOException {
 
         //init ATMStartScene
-        Parent root = FXMLLoader.load(ATMStartController.class.getClass().getResource(ATM_START_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                ATMStartController.class.getResource(ATM_START_SCENE)
+        );
+        Parent root = fxmlLoader.load();
+
+        //Get ATMStartController
+        ATMStartController atmStartController =
+                (ATMStartController) fxmlLoader.getController();
+
+        //Setup atmStartController Data
+        atmStartController.initData();
 
         //Show ATMStartScene
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
         PRIMARY_STAGE.show();
 
     }

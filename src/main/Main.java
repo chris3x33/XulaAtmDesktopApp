@@ -1,6 +1,7 @@
 package main;
 
 import atmClient.ATMClient;
+import controllers.ATMStartController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,11 +28,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        //Set title
         this.primaryStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource(ATM_START_SCENE));
         primaryStage.setTitle(APP_TITLE);
-        primaryStage.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-        primaryStage.show();
+
+        //Show ATM_START_SCENE
+        ATMStartController.handleSceneShow();
+
     }
 
 
