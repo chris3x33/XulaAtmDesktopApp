@@ -26,8 +26,7 @@ public class LoginController {
 
     public static ATMClient atmClient = Main.atmClient;
 
-    public final String ATM_START_SCENE = Main.ATM_START_SCENE;
-    public final String USER_HOME_SCENE = Main.USER_HOME_SCENE;
+    public static final String LOGIN_SCENE = Main.LOGIN_SCENE;
 
     public Label loginMsgLbl;
     public TextField userNameTxt;
@@ -35,9 +34,31 @@ public class LoginController {
 
 
     public void initialize() {
+    }
+
+    public void initData(){
         loginMsgLbl.setText("X.U.L.A ATM Login");
     }
 
+    public static void handleSceneShow() throws IOException {
+
+        //init LOGIN_SCENE
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                NewUserController.class.getClass().getResource(LOGIN_SCENE)
+        );
+        Parent root = fxmlLoader.load();
+
+        //Get AccountListController
+        LoginController loginController =
+                (LoginController) fxmlLoader.getController();
+
+        //init Controller Data
+        loginController.initData();
+
+        //Show NEW_USER_SCENE
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+        PRIMARY_STAGE.show();
+    }
 
     public void login(ActionEvent actionEvent) throws IOException {
 

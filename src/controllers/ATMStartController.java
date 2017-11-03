@@ -24,8 +24,6 @@ public class ATMStartController {
     public static ATMClient atmClient = Main.atmClient;
 
     public static final String ATM_START_SCENE = Main.ATM_START_SCENE;
-    public final String LOGIN_SCENE = Main.LOGIN_SCENE;
-    public final String NEW_USER_SCENE = Main.NEW_USER_SCENE;
     public final String SETUP_CONNECTION_SCENE = Main.SETUP_CONNECTION_SCENE;
 
     public Label welcomeMsgLbl;
@@ -45,13 +43,7 @@ public class ATMStartController {
             return;
         }
 
-        //init LoginScene
-        Parent root = FXMLLoader.load(getClass().getResource(LOGIN_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
-        //Show LoginScene
-        PRIMARY_STAGE.show();
-
+        LoginController.handleSceneShow();
 
     }
 
@@ -84,6 +76,7 @@ public class ATMStartController {
         PRIMARY_STAGE.show();
 
     }
+
     public static void handleSceneShow() throws IOException {
 
         //init ATMStartScene

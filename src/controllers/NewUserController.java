@@ -120,7 +120,9 @@ public class NewUserController {
     public static void handleSceneShow() throws IOException {
 
         //init NEW_USER_SCENE
-        FXMLLoader fxmlLoader = new FXMLLoader(NewUserController.class.getClass().getResource(NEW_USER_SCENE));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                NewUserController.class.getClass().getResource(NEW_USER_SCENE)
+        );
         Parent root = fxmlLoader.load();
 
         //Get AccountListController
