@@ -136,12 +136,7 @@ public class UserHomeController {
 
     public void runDeposit(ActionEvent actionEvent) throws IOException {
 
-        //init DEPOSIT_SCENE
-        Parent root = FXMLLoader.load(getClass().getResource(DEPOSIT_SCENE));
-        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-
-        //Show DEPOSIT_SCENE
-        PRIMARY_STAGE.show();
+        DepositSelectorController.handleSceneShow();
 
     }
 
