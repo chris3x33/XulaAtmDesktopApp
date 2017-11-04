@@ -32,6 +32,9 @@ public class DepositController {
 
     }
 
-    public void cancel(ActionEvent actionEvent) {
+    public void cancel(ActionEvent actionEvent) throws IOException {
+
+        UserHomeController.handleSceneShow();
+
     }
 }
