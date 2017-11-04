@@ -3,24 +3,27 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
 <VBox fx:controller="controllers.DepositController"
       xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
 
     <Label text="Deposit" />
 
     <HBox alignment="center" spacing="10">
-        <Label text="Account: "/>
-
+        <Label fx:id="accountIdLbl"/>
+        <Button text="Change Account" />
     </HBox>
 
     <HBox alignment="center" spacing="10">
-        <Label text="Balance: "/>
-        <TextField fx:id="balanceTxt" />
+        <Label fx:id="accountBalanceLbl"/>
     </HBox>
 
     <HBox alignment="center" spacing="10">
         <Label text="Deposit Amount: "/>
         <TextField fx:id="depositAmountTxt" />
     </HBox>
+
+    <Button text="Deposit" onAction="#deposit"/>
+    <Button text="Cancel" onAction="#cancel"/>
 
 </VBox>
