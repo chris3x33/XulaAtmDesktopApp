@@ -127,56 +127,59 @@ public class DepositSelectorController {
 
     public static void handleSceneShow() throws IOException{
 
-       errorAlert( "Under Development!!",APP_TITLE);
+        //init DEPOSIT_SELECTOR_SCENE
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                AccountListController.class.getResource(DEPOSIT_SELECTOR_SCENE)
+        );
+        Parent root = fxmlLoader.load();
 
-//        //init DEPOSIT_SELECTOR_SCENE
-//        FXMLLoader fxmlLoader = new FXMLLoader(
-//                AccountListController.class.getResource(DEPOSIT_SELECTOR_SCENE)
-//        );
-//        Parent root = fxmlLoader.load();
-//
-//        //Get AccountListController
-//        DepositSelectorController accountListController =
-//                (DepositSelectorController) fxmlLoader.getController();
-//
-//        //Setup accountListController Data
-//        SessionResult sessionResult = accountListController.initData();
-//
-//        int sessionStatus = sessionResult.getSessionStatus();
-//        if (!isValidSession(sessionResult)){
-//
-//            errorAlert(sessionResult.getSessionMessage(),APP_TITLE);
-//
-//            ATMStartController.handleSceneShow();
-//
-//            return;
-//        }
-//
-//        if (sessionStatus <= SessionResult.ERROR_CODE){
-//
-//            errorAlert(sessionResult.getSessionMessage(),APP_TITLE);
-//
-//            ATMStartController.handleSceneShow();
-//
-//            return;
-//        }
-//
-//        int status = sessionResult.getStatus();
-//        if (status <= Result.ERROR_CODE){
-//
-//            errorAlert( sessionResult.getMessage(),APP_TITLE);
-//
-//            return;
-//        }
-//
-//        //Show DEPOSIT_SELECTOR_SCENE
-//        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
-//        PRIMARY_STAGE.show();
+        //Get AccountListController
+        DepositSelectorController accountListController =
+                (DepositSelectorController) fxmlLoader.getController();
+
+        //Setup accountListController Data
+        SessionResult sessionResult = accountListController.initData();
+
+        int sessionStatus = sessionResult.getSessionStatus();
+        if (!isValidSession(sessionResult)){
+
+            errorAlert(sessionResult.getSessionMessage(),APP_TITLE);
+
+            ATMStartController.handleSceneShow();
+
+            return;
+        }
+
+        if (sessionStatus <= SessionResult.ERROR_CODE){
+
+            errorAlert(sessionResult.getSessionMessage(),APP_TITLE);
+
+            ATMStartController.handleSceneShow();
+
+            return;
+        }
+
+        int status = sessionResult.getStatus();
+        if (status <= Result.ERROR_CODE){
+
+            errorAlert( sessionResult.getMessage(),APP_TITLE);
+
+            return;
+        }
+
+        //Show DEPOSIT_SELECTOR_SCENE
+        PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
+        PRIMARY_STAGE.show();
 
     }
 
-    public void runDeposit(ActionEvent actionEvent) {
-        
+    public void runDeposit(ActionEvent actionEvent) throws IOException {
+
+        int selectedAccountIndex = accountsListView.getSelectionModel().getSelectedIndex();
+
+        long accountId = accountIds.get(selectedAccountIndex);
+
+        DepositController.handleSceneShow(accountId);
     }
 
     public void back(ActionEvent actionEvent) throws IOException {

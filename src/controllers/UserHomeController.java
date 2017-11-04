@@ -27,7 +27,6 @@ public class UserHomeController {
 
     public static ATMClient atmClient = Main.atmClient;
 
-    public final String DEPOSIT_SCENE = Main.DEPOSIT_SCENE;
     public final String ACCOUNT_LIST_SCENE = Main.ACCOUNT_LIST_SCENE;
     public static final String USER_HOME_SCENE = Main.USER_HOME_SCENE;
 
