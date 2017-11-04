@@ -28,6 +28,14 @@ public class DepositController {
 
     }
 
+    private void setAccountIdLbl(long accountId) {
+        accountIdLbl.setText("Account: "+accountId);
+    }
+
+    private void setAccountBalanceLbl(double balance) {
+        accountBalanceLbl.setText("Balance: "+balance);
+    }
+
     public void deposit(ActionEvent actionEvent) {
 
     }
