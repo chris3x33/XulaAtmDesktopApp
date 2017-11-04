@@ -1,6 +1,7 @@
 package controllers;
 
 import atmClient.ATMClient;
+import atmClient.result.GetAccountBalanceResult;
 import atmClient.result.Result;
 import atmClient.result.SessionResult;
 import javafx.event.ActionEvent;
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
 import main.Main;
 
 import java.io.IOException;
+
+import static atmClient.handler.SessionHandler.isValidSession;
 
 public class DepositController {
 
@@ -24,8 +27,31 @@ public class DepositController {
     public Label accountIdLbl;
     public Label accountBalanceLbl;
 
+    private long accountId = -1;
+    private double accountBalance = -1;
+
     public void initialize() {
 
+    }
+
+    public SessionResult initData(long accountId){
+
+        this.accountId = accountId;
+
+        //Get Account Balance
+        GetAccountBalanceResult accountBalanceResult = atmClient.getAccountBalance(accountId);
+
+        if (!isValidSession(accountBalanceResult) ||
+                accountBalanceResult.getStatus() == Result.ERROR_CODE){
+            return accountBalanceResult;
+        }
+        accountBalance = accountBalanceResult.getAccountBalance();
+
+        //set Labels
+        setAccountIdLbl(accountId);
+        setAccountBalanceLbl(accountBalance);
+
+        return accountBalanceResult;
     }
 
     private void setAccountIdLbl(long accountId) {
