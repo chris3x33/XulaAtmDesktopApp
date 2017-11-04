@@ -11,7 +11,7 @@
 
     <HBox alignment="center" spacing="10">
         <Label fx:id="accountIdLbl"/>
-        <Button text="Change Account" />
+        <Button text="Change Account" onAction="#runAccountChange"/>
     </HBox>
 
     <HBox alignment="center" spacing="10">

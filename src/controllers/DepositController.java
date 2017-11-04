@@ -37,4 +37,8 @@ public class DepositController {
         UserHomeController.handleSceneShow();
 
     }
+
+    public void runAccountChange(ActionEvent actionEvent) throws IOException {
+        DepositSelectorController.handleSceneShow();
+    }
 }
