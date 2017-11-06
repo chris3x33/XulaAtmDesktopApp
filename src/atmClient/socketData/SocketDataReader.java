@@ -50,27 +50,24 @@ public class SocketDataReader {
         }
     }
 
-    public static byte[] readBytesWTimeout(Socket socket, DataInputStream dataIn, int timeOut, int numOfBytes) throws IOException {
+    public static byte[] readBytesWTimeout(
+            Socket socket, DataInputStream dataIn,
+            int timeOut, int numOfBytes) throws IOException {
 
         final int BYTE_SIZE = 1;
 
         byte[] readBytes = new byte[numOfBytes];
 
-        boolean hasByte;
-        for (int i = 0; i < readBytes.length; i++) {
+        boolean hasBytes;
+        long startTime = System.currentTimeMillis();
+        do {
+            hasBytes = (socket.getInputStream().available() >= BYTE_SIZE*numOfBytes);
+        } while (!hasBytes && (System.currentTimeMillis() - startTime) < timeOut*numOfBytes);
 
-            long startTime = System.currentTimeMillis();
-
-            do {
-                hasByte = (socket.getInputStream().available() >= BYTE_SIZE);
-            } while (!hasByte && (System.currentTimeMillis() - startTime) < timeOut);
-
-            if (hasByte) {
-                readBytes[i] = dataIn.readByte();
-            } else {
-                throw new SocketTimeoutException();
-            }
-
+        if (hasBytes) {
+            dataIn.readFully(readBytes);
+        } else {
+            throw new SocketTimeoutException();
         }
 
         return readBytes;
