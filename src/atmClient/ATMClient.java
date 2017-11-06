@@ -6,6 +6,7 @@ import atmClient.result.*;
 import java.net.*;
 
 import static atmClient.handler.CreateNewUserHandler.handleCreateNewUser;
+import static atmClient.handler.DepositHandler.handleDeposit;
 import static atmClient.handler.GetAccountBalanceHandler.handleGetAccountBalance;
 import static atmClient.handler.GetAccountIdsHandler.handleGetAccountIds;
 import static atmClient.handler.GetUserNameHandler.handleGetUserName;
@@ -153,6 +154,20 @@ public class ATMClient {
         userDefinedTimeOut = timeOut;
 
         return new Result(Result.SUCCESS_CODE);
+
+    }
+
+    public DepositResult deposit(long toAccountId, double amount) {
+
+        String ipAddress = getIpAddress();
+        int port = getPort();
+        int timeOut = getTimeOut();
+
+        return handleDeposit(
+                ipAddress, port, timeOut, ACK_CODE,
+                sessionId,
+                toAccountId, amount
+        );
 
     }
 
