@@ -1,6 +1,7 @@
 package controllers;
 
 import atmClient.ATMClient;
+import atmClient.result.DepositResult;
 import atmClient.result.GetAccountBalanceResult;
 import atmClient.result.Result;
 import atmClient.result.SessionResult;
@@ -12,11 +13,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.Main;
+import sun.misc.FloatingDecimal;
 
 import java.io.IOException;
 
 import static atmClient.handler.SessionHandler.isValidSession;
 import static com.utils.Alerts.errorAlert;
+import static com.utils.Alerts.informationAlert;
 
 public class DepositController {
 
@@ -68,7 +71,48 @@ public class DepositController {
         accountBalanceLbl.setText("Balance: "+balance);
     }
 
-    public void deposit(ActionEvent actionEvent) {
+    public void deposit(ActionEvent actionEvent) throws IOException {
+
+        String amountStr = depositAmountTxt.getText();
+
+        //Check amountStr
+        if (!isDouble(amountStr)){
+
+            errorAlert("Enter an amount to deposit", APP_TITLE);
+
+            depositAmountTxt.clear();
+
+            return;
+        }
+
+        //Get Amount
+        double amount = Double.parseDouble(amountStr);
+
+        //Run deposit
+        DepositResult depositResult = atmClient.deposit(accountId, amount);
+
+        int sessionStatus = depositResult.getSessionStatus();
+        if (!isValidSession(depositResult) ||
+                sessionStatus <= SessionResult.ERROR_CODE){
+
+            errorAlert(depositResult.getSessionMessage(),APP_TITLE);
+
+            ATMStartController.handleSceneShow();
+
+            return;
+        }
+
+        int status = depositResult.getStatus();
+        if (status <= Result.ERROR_CODE){
+
+            errorAlert( depositResult.getMessage(),APP_TITLE);
+
+            return;
+        }
+
+        informationAlert(depositResult.getDepositMsg(), APP_TITLE);
+
+        UserHomeController.handleSceneShow();
 
     }
 
@@ -129,6 +173,18 @@ public class DepositController {
         //Show DEPOSIT_SCENE
         PRIMARY_STAGE.setScene(new Scene(root, WINDOWWIDTH, WINDOWHEIGHT));
         PRIMARY_STAGE.show();
+
+    }
+
+    private boolean isDouble(String str){
+
+        try {
+            Double.parseDouble(str);
+            return true;
+
+        }catch (NumberFormatException e){
+            return false;
+        }
 
     }
 
