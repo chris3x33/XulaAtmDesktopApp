@@ -9,6 +9,8 @@ import static atmClient.handler.CreateNewUserHandler.handleCreateNewUser;
 import static atmClient.handler.DepositHandler.handleDeposit;
 import static atmClient.handler.GetAccountBalanceHandler.handleGetAccountBalance;
 import static atmClient.handler.GetAccountIdsHandler.handleGetAccountIds;
+import static atmClient.handler.GetTransactionHandler.handleGetTransaction;
+import static atmClient.handler.GetTransactionIdsHandler.handleGetTransactionIds;
 import static atmClient.handler.GetUserNameHandler.handleGetUserName;
 import static atmClient.handler.LoginHandler.handleLogin;
 import static atmClient.handler.LogoutHandler.handleLogout;
@@ -155,6 +157,19 @@ public class ATMClient {
 
         return new Result(Result.SUCCESS_CODE);
 
+    }
+
+    public GetTransactionIdsResult getTransactionIds(long accountId){
+
+        String ipAddress = getIpAddress();
+        int port = getPort();
+        int timeOut = getTimeOut();
+
+        return handleGetTransactionIds(
+                ipAddress, port, timeOut,
+                ACK_CODE,
+                sessionId, accountId
+        );
     }
 
     public DepositResult deposit(long toAccountId, double amount) {
