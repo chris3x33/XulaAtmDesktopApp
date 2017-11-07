@@ -1,9 +1,10 @@
 package controllers;
 
 import atmClient.ATMClient;
-import atmClient.result.GetAccountBalanceResult;
-import atmClient.result.Result;
-import atmClient.result.SessionResult;
+import atmClient.XulaATMTransaction;
+import atmClient.result.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import main.Main;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static atmClient.handler.SessionHandler.isValidSession;
 import static com.utils.Alerts.errorAlert;
@@ -41,6 +43,7 @@ public class AccountViewController {
     private long accountId = -1;
     private double accountBalance = -1;
     private int accountType;
+    private ArrayList<XulaATMTransaction> atmTransactions;
 
     public void initialize() throws IOException {
 
@@ -54,16 +57,73 @@ public class AccountViewController {
         GetAccountBalanceResult accountBalanceResult = atmClient.getAccountBalance(accountId);
 
         if (!isValidSession(accountBalanceResult) ||
+                accountBalanceResult.getSessionStatus() == SessionResult.ERROR_CODE ||
                 accountBalanceResult.getStatus() == Result.ERROR_CODE){
             return accountBalanceResult;
         }
         accountBalance = accountBalanceResult.getAccountBalance();
 
+        //Get TransactionIds
+        GetTransactionIdsResult getTransactionIdsResult = atmClient.getTransactionIds(
+                accountId
+        );
+        if (!isValidSession(getTransactionIdsResult) ||
+                getTransactionIdsResult.getSessionStatus() == SessionResult.ERROR_CODE ||
+        getTransactionIdsResult.getStatus() == Result.ERROR_CODE){
+            return getTransactionIdsResult;
+        }
+        ArrayList<Long> transactionIds = getTransactionIdsResult.getTransactionIds();
+
+        //Set Transactions
+        setAtmTransactions(accountId, transactionIds);
+
         //set Labels
         setAccountIdLbl(accountId);
         setAccountBalanceLbl(accountBalance);
+        setTransactionsListView(atmTransactions);
 
         return accountBalanceResult;
+    }
+
+    private SessionResult setAtmTransactions(long accountId, ArrayList<Long> transactionIds) {
+
+         atmTransactions = new ArrayList<XulaATMTransaction>();
+
+        for (long transactionId : transactionIds){
+
+            GetTransactionResult getTransactionResult =
+                    atmClient.getTransaction(accountId, transactionId);
+
+            if (!isValidSession(getTransactionResult) ||
+                    getTransactionResult.getSessionStatus() == SessionResult.ERROR_CODE ||
+                    getTransactionResult.getStatus() == Result.ERROR_CODE){
+                return getTransactionResult;
+            }
+
+            atmTransactions.add(getTransactionResult.getAtmTransaction());
+        }
+
+        return new SessionResult(SessionResult.SUCCESS_CODE,Result.SUCCESS_CODE);
+
+    }
+
+    private void setTransactionsListView(ArrayList<XulaATMTransaction> atmTransactions){
+
+        ObservableList<String> formattedAccountLists = FXCollections.observableArrayList();
+
+        for (XulaATMTransaction atmTransaction: atmTransactions){
+            formattedAccountLists.add(
+                    atmTransaction.getType()+ " " +
+                    String.format("$%.2f",atmTransaction.getAmount())+ " " +
+                    atmTransaction.getDateTime()+ " " +
+                    String.format("$%.2f",atmTransaction.getPrevAmount())
+            );
+        }
+
+        transactionsListView.setItems(formattedAccountLists);
+
+        transactionsListView.getSelectionModel().select(0);
+
     }
 
     private void setAccountIdLbl(long accountId) {
