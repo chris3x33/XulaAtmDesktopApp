@@ -103,9 +103,6 @@ public class GetAccountBalanceHandler {
         //Read ACK
         readACK(socket, dataIn, timeOut, ackCode);
 
-        //Send ACK
-        sendACK(dataOut,ackCode);
-
         //Read Result
         Result result = getResult(socket, timeOut, ackCode);
         if(result.getStatus() <= Result.ERROR_CODE){
@@ -122,6 +119,9 @@ public class GetAccountBalanceHandler {
         System.out.println("\tRead accountBalance: "+accountBalance+"\n");
 
         System.out.println("GetAccountBalanceCMD End\n");
+
+        //Send ACK
+        sendACK(dataOut,ackCode);
 
         return new GetAccountBalanceResult(
                 sessionResult.getSessionStatus(),
