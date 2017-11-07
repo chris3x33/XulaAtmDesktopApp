@@ -11,5 +11,6 @@ public class XulaAtmServerCommands {
     public static final int DEPOSIT_CMD = 7;
     public static final int WITHDRAW_CMD = 8;
     public static final int GET_TRANSACTIONIDS_CMD = 9;
+    public static final int GET_TRANSACTION_CMD = 10;
 
 }
