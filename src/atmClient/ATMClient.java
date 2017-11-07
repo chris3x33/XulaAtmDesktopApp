@@ -159,6 +159,19 @@ public class ATMClient {
 
     }
 
+    public GetTransactionResult getTransaction(long accountId, long transactionId){
+
+        String ipAddress = getIpAddress();
+        int port = getPort();
+        int timeOut = getTimeOut();
+
+        return handleGetTransaction(
+                ipAddress, port, timeOut,
+                ACK_CODE,
+                sessionId, accountId, transactionId
+        );
+    }
+
     public GetTransactionIdsResult getTransactionIds(long accountId){
 
         String ipAddress = getIpAddress();
