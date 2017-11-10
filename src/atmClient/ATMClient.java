@@ -15,6 +15,7 @@ import static atmClient.handler.GetUserNameHandler.handleGetUserName;
 import static atmClient.handler.LoginHandler.handleLogin;
 import static atmClient.handler.LogoutHandler.handleLogout;
 import static atmClient.handler.NewSessionHandler.handleNewSession;
+import static atmClient.handler.WithdrawHandler.handleWithdraw;
 
 public class ATMClient {
 
@@ -195,6 +196,20 @@ public class ATMClient {
                 ipAddress, port, timeOut, ACK_CODE,
                 sessionId,
                 toAccountId, amount
+        );
+
+    }
+
+    public WithdrawResult withdraw(long fromAccountId, double amount) {
+
+        String ipAddress = getIpAddress();
+        int port = getPort();
+        int timeOut = getTimeOut();
+
+        return handleWithdraw(
+                ipAddress, port, timeOut, ACK_CODE,
+                sessionId,
+                fromAccountId, amount
         );
 
     }
