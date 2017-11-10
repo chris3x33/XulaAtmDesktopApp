@@ -25,6 +25,8 @@ public class Main extends Application {
     public static final String ACCOUNT_LIST_SCENE = "/scenes/AccountListScene.fxml";
     public static final String ACCOUNT_VIEW_SCENE = "/scenes/AccountViewScene.fxml";
     public static final String DEPOSIT_SELECTOR_SCENE = "/scenes/DepositSelectorScene.fxml";
+    public static final String WITHDRAW_SELECTOR_SCENE = "/scenes/WithdrawSelectorScene.fxml";
+    public static final String WITHDRAW_SCENE = "/scenes/WithdrawScene.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{

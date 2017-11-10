@@ -1,0 +1,16 @@
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<VBox fx:controller="controllers.WithdrawSelectorController"
+      xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
+
+    <Label text="Choose an Account to Withdraw from" />
+
+    <ListView fx:id="accountsListView" />
+
+    <Button text="Choose" onAction="#runWithdraw"/>
+    <Button text="Back" onAction="#back" />
+
+</VBox>

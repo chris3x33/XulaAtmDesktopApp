@@ -139,7 +139,8 @@ public class UserHomeController {
 
     }
 
-    public void runWithdraw(ActionEvent actionEvent) {
+    public void runWithdraw(ActionEvent actionEvent) throws IOException {
+        WithdrawSelectorController.handleSceneShow();
     }
 
     public void runLogOut(ActionEvent actionEvent) throws IOException {

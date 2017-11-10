@@ -1,0 +1,29 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<VBox fx:controller="controllers.WithdrawController"
+      xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="15">
+
+    <Label text="Withdraw" />
+
+    <HBox alignment="center" spacing="10">
+        <Label fx:id="accountIdLbl"/>
+        <Button text="Change Account" onAction="#runAccountChange"/>
+    </HBox>
+
+    <HBox alignment="center" spacing="10">
+        <Label fx:id="accountBalanceLbl"/>
+    </HBox>
+
+    <HBox alignment="center" spacing="10">
+        <Label text="Withdraw Amount: "/>
+        <TextField fx:id="withdrawAmountTxt" />
+    </HBox>
+
+    <Button text="Withdraw" onAction="#withdraw"/>
+    <Button text="Cancel" onAction="#cancel"/>
+
+</VBox>
