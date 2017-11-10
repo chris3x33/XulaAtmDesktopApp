@@ -9,11 +9,14 @@ public class XulaATMTransaction {
     private String otherAccount;
     private String dateTime;
     private double prevAmount;
+    private long transactionIndex;
 
     public XulaATMTransaction(
-            long accountId, long transactionId, double amount, int type,
-            String otherAccount, double prevAmount, String dateTime) {
+            long transactionIndex, long accountId, long transactionId,
+            double amount, int type, String otherAccount, double prevAmount,
+            String dateTime) {
 
+        this.transactionIndex = transactionIndex;
         this.accountId = accountId;
         this.transactionId = transactionId;
         this.amount = amount;
@@ -49,5 +52,9 @@ public class XulaATMTransaction {
 
     public long getTransactionId() {
         return transactionId;
+    }
+
+    public long getTransactionIndex() {
+        return transactionIndex;
     }
 }

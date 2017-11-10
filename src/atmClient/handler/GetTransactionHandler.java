@@ -125,6 +125,13 @@ public class GetTransactionHandler {
             );
         }
 
+        //read transactionIndex
+        long transactionIndex = readLongWTimeout(socket,dataIn,timeOut);
+        System.out.println("\tRead transactionIndex: "+transactionIndex);
+
+        //Send ACK
+        sendACK(dataOut,ackCode);
+
         //read Type
         int type = readIntWTimeout(socket,dataIn,timeOut);
         System.out.println("\tRead type: "+type);
@@ -153,6 +160,7 @@ public class GetTransactionHandler {
         sendACK(dataOut,ackCode);
 
         XulaATMTransaction atmTransaction = new XulaATMTransaction(
+                transactionIndex,
                 accountId,
                 transactionId,
                 amount,
